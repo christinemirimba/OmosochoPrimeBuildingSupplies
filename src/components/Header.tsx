@@ -33,11 +33,12 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-primary-gradient rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">N</span>
+              <span className="text-white font-bold text-xl">O</span>
             </div>
             <div>
-              <span className="text-2xl font-heading font-bold text-foreground">Nikit</span>
-              <span className="text-lg font-heading font-medium text-primary ml-1">Hardware</span>
+              <span className="text-xl font-heading font-bold text-foreground">Omosocho Prime</span>
+              <span className="text-lg font-heading font-medium text-primary ml-1">Building Supplies</span>
+              <p className="text-sm text-muted-foreground">Kisii, Nyamache - Kenya</p>
             </div>
           </Link>
 
@@ -79,15 +80,6 @@ const Header = () => {
               Account
             </Button>
 
-            {/* Cart */}
-            <Link to="/cart" className="relative">
-              <Button variant="ghost" size="sm" className="relative">
-                <ShoppingCart className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
-                  0
-                </span>
-              </Button>
-            </Link>
 
             {/* Mobile Menu Toggle */}
             <Button

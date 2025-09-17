@@ -59,28 +59,24 @@ const Index = () => {
     {
       id: '1',
       name: 'Premium Portland Cement',
-      price: 12.99,
       rating: 4.8,
       image: cementImage,
     },
     {
       id: '2',
-      name: 'Professional Power Drill',
-      price: 89.99,
+      name: 'Professional Power Tools',
       rating: 4.9,
       image: toolsImage,
     },
     {
       id: '3',
       name: 'Reinforcing Steel Bars',
-      price: 45.50,
       rating: 4.7,
       image: steelImage,
     },
     {
       id: '4',
-      name: 'Safety Helmet Kit',
-      price: 34.99,
+      name: 'Safety Equipment',
       rating: 4.6,
       image: safetyImage,
     },
@@ -105,7 +101,7 @@ const Index = () => {
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90">
               Quality cement, steel, power tools, and safety equipment for professional contractors. 
-              Building excellence since 1995.
+              Serving Kisii, Nyamache and surrounding areas with quality materials.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/products">
@@ -174,7 +170,7 @@ const Index = () => {
           <FadeInSection>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Why Choose Nikit Hardware?
+                Why Choose Omosocho Prime Building Supplies?
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 We're committed to providing the best construction materials and service in the industry
@@ -206,10 +202,10 @@ const Index = () => {
           <FadeInSection>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Best Selling Products
+                Our Services & Materials
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Our most popular construction materials trusted by professionals nationwide
+                Quality construction materials and services available in Kisii, Nyamache
               </p>
             </div>
           </FadeInSection>
@@ -233,8 +229,8 @@ const Index = () => {
                         {product.name}
                       </CardTitle>
                       <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold text-primary">
-                          ${product.price}
+                        <span className="text-lg font-semibold text-primary">
+                          Available
                         </span>
                         <div className="flex items-center gap-1">
                           <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -252,8 +248,8 @@ const Index = () => {
             <div className="text-center">
               <Link to="/products">
                 <Button className="btn-hero">
-                  View All Products
-                  <ShoppingCart className="w-5 h-5 ml-2" />
+                  View All Services
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             </div>
