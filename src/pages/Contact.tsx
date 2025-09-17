@@ -48,20 +48,20 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Phone',
-      details: ['+1 (234) 567-8900', '+1 (234) 567-8901'],
+      details: ['+254705621054'],
       description: 'Call us during business hours',
     },
     {
       icon: Mail,
       title: 'Email',
-      details: ['info@nikithardware.com', 'sales@nikithardware.com'],
+      details: ['nikeombura@gmail.com'],
       description: 'Send us an email anytime',
     },
     {
       icon: MapPin,
       title: 'Address',
-      details: ['123 Construction Avenue', 'Industrial District, City 12345'],
-      description: 'Visit our main office',
+      details: ['Kisii, Nyamache', 'Kenya'],
+      description: 'Visit our location',
     },
     {
       icon: Clock,
@@ -145,7 +145,7 @@ const Contact = () => {
                         type="tel"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="+1 (234) 567-8900"
+                        placeholder="+254705621054"
                       />
                     </div>
                     <div>
