@@ -1,12 +1,292 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from 'react-router-dom';
+import { ArrowRight, Award, Truck, Headphones, Star, ShoppingCart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import FadeInSection from '@/components/FadeInSection';
+import heroImage from '@/assets/hero-construction.jpg';
+import cementImage from '@/assets/category-cement.jpg';
+import toolsImage from '@/assets/category-tools.jpg';
+import steelImage from '@/assets/category-steel.jpg';
+import safetyImage from '@/assets/category-safety.jpg';
 
 const Index = () => {
+  const categories = [
+    {
+      name: 'Cement & Concrete',
+      description: 'Premium Portland cement and concrete materials',
+      image: cementImage,
+      link: '/products?category=cement',
+    },
+    {
+      name: 'Power Tools',
+      description: 'Professional-grade construction tools',
+      image: toolsImage,
+      link: '/products?category=tools',
+    },
+    {
+      name: 'Steel & Materials',
+      description: 'High-strength steel and reinforcement materials',
+      image: steelImage,
+      link: '/products?category=steel',
+    },
+    {
+      name: 'Safety Equipment',
+      description: 'Complete safety gear and protective equipment',
+      image: safetyImage,
+      link: '/products?category=safety',
+    },
+  ];
+
+  const features = [
+    {
+      icon: Award,
+      title: 'Premium Quality',
+      description: 'All materials meet or exceed industry standards with comprehensive quality guarantees.',
+    },
+    {
+      icon: Truck,
+      title: 'Fast Delivery',
+      description: 'Reliable logistics network ensures your materials arrive on time, every time.',
+    },
+    {
+      icon: Headphones,
+      title: '24/7 Support',
+      description: 'Expert technical support and customer service whenever you need assistance.',
+    },
+  ];
+
+  const bestSellers = [
+    {
+      id: '1',
+      name: 'Premium Portland Cement',
+      price: 12.99,
+      rating: 4.8,
+      image: cementImage,
+    },
+    {
+      id: '2',
+      name: 'Professional Power Drill',
+      price: 89.99,
+      rating: 4.9,
+      image: toolsImage,
+    },
+    {
+      id: '3',
+      name: 'Reinforcing Steel Bars',
+      price: 45.50,
+      rating: 4.7,
+      image: steelImage,
+    },
+    {
+      id: '4',
+      name: 'Safety Helmet Kit',
+      price: 34.99,
+      rating: 4.6,
+      image: safetyImage,
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        >
+          <div className="absolute inset-0 bg-hero" />
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          <FadeInSection>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-shadow">
+              Premium Construction
+              <span className="block text-accent">Materials & Tools</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90">
+              Quality cement, steel, power tools, and safety equipment for professional contractors. 
+              Building excellence since 1995.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/products">
+                <Button className="btn-hero text-lg px-8 py-4">
+                  Shop Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-foreground">
+                  Learn More
+                </Button>
+              </Link>
+            </div>
+          </FadeInSection>
+        </div>
+      </section>
+
+      {/* Categories Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <FadeInSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Shop by Category
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Find everything you need for your construction projects in our comprehensive catalog
+              </p>
+            </div>
+          </FadeInSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category, index) => (
+              <FadeInSection key={category.name} delay={index * 150}>
+                <Link to={category.link}>
+                  <Card className="card-category group cursor-pointer">
+                    <CardContent className="p-0">
+                      <div className="aspect-square overflow-hidden rounded-t-xl">
+                        <img
+                          src={category.image}
+                          alt={category.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    </CardContent>
+                    <CardHeader>
+                      <CardTitle className="text-xl font-semibold">
+                        {category.name}
+                      </CardTitle>
+                      <CardDescription className="text-muted-foreground">
+                        {category.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-secondary">
+        <div className="container mx-auto px-4">
+          <FadeInSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Why Choose Nikit Hardware?
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                We're committed to providing the best construction materials and service in the industry
+              </p>
+            </div>
+          </FadeInSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <FadeInSection key={feature.title} delay={index * 200}>
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                    <feature.icon className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Best Sellers Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <FadeInSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Best Selling Products
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Our most popular construction materials trusted by professionals nationwide
+              </p>
+            </div>
+          </FadeInSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {bestSellers.map((product, index) => (
+              <FadeInSection key={product.id} delay={index * 100}>
+                <Link to={`/product/${product.id}`}>
+                  <Card className="card-product group cursor-pointer">
+                    <CardContent className="p-0">
+                      <div className="aspect-square overflow-hidden rounded-t-lg">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    </CardContent>
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-lg font-semibold line-clamp-2">
+                        {product.name}
+                      </CardTitle>
+                      <div className="flex items-center justify-between">
+                        <span className="text-2xl font-bold text-primary">
+                          ${product.price}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="text-sm font-medium">{product.rating}</span>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              </FadeInSection>
+            ))}
+          </div>
+
+          <FadeInSection delay={400}>
+            <div className="text-center">
+              <Link to="/products">
+                <Button className="btn-hero">
+                  View All Products
+                  <ShoppingCart className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </FadeInSection>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-hero">
+        <div className="container mx-auto px-4 text-center text-white">
+          <FadeInSection>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Start Your Next Project?
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
+              Get premium construction materials delivered to your site. 
+              Professional quality, competitive prices, reliable service.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/products">
+                <Button className="btn-accent text-lg px-8 py-4">
+                  Shop Now
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-foreground">
+                  Get Quote
+                </Button>
+              </Link>
+            </div>
+          </FadeInSection>
+        </div>
+      </section>
     </div>
   );
 };
