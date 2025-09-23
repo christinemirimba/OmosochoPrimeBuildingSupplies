@@ -1,29 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nikit Hardware - Premium Construction Materials & Tools</title>
-    <meta name="description" content="Professional construction materials, tools, and safety equipment. Quality cement, steel, power tools, and safety gear delivered fast." />
-    <meta name="author" content="Nikit Hardware" />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omosocho Prime Building Supplies - Kisii, Nyamache | Kenya</title>
+    <meta name="description" content="Professional construction materials, tools, and safety equipment in Kisii, Nyamache, Kenya. Quality cement, steel, power tools, and safety gear.">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="assets/logo.png" alt="Omosocho Prime Building Supplies">
+                    <span>OMOSOCHO PRIME</span>
+                </div>
+                
+                <nav class="nav" id="nav">
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="contact-btn" onclick="scrollToContact()">Get Quote</button>
+                    <button class="menu-toggle" id="menuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <meta property="og:title" content="Nikit Hardware - Premium Construction Materials & Tools" />
-    <meta property="og:description" content="Professional construction materials, tools, and safety equipment. Quality cement, steel, power tools, and safety gear delivered fast." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Quality Building Supplies in Kisii, Nyamache</h1>
+                <p>Your trusted partner for premium construction materials, tools, and safety equipment. Building Kenya, one project at a time.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToServices()">View Services</button>
+                    <button class="btn-secondary" onclick="scrollToContact()">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Building Supply Services</h2>
+                <p>Comprehensive construction materials and professional consultation for all your building projects</p>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card" data-category="construction">
+                    <div class="category-icon">🧱</div>
+                    <h3>Construction Materials</h3>
+                    <p>Cement, Sand & Gravel, Bricks & Blocks, Concrete Mix, Tiles, Plaster</p>
+                    <button class="category-btn" onclick="showProducts('construction')">View Products</button>
+                </div>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+                <div class="category-card" data-category="metals">
+                    <div class="category-icon">🔩</div>
+                    <h3>Metals & Steel</h3>
+                    <p>Reinforcement Bars, Steel Beams, Pipes & Tubes, Sheets & Plates, Wire Mesh</p>
+                    <button class="category-btn" onclick="showProducts('metals')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="tools">
+                    <div class="category-icon">🛠️</div>
+                    <h3>Tools & Equipment</h3>
+                    <p>Hand Tools, Power Tools, Measuring Tools, Cutting Tools</p>
+                    <button class="category-btn" onclick="showProducts('tools')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="fasteners">
+                    <div class="category-icon">🧰</div>
+                    <h3>Fasteners & Fittings</h3>
+                    <p>Nails, Screws, Bolts & Nuts, Washers, Anchors & Hooks</p>
+                    <button class="category-btn" onclick="showProducts('fasteners')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="hardware">
+                    <div class="category-icon">🚪</div>
+                    <h3>Building Hardware</h3>
+                    <p>Hinges, Locks & Latches, Handles & Knobs, Door Closers, Sliding Systems</p>
+                    <button class="category-btn" onclick="showProducts('hardware')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="electrical">
+                    <div class="category-icon">⚡</div>
+                    <h3>Electrical Hardware</h3>
+                    <p>Switches & Sockets, Cables & Wires, Circuit Breakers, Electrical Boxes, Lighting</p>
+                    <button class="category-btn" onclick="showProducts('electrical')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="plumbing">
+                    <div class="category-icon">💧</div>
+                    <h3>Plumbing Hardware</h3>
+                    <p>Pipes & Fittings, Valves, Taps & Faucets, Water Tanks, Plumbing Tools</p>
+                    <button class="category-btn" onclick="showProducts('plumbing')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="safety">
+                    <div class="category-icon">🦺</div>
+                    <h3>Safety Gear</h3>
+                    <p>Helmets & Hard Hats, Gloves, Safety Boots, Goggles & Face Shields, Reflective Jackets</p>
+                    <button class="category-btn" onclick="showProducts('safety')">View Products</button>
+                </div>
+
+                <div class="category-card" data-category="finishing">
+                    <div class="category-icon">🎨</div>
+                    <h3>Finishing Materials</h3>
+                    <p>Paints & Primers, Varnishes & Sealants, Adhesives, Grout & Fillers</p>
+                    <button class="category-btn" onclick="showProducts('finishing')">View Products</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Modal -->
+    <div id="productsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Products</h2>
+            <div id="productsGrid" class="products-grid"></div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose Omosocho Prime?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Premium Quality</h3>
+                    <p>Only the finest construction materials from trusted manufacturers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and reliable delivery across Kisii and Nyamache regions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Expert Consultation</h3>
+                    <p>Professional advice for all your construction needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Building Kenya, One Project at a Time</h2>
+                    <p>Omosocho Prime Building Supplies has been serving the Kisii and Nyamache communities with premium construction materials and expert consultation. We understand the unique challenges of construction in Kenya and provide solutions that meet international standards.</p>
+                    <p>Our commitment to quality, reliability, and customer service has made us the preferred choice for contractors, builders, and DIY enthusiasts across the region.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>500+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h3>10+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Customer Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Need Help? Contact Us Today</h2>
+                <p>Get in touch for quotes, consultations, or any questions about our building supplies</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item" onclick="sendEmail()">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>nikeombura@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item" onclick="makeCall()">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>+254705621054</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item" onclick="openLocation()">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h3>Visit Us</h3>
+                            <p>Kisii, Nyamache<br>Kenya</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" onsubmit="submitForm(event)">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="tel" placeholder="Your Phone">
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="Omosocho Prime">
+                        <span>OMOSOCHO PRIME</span>
+                    </div>
+                    <p>Your trusted partner for premium construction materials in Kisii, Nyamache, Kenya.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#" onclick="showProducts('construction')">Construction Materials</a></li>
+                        <li><a href="#" onclick="showProducts('tools')">Tools & Equipment</a></li>
+                        <li><a href="#" onclick="showProducts('safety')">Safety Gear</a></li>
+                        <li><a href="#" onclick="showProducts('metals')">Metals & Steel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="TikTok">🎵</a>
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                    </div>
+                    <div class="contact-quick">
+                        <p>📞 +254705621054</p>
+                        <p>📧 nikeombura@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Omosocho Prime Building Supplies. All rights reserved.</p>
+                <p>Kisii, Nyamache, Kenya</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTop()">
+        ↑
+    </button>
+
+    <script src="script.js"></script>
+</body>
 </html>
