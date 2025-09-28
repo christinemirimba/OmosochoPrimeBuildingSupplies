@@ -223,9 +223,8 @@ p {
 }
 
 .hero-text p {
-    font-size: 1.25rem;
+    color: #1a2332;
     margin-bottom: 2rem;
-    opacity: 0.9;
 }
 
 .hero-buttons {
@@ -235,7 +234,7 @@ p {
 }
 
 .hero-stats {
-    background: rgba(255, 255, 255, 0.1);
+    background: #1a2332;
     backdrop-filter: blur(10px);
     padding: 2rem 0;
     position: relative;
@@ -249,6 +248,15 @@ p {
     text-align: center;
 }
 
+.stats-heading {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: white;
+    font-weight: bold;
+}
+
+
 .stat h3 {
     font-size: 2.5rem;
     color: #ff6b35;
@@ -256,8 +264,10 @@ p {
 }
 
 .stat p {
+    color: #f0f0f0;
     opacity: 0.9;
     margin-bottom: 0;
+
 }
 
 /* Section Styles */
@@ -405,7 +415,7 @@ section {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center; /* center everything */
+    align-items: center; 
     text-align: center;
 }
 
@@ -789,6 +799,8 @@ section {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     margin-top: 5rem;
+    margin-bottom: 5rem;
+
 }
 
 .trusted-brands h3 {
@@ -817,7 +829,7 @@ section {
     transform: translateY(-2px);
 }
 
-* Features Styles */
+/* Features Styles */
 .features {
     padding: 80px 0;
     background: var(--light-gray);
