@@ -223,8 +223,9 @@ p {
 }
 
 .hero-text p {
-    color: #1a2332;
+    font-size: 1.25rem;
     margin-bottom: 2rem;
+    opacity: 0.9;
 }
 
 .hero-buttons {
