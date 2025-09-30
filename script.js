@@ -152,70 +152,60 @@ const productsData = [
   {
     id: 1,
     name: "Cement Bag (50kg)",
-    price: 900,
     category: "Construction",
     image: "https://pioneerhardwares.com/wp-content/uploads/2023/09/Simba-Cement-32.5R-1.webp"
   },
   {
     id: 2,
     name: "Concrete Blocks",
-    price: 55,
     category: "Construction",
     image: "https://westkonkrete.com/wp-content/uploads/2022/03/concrete-1170x658.jpg"
   },
   {
     id: 3,
     name: "Sand (Ton)",
-    price: 3000,
     category: "Construction",
     image: "https://tse2.mm.bing.net/th/id/OIP.9IK1CWrmOtyStsTA30AxPwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 4,
     name: "Gravel (Ton)",
-    price: 2800,
     category: "Construction",
     image: "https://www.inchcalculator.com/wp-content/uploads/2018/10/gravel-material.jpg"
   },
   {
     id: 5,
     name: "Reinforcement Bars (12mm)",
-    price: 1200,
     category: "Construction",
     image: "https://tse1.mm.bing.net/th/id/OIP.tnUXjLGitDJKHuhuE8X8ZgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 6,
     name: "Wheelbarrow",
-    price: 6500,
     category: "Construction",
     image: "https://5.imimg.com/data5/SELLER/Default/2024/7/438498077/RZ/OY/PM/149834907/wheelbarrow-1000x1000.jpg"
   },
   {
     id: 7,
     name: "Shovel",
-    price: 1200,
     category: "Construction",
     image: "https://th.bing.com/th/id/R.eddd3ea1c2a689108fc2159bbea8f6d1?rik=flSzOFcEZiNuvw&pid=ImgRaw&r=0"
   },
   {
     id: 8,
     name: "Pickaxe",
-    price: 1500,
     category: "Construction",
     image: "https://tiimg.tistatic.com/fp/1/005/628/agriculture-pickaxe-549.jpg"
   },
   {
     id: 9,
     name: "Concrete Mixer",
-    price: 75000,
     category: "Construction",
     image: "https://m.media-amazon.com/images/I/61Vg4S-gDtL.jpg"
   },
   {
     id: 10,
     name: "Ladder (6ft)",
-    price: 4500,
     category: "Construction",
     image:"https://5.imimg.com/data5/SELLER/Default/2024/3/404116509/XG/XX/AH/10691668/6-feet-aluminium-folding-ladder-1000x1000.jpg"
   },
@@ -226,70 +216,60 @@ const productsData = [
   {
     id: 11,
     name: "Steel Rods (16mm)",
-    price: 1600,
     category: "Metals",
     image: "https://th.bing.com/th/id/R.29d10a4f163c31b2c696c962580ba0f2?rik=BgVuaPqN8%2fdbLw&pid=ImgRaw&r=0"
   },
   {
     id: 12,
     name: "Galvanized Pipes",
-    price: 900,
     category: "Metals",
     image: "https://th.bing.com/th/id/R.f28710af1b4252c463fb70ec47f5db9b?rik=QmvchQVlqdX8vw&pid=ImgRaw&r=0"
   },
   {
     id: 13,
     name: "Wire Mesh",
-    price: 2500,
     category: "Metals",
     image: "https://image.made-in-china.com/2f0j00BiNzySIWfvrY/Stainless-Steel-Welded-Wire-Mesh.jpg"
   },
   {
     id: 14,
     name: "Aluminum Sheets",
-    price: 1800,
     category: "Metals",
     image: "https://th.bing.com/th/id/R.5ad8d90810eebd28c30a27b54de778a9?rik=wPyQGwOYoAjU6w&pid=ImgRaw&r=0"
   },
   {
     id: 15,
     name: "Nails (1kg)",
-    price: 350,
     category: "Metals",
     image: "https://th.bing.com/th/id/R.06da87ec5f86e19272dc5cbe5c808c18?rik=q2AHyGnX2iiddA&pid=ImgRaw&r=0"
   },
   {
     id: 16,
     name: "Steel Plates",
-    price: 6000,
     category: "Metals",
     image: "https://149893212.v2.pressablecdn.com/wp-content/uploads/Steel-Plates-larger.jpg"
   },
   {
     id: 17,
     name: "Binding Wire",
-    price: 250,
     category: "Metals",
     image: "https://tse2.mm.bing.net/th/id/OIP.5v_4MlKd3D2rEpTk8kpbOAHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 18,
     name: "Steel Beams",
-    price: 12000,
     category: "Metals",
     image: "https://tse2.mm.bing.net/th/id/OIP.VmAmJd0RkxJgbEdzYtGqLAHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 19,
     name: "Corrugated Iron Sheets",
-    price: 900,
     category: "Metals",
     image: "https://tse4.mm.bing.net/th/id/OIP.mHuqwuTXO6SJDokCTubGjwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 20,
     name: "Metal Pipes",
-    price: 1000,
     category: "Metals",
     image: "https://www.thespruce.com/thmb/asLTfbb9o4nzfUwkeElhrc8-5No=/6000x4000/filters:no_upscale():max_bytes(150000):strip_icc()/steel-pipes-903670438-5ac5508d18ba0100362e2198.jpg"
   },
@@ -300,70 +280,60 @@ const productsData = [
   {
     id: 21,
     name: "Hammer",
-    price: 800,
     category: "Tools",
     image: "https://tse2.mm.bing.net/th/id/OIP.XPt3nvawfYMkpSJ7Ws_0VgHaEG?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 22,
     name: "Screwdriver Set",
-    price: 1200,
     category: "Tools",
     image: "https://d2j6dbq0eux0bg.cloudfront.net/images/53972175/4321545481.jpg"
   },
   {
     id: 23,
     name: "Adjustable Wrench",
-    price: 950,
     category: "Tools",
     image: "https://tse2.mm.bing.net/th/id/OIP.vfzHDIom6wqInF8LWhj4EgHaFa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 24,
     name: "Electric Drill",
-    price: 7500,
     category: "Tools",
     image: "https://th.bing.com/th/id/R.66166358893797b171d29f48431b184e?rik=RBUIT6fGtEZixA&pid=ImgRaw&r=0"
   },
   {
     id: 25,
     name: "Tape Measure",
-    price: 400,
     category: "Tools",
     image: "https://i5.walmartimages.com/asr/bc5115aa-6aef-4ef1-b8f4-2892d16b0224_1.703ae051dc43ce85d21ec8934712690a.jpeg"
   },
   {
     id: 26,
     name: "Spirit Level",
-    price: 600,
     category: "Tools",
     image: "https://engineeringlearn.com/wp-content/uploads/2022/06/Spirit-Level-1024x539.jpg"
   },
   {
     id: 27,
     name: "Hand Saw",
-    price: 950,
     category: "Tools",
     image: "https://th.bing.com/th/id/R.65b68d325be4d649b86ad904593ff022?rik=5E%2bYzydHYT80cw&riu=http%3a%2f%2fimage.made-in-china.com%2f2f0j00yvBTMjZsphkC%2fHand-Saw-OK8067-.jpg&ehk=zRfztlSP5ft8Nw4gpCBlz0t72zJ0rd5Xo%2f83vCVU7o4%3d&risl=&pid=ImgRaw&r=0"
   },
   {
     id: 28,
     name: "Pliers",
-    price: 600,
     category: "Tools",
     image: "https://m.media-amazon.com/images/I/61qJ485KguL._SL1500_.jpg"
   },
   {
     id: 29,
     name: "Toolbox",
-    price: 4500,
     category: "Tools",
     image: "https://hips.hearstapps.com/hmg-prod/images/opened-diy-toolbox-with-a-collection-of-tools-royalty-free-image-1701722687.jpg?crop=1.00xw:0.753xh;0,0.163xh&resize=1200:*"
   },
   {
     id: 30,
     name: "Angle Grinder",
-    price: 8500,
     category: "Tools",
     image: "https://tse3.mm.bing.net/th/id/OIP.4bxh3W0FVfP0qNhUeMV8agHaD-?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
@@ -374,70 +344,60 @@ const productsData = [
   {
     id: 31,
     name: "Wood Screws (100pcs)",
-    price: 350,
     category: "Fasteners",
     image: "https://tse1.mm.bing.net/th/id/OIP.GUxosCPgAnqPaMAY0cTqcwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 32,
     name: "Nuts & Bolts Set",
-    price: 800,
     category: "Fasteners",
     image: "https://img.lazcdn.com/g/p/ae66977f03e1dc62c0aa6ca9595747d7.jpg_720x720q80.jpg"
   },
   {
     id: 33,
     name: "Washers (100pcs)",
-    price: 200,
     category: "Fasteners",
     image: "https://tse4.mm.bing.net/th/id/OIP.dNlkU02jqRG6YxgqBU6tdQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 34,
     name: "Hex Bolts (50pcs)",
-    price: 650,
     category: "Fasteners",
     image: "https://tse3.mm.bing.net/th/id/OIP.XtXKOH1ssMd5KhJZDX9yUgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 35,
     name: "Concrete Nails (1kg)",
-    price: 400,
     category: "Fasteners",
     image: "https://down-ph.img.susercontent.com/file/ph-11134207-7r98y-lwdrx60tcuox0b"
   },
   {
     id: 36,
     name: "Anchor Bolts",
-    price: 700,
     category: "Fasteners",
     image: "https://th.bing.com/th/id/R.4b6b6cf87639e12577dc37e1359d9f38?rik=YT9ZcWYSVr6PlQ&riu=http%3a%2f%2fwww.northerntool.com%2fimages%2fproduct%2f2000x2000%2f343%2f34357_2000x2000.jpg&ehk=WcJTFc5jGR0jzJdiwJ2HxNufKE20kJX1r6csnQsDrnA%3d&risl=&pid=ImgRaw&r=0"
   },
   {
     id: 37,
     name: "Toggle Bolts",
-    price: 1200,
     category: "Fasteners",
     image: "https://th.bing.com/th/id/R.0be1bbd20381a9d3795372df18b822a8?rik=nfVInL8pr2hLkg&pid=ImgRaw&r=0"
   },
   {
     id: 38,
     name: "Wood Glue",
-    price: 350,
     category: "Fasteners",
     image: "https://tse4.mm.bing.net/th/id/OIP.LFsQpVtefW6kcID2qCZQcAHaIS?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 39,
     name: "Drywall Screws",
-    price: 450,
     category: "Fasteners",
     image: "https://tse3.mm.bing.net/th/id/OIP.QJ-YSBbgz_wPGsBVUsSHsQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 40,
     name: "Self-tapping Screws",
-    price: 500,
     category: "Fasteners",
     image: "https://tse1.mm.bing.net/th/id/OIP.6pmjS9KtlwZb-7DPi9SPIAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
@@ -448,70 +408,60 @@ const productsData = [
   {
     id: 41,
     name: "Timber Planks",
-    price: 1500,
     category: "Building",
     image: "https://tse3.mm.bing.net/th/id/OIP.0mLJkCNk2KDugYJTKYKwQgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 42,
     name: "Plywood Sheet",
-    price: 2000,
     category: "Building",
     image: "https://plystory.com/wp-content/uploads/2023/03/Plywood.jpg"
   },
   {
     id: 43,
     name: "MDF Board",
-    price: 2500,
     category: "Building",
     image: "https://img.staticmb.com/mbcontent/images/uploads/2023/6/mdf-board-vs-hdf.jpg"
   },
   {
     id: 44,
     name: "Roofing Tiles",
-    price: 80,
     category: "Building",
     image: "https://tse3.mm.bing.net/th/id/OIP.icQkqxZZstQppnWVuJcbswHaFi?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 45,
     name: "Gypsum Board",
-    price: 900,
     category: "Building",
     image: "https://g.foolcdn.com/editorial/images/226000/gypsum-construction-material.jpg"
   },
   {
     id: 46,
     name: "Clay Bricks",
-    price: 25,
     category: "Building",
     image: "https://tse2.mm.bing.net/th/id/OIP.YvqM4WSMIIemf4mo6OKaEQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 47,
     name: "Stone Blocks",
-    price: 55,
     category: "Building",
     image: "https://bestwaystones.com/wp-content/uploads/2025/04/stone-blocks.png"
   },
   {
     id: 48,
     name: "Paint Bucket (20L)",
-    price: 4800,
     category: "Building",
     image: "https://image.made-in-china.com/2f0j00oIbkOGTcnhcK/20-Liter-Paint-Bucket-Metal-Paint-Drum-20L-Tinplate-Container-for-Paint-Adhesive-Ink-Engine-Oil-Glue-Solvent.jpg"
   },
   {
     id: 49,
     name: "Roofing Felt",
-    price: 2500,
     category: "Building",
     image: "https://tse2.mm.bing.net/th/id/OIP.VCleO2M-A5Y1O3ARZNvQywAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 50,
     name: "Insulation Roll",
-    price: 4500,
     category: "Building",
     image: "https://tse1.mm.bing.net/th/id/OIP.Yx8cGIi7LCpxy-CGPuv9FAHaFI?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
@@ -522,70 +472,60 @@ const productsData = [
   {
     id: 51,
     name: "LED Bulb",
-    price: 250,
     category: "Electrical",
     image: "https://tse3.mm.bing.net/th/id/OIP.32xNZi_e8rzQCqCSrIxpOwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 52,
     name: "Extension Cord",
-    price: 1200,
     category: "Electrical",
     image: "https://tse1.mm.bing.net/th/id/OIP.SwDbQ_FUDnTJdMd6t98Y8QHaE_?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 53,
     name: "Electrical Tape",
-    price: 150,
     category: "Electrical",
     image: "https://i0.wp.com/maxwel.com/wp-content/uploads/2022/03/electrical_tape.jpg"
   },
   {
     id: 54,
     name: "Circuit Breaker",
-    price: 3200,
     category: "Electrical",
     image: "https://www.tfcelectric.com/wp-content/uploads/2023/09/iStock_000017272602_Large.jpg"
   },
   {
     id: 55,
     name: "Wall Socket",
-    price: 450,
     category: "Electrical",
     image: "https://th.bing.com/th/id/R.d7fe24c7f467ab6fb30e079842ddd13c?rik=2ID6iEnYEogDrw&pid=ImgRaw&r=0"
   },
   {
     id: 56,
     name: "Light Switch",
-    price: 350,
     category: "Electrical",
     image: "https://th.bing.com/th/id/R.0a8f6ad95221f4eb66c443974a4f93d8?rik=E6XgW1EIEnmEqA&pid=ImgRaw&r=0"
   },
   {
     id: 57,
     name: "Electrical Wires",
-    price: 2000,
     category: "Electrical",
     image: "https://i.pinimg.com/originals/a0/22/07/a022075b06f41553ef86628ed2a80bce.jpg"
   },
   {
     id: 58,
     name: "Ceiling Light",
-    price: 3500,
     category: "Electrical",
     image: "https://i5.walmartimages.com/asr/cc8838ff-bca6-4929-87db-29d8648dde24.f76313912c8b80ca48d1a03775703e3b.jpeg"
   },
   {
     id: 59,
     name: "Electric Fan",
-    price: 5000,
     category: "Electrical",
     image: "https://tse4.mm.bing.net/th/id/OIP.F-kZL18s1zNl3t1oa4Tv8gHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 60,
     name: "Solar Panel",
-    price: 25000,
     category: "Electrical",
     image: "https://th.bing.com/th/id/R.a510dcf9c8cf5bd51fee672e4703b712?rik=SmLCOUpJHX1MtQ&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f2%2f2c%2fFixed_Tilt_Solar_panel_at_Canterbury_Municipal_Building_Canterbury_New_Hampshire.jpg&ehk=mYF2FZKSRXaC9ymA3%2bKjWZDuFek8HXyPxO%2fvGCuFm1k%3d&risl=1&pid=ImgRaw&r=0"
   },
@@ -596,21 +536,18 @@ const productsData = [
   {
     id: 61,
     name: "PVC Pipe (3m)",
-    price: 800,
     category: "Plumbing",
     image: "https://5.imimg.com/data5/EM/NG/MY-56823773/supreme-pvc-pipes-500x500-500x500.jpg"
   },
   {
     id: 62,
     name: "Pipe Fittings Set",
-    price: 1200,
     category: "Plumbing",
     image: "https://c8.alamy.com/comp/T3R4P6/set-of-pipe-fittings-connection-for-industry-assorted-plumbing-fixtures-and-piping-parts-T3R4P6.jpg"
   },
   {
     id: 63,
     name: "Shower Head",
-    price: 2200,
     category: "Plumbing",
     image: "https://i.ebayimg.com/images/g/gE0AAOSwYGJeaIW6/s-l1600.jpg"
   },
@@ -624,21 +561,18 @@ const productsData = [
   {
     id: 65,
     name: "Faucet",
-    price: 2800,
     category: "Plumbing",
     image: "https://tse1.mm.bing.net/th/id/OIP.5J8T9F7_zi2TSzqLKSttLwHaFi?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 66,
     name: "Sink",
-    price: 7500,
     category: "Plumbing",
     image:"https://tse1.mm.bing.net/th/id/OIP.S5My2RS2Ua2KTZ30ntmU2QHaFM?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 67,
     name: "Toilet Bowl",
-    price: 12000,
     category: "Plumbing",
     image: "https://tse4.mm.bing.net/th/id/OIP.bbAi3CWxJN5XBeQUXaNtfAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
@@ -652,14 +586,12 @@ const productsData = [
   {
     id: 69,
     name: "Drain Pipe",
-    price: 1100,
     category: "Plumbing",
     image: "https://tse4.mm.bing.net/th/id/OIP.hO3fMgJrhNDTmZYfNUVKqAHaJ4?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 70,
     name: "Plunger",
-    price: 800,
     category: "Plumbing",
     image: "https://tse2.mm.bing.net/th/id/OIP.oSQDzaKY6zdoljzhf9y_5gHaEA?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
@@ -670,21 +602,18 @@ const productsData = [
   {
     id: 71,
     name: "Safety Helmet",
-    price: 1200,
     category: "Safety",
     image: "https://tse4.mm.bing.net/th/id/OIP.7O9f21ga532TCI_HrXlO1QHaHh?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 72,
     name: "Safety Goggles",
-    price: 650,
     category: "Safety",
     image: "https://tse1.mm.bing.net/th/id/OIP.fistdmfdgPNP5BXeudrLvwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 73,
     name: "Safety Gloves",
-    price: 750,
     category: "Safety",
     image: "https://th.bing.com/th/id/R.509e9786556896f2b9d60f15e08d1b34?rik=2KInxQxRaInQFg&pid=ImgRaw&r=0"
   },
@@ -698,42 +627,36 @@ const productsData = [
   {
     id: 75,
     name: "Ear Protection",
-    price: 1200,
     category: "Safety",
     image: "https://th.bing.com/th/id/R.1160211eaae5f04329972a9970c3c8ab?rik=NcyOoBk%2fXHx%2fUQ&pid=ImgRaw&r=0"
   },
   {
     id: 76,
     name: "Work Boots",
-    price: 5500,
     category: "Safety",
     image: "https://i.ebayimg.com/images/g/uBEAAeSwwp1o1PhK/s-l960.jpg"
   },
   {
     id: 77,
     name: "Dust Mask",
-    price: 400,
     category: "Safety",
     image: "https://tse2.mm.bing.net/th/id/OIP.QcJM6iO45lw7iTN3qyJQIwHaGN?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 78,
     name: "Harness",
-    price: 3000,
     category: "Safety",
     image: "https://tse4.mm.bing.net/th/id/OIP.8rtE4c_Y9WsJRPOUb1_rsgHaJo?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 79,
     name: "First Aid Kit",
-    price: 2500,
     category: "Safety",
     image: "https://m.media-amazon.com/images/I/81a8W+LrAwL.jpg"
   },
   {
     id: 80,
     name: "Fire Extinguisher",
-    price: 6500,
     category: "Safety",
     image: "https://firesouq.com/wp-content/uploads/2022/06/FireExting11.jpg"
   },
@@ -744,86 +667,90 @@ const productsData = [
   {
     id: 81,
     name: "Wall Paint (5L)",
-    price: 2500,
     category: "Finishing",
     image: "https://5.imimg.com/data5/CX/XK/FF/SELLER-8392174/wall-paint-500x500.jpg"
   },
   {
     id: 82,
     name: "Wall Tiles",
-    price: 1500,
     category: "Finishing",
     image: "https://megahw.co.za/wp-content/uploads/2018/05/3008_01.jpg"
   },
   {
     id: 83,
     name: "Floor Tiles",
-    price: 2000,
     category: "Finishing",
     image: "https://assets.wfcdn.com/im/94866093/compr-r85/2166/216638100/regallo-24-x-24-marble-look-polished-porcelain-wall-floor-tile.jpg"
   },
   {
     id: 84,
     name: "Wood Varnish",
-    price: 1800,
     category: "Finishing",
     image: "https://octaneseating.com/blog/wp-content/uploads/2020/07/varnish.jpg"
   },
   {
     id: 85,
     name: "Plaster",
-    price: 600,
     category: "Finishing",
     image: "https://th.bing.com/th/id/OSK.HEROCLICKTHROUGHqcGVtFClkzAQ9FniacnMklrvR14_AOeoWTaTnTv4sBM?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: 86,
     name: "Grout (5kg)",
-    price: 500,
     category: "Finishing",
     image: "https://tileitsa.co.za/site/wp-content/uploads/2023/08/Untitled-design-58.png"
   },
   {
     id: 87,
     name: "Wood Polish",
-    price: 1200,
     category: "Finishing",
     image: "https://5.imimg.com/data5/LL/CL/MY-3643474/furniture-polish-500x500.jpg"
   },
   {
     id: 88,
     name: "Wallpaper Roll",
-    price: 2200,
     category: "Finishing",
     image: "https://ae01.alicdn.com/kf/HTB1mx_pgcnI8KJjSsziq6z8QpXaU/10M-Modern-3D-Embossed-Background-Wallpaper-Roll-Desktop-Decor-WallPapers-Living-Room-Wall-paper-for-Walls.jpg"
   },
   {
     id: 89,
     name: "Curtain Rods",
-    price: 1400,
     category: "Finishing",
     image: "https://oxfordhomeware.co.uk/cdn/shop/products/plainball_748x748.jpg?v=1592981919"
   },
   {
     id: 90,
     name: "Ceiling Board",
-    price: 1800,
     category: "Finishing",
     image:"https://tiimg.tistatic.com/fp/1/004/463/ceiling-board-900.jpg"
   }
 ];
-
-// Product Modal Functionality
+// Product Slider Functionality
 const modal = document.getElementById('productsModal');
 const modalTitle = document.getElementById('modalTitle');
 const productsGrid = document.getElementById('productsGrid');
 const closeModal = document.getElementById('closeModal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 
+// Slider state
+let currentSlide = 0;
+let autoSlideInterval;
+let isAutoSlideEnabled = true;
+let currentProducts = [];
+
 // View Products buttons
 document.querySelectorAll('.view-products-btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
         e.stopPropagation();
+        const category = this.getAttribute('data-category');
+        showProducts(category);
+    });
+});
+
+// Category card click effects
+const categoryCards = document.querySelectorAll('.category-card');
+categoryCards.forEach(card => {
+    card.addEventListener('click', function() {
         const category = this.getAttribute('data-category');
         showProducts(category);
     });
@@ -848,45 +775,249 @@ function showProducts(category) {
 
     if (!filteredProducts.length) return;
 
+    currentProducts = filteredProducts;
     modalTitle.textContent = category + " Products";
 
     // Clear previous products
     productsGrid.innerHTML = '';
 
-    // Add products
-    filteredProducts.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" loading="lazy">
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <p class="product-price">KES ${product.price.toLocaleString()}</p>
-                <a href="#need-help" class="btn btn-primary">Get Quote</a>
+    // Create slider structure
+    const sliderHTML = `
+        <div class="slider-container">
+            <div class="slider-track">
+                ${filteredProducts.map((product, index) => `
+                    <div class="slide" data-slide="${index}">
+                        <img src="${product.image}" alt="${product.name}" class="slide-image" loading="lazy">
+                        <div class="slide-content">
+                            <h3>${product.name}</h3>
+                            <a href="#need-help" class="btn btn-primary">Get Quote</a>
+                        </div>
+                    </div>
+                `).join('')}
             </div>
-        `;
-        productsGrid.appendChild(productCard);
-    });
-
+            
+            <div class="auto-slide-indicator">
+                <span>Auto-slide</span>
+                <div class="auto-slide-toggle ${isAutoSlideEnabled ? 'active' : ''}" id="autoSlideToggle"></div>
+            </div>
+            
+            <div class="slider-nav">
+                <button class="slider-prev" id="sliderPrev">‹</button>
+                <div class="slider-dots" id="sliderDots">
+                    ${filteredProducts.map((_, index) => `
+                        <div class="slider-dot ${index === 0 ? 'active' : ''}" data-slide="${index}"></div>
+                    `).join('')}
+                </div>
+                <button class="slider-next" id="sliderNext">›</button>
+            </div>
+        </div>
+    `;
+    
+    productsGrid.innerHTML = sliderHTML;
+    
+    // Add slider mode classes
+    const modalContent = modal.querySelector('.modal-content');
+    const modalBody = modal.querySelector('.modal-body');
+    
+    if (modalContent) modalContent.classList.add('slider-mode');
+    if (modalBody) modalBody.classList.add('slider-mode');
+    
+    // Initialize slider
+    initSlider();
+    
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
+function initSlider() {
+    currentSlide = 0;
+    updateSlider();
+    
+    // Set up event listeners with proper error handling
+    const sliderPrev = document.getElementById('sliderPrev');
+    const sliderNext = document.getElementById('sliderNext');
+    const sliderDots = document.getElementById('sliderDots');
+    const autoSlideToggle = document.getElementById('autoSlideToggle');
+    
+    // Remove any existing event listeners first
+    if (sliderPrev) {
+        sliderPrev.replaceWith(sliderPrev.cloneNode(true));
+    }
+    if (sliderNext) {
+        sliderNext.replaceWith(sliderNext.cloneNode(true));
+    }
+    
+    // Get fresh references after cloning
+    const freshSliderPrev = document.getElementById('sliderPrev');
+    const freshSliderNext = document.getElementById('sliderNext');
+    
+    if (freshSliderPrev) {
+        freshSliderPrev.addEventListener('click', goToPrevSlide);
+    }
+    
+    if (freshSliderNext) {
+        freshSliderNext.addEventListener('click', goToNextSlide);
+    }
+    
+    // Dot navigation
+    if (sliderDots) {
+        // Remove existing dots and reattach listeners
+        const dotsContainer = sliderDots;
+        const dots = dotsContainer.querySelectorAll('.slider-dot');
+        
+        dots.forEach(dot => {
+            // Clone to remove old listeners
+            const newDot = dot.cloneNode(true);
+            dot.replaceWith(newDot);
+            
+            newDot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                goToSlide(slideIndex);
+            });
+        });
+    }
+    
+    // Auto-slide toggle
+    if (autoSlideToggle) {
+        autoSlideToggle.addEventListener('click', function() {
+            isAutoSlideEnabled = !isAutoSlideEnabled;
+            this.classList.toggle('active');
+            
+            if (isAutoSlideEnabled) {
+                startAutoSlide();
+            } else {
+                stopAutoSlide();
+            }
+        });
+    }
+    
+    // Start auto-slide
+    if (isAutoSlideEnabled) {
+        startAutoSlide();
+    }
+    
+    // Pause auto-slide on hover
+    const sliderContainer = document.querySelector('.slider-container');
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+        sliderContainer.addEventListener('mouseleave', function() {
+            if (isAutoSlideEnabled) {
+                startAutoSlide();
+            }
+        });
+    }
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', handleKeyboardNavigation);
+}
+
+function handleKeyboardNavigation(e) {
+    if (!modal.classList.contains('active')) return;
+    
+    switch(e.key) {
+        case 'ArrowLeft':
+            e.preventDefault();
+            goToPrevSlide();
+            break;
+        case 'ArrowRight':
+            e.preventDefault();
+            goToNextSlide();
+            break;
+        case ' ':
+            e.preventDefault();
+            // Toggle auto-slide with spacebar
+            const autoSlideToggle = document.getElementById('autoSlideToggle');
+            if (autoSlideToggle) {
+                autoSlideToggle.click();
+            }
+            break;
+    }
+}
+
+function goToSlide(slideIndex) {
+    if (slideIndex < 0 || slideIndex >= currentProducts.length) return;
+    
+    currentSlide = slideIndex;
+    updateSlider();
+    resetAutoSlide();
+}
+
+function goToNextSlide() {
+    if (currentProducts.length === 0) return;
+    
+    currentSlide = (currentSlide + 1) % currentProducts.length;
+    updateSlider();
+    resetAutoSlide();
+}
+
+function goToPrevSlide() {
+    if (currentProducts.length === 0) return;
+    
+    currentSlide = (currentSlide - 1 + currentProducts.length) % currentProducts.length;
+    updateSlider();
+    resetAutoSlide();
+}
+
+function updateSlider() {
+    const sliderTrack = document.querySelector('.slider-track');
+    const sliderDots = document.querySelectorAll('.slider-dot');
+    
+    if (!sliderTrack) return;
+    
+    // Update slider position
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update active dot
+    sliderDots.forEach((dot, index) => {
+        if (dot) {
+            dot.classList.toggle('active', index === currentSlide);
+        }
+    });
+}
+
+function startAutoSlide() {
+    stopAutoSlide(); // Clear any existing interval
+    
+    if (currentProducts.length > 1) {
+        autoSlideInterval = setInterval(goToNextSlide, 1000); // Change slide every 1 seconds
+    }
+}
+
+function stopAutoSlide() {
+    if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+    }
+}
+
+function resetAutoSlide() {
+    if (isAutoSlideEnabled && currentProducts.length > 1) {
+        stopAutoSlide();
+        startAutoSlide();
+    }
+}
+
 function hideModal() {
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
+    
+    // Remove slider mode classes
+    const modalContent = modal.querySelector('.modal-content');
+    const modalBody = modal.querySelector('.modal-body');
+    
+    if (modalContent) modalContent.classList.remove('slider-mode');
+    if (modalBody) modalBody.classList.remove('slider-mode');
+    
+    // Stop auto-slide
+    stopAutoSlide();
+    
+    // Remove keyboard event listener
+    document.removeEventListener('keydown', handleKeyboardNavigation);
+    
+    // Clear current products
+    currentProducts = [];
 }
-
-// Category card click effects
-const categoryCards = document.querySelectorAll('.category-card');
-categoryCards.forEach(card => {
-    card.addEventListener('click', function() {
-        const category = this.getAttribute('data-category');
-        showProducts(category);
-    });
-});
-
     // Service card hover effects
     const serviceCards = document.querySelectorAll('.service-card');
     serviceCards.forEach(card => {
