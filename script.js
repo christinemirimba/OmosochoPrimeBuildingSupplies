@@ -795,7 +795,6 @@ function showProducts(category) {
                         <img src="${product.image}" alt="${product.name}" class="slide-image" loading="lazy">
                         <div class="slide-content">
                             <h3>${product.name}</h3>
-                            <a href="#need-help" class="btn btn-primary">Get Quote</a>
                         </div>
                     </div>
                 `).join('')}
@@ -815,15 +814,17 @@ function showProducts(category) {
             
             <div class="slider-nav">
                 <button class="slider-prev" id="sliderPrev">‹</button>
-                <div class="slider-info">
-                    <span class="slide-counter" id="slideCounter">1 / ${filteredProducts.length}</span>
-                </div>
+                <a href="#need-help" class="btn btn-primary quote-btn-nav" id="quoteBtn">Get Quote</a>
+                <button class="slider-next" id="sliderNext">›</button>
+            </div>
+            
+            <div class="slider-info">
+                <span class="slide-counter" id="slideCounter">1 / ${filteredProducts.length}</span>
                 <div class="slider-dots" id="sliderDots">
                     ${filteredProducts.map((_, index) => `
                         <div class="slider-dot ${index === 0 ? 'active' : ''}" data-slide="${index}"></div>
                     `).join('')}
                 </div>
-                <button class="slider-next" id="sliderNext">›</button>
             </div>
         </div>
     `;
@@ -843,6 +844,27 @@ function showProducts(category) {
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Add event listener to quote button in navigation
+    const quoteBtn = document.getElementById('quoteBtn');
+    if (quoteBtn) {
+        quoteBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            hideModal();
+            
+            // Scroll to need help section
+            setTimeout(() => {
+                const needHelpSection = document.querySelector('#need-help');
+                if (needHelpSection) {
+                    const offsetTop = needHelpSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 300);
+        });
+    }
 }
 
 function initSlider() {
