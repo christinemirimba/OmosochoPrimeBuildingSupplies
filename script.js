@@ -805,13 +805,6 @@ function showProducts(category) {
                 <div class="auto-slide-toggle ${isAutoSlideEnabled ? 'active' : ''}" id="autoSlideToggle"></div>
             </div>
             
-            ${filteredProducts.length > 1 ? `
-                <div class="arrow-indicators" id="arrowIndicators">
-                    <div class="arrow-indicator arrow-left" id="arrowLeft">‹</div>
-                    <div class="arrow-indicator arrow-right" id="arrowRight">›</div>
-                </div>
-            ` : ''}
-            
             <div class="slider-nav">
                 <button class="slider-prev" id="sliderPrev">‹</button>
                 <a href="#need-help" class="btn btn-primary quote-btn-nav" id="quoteBtn">Get Quote</a>
@@ -877,8 +870,6 @@ function initSlider() {
     const sliderDots = document.getElementById('sliderDots');
     const autoSlideToggle = document.getElementById('autoSlideToggle');
     const sliderTrack = document.querySelector('.slider-track');
-    const arrowLeft = document.getElementById('arrowLeft');
-    const arrowRight = document.getElementById('arrowRight');
     
     // Remove any existing event listeners first
     if (sliderPrev) {
@@ -902,21 +893,6 @@ function initSlider() {
     
     if (freshSliderNext) {
         freshSliderNext.addEventListener('click', function() {
-            goToNextSlide();
-            handleManualNavigation();
-        });
-    }
-    
-    // Arrow indicator navigation
-    if (arrowLeft) {
-        arrowLeft.addEventListener('click', function() {
-            goToPrevSlide();
-            handleManualNavigation();
-        });
-    }
-    
-    if (arrowRight) {
-        arrowRight.addEventListener('click', function() {
             goToNextSlide();
             handleManualNavigation();
         });
@@ -1247,7 +1223,6 @@ function hideModal() {
     // Clear current products
     currentProducts = [];
 }
-
 // Service card hover effects
 const serviceCards = document.querySelectorAll('.service-card');
 serviceCards.forEach(card => {
