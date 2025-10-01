@@ -786,7 +786,7 @@ function showProducts(category) {
     // Clear previous products
     productsGrid.innerHTML = '';
 
-    // Create slider structure using only data from your dataset
+    // Create slider structure using data from the products dataset
     const sliderHTML = `
         <div class="slider-container">
             <div class="slider-track">
@@ -795,9 +795,6 @@ function showProducts(category) {
                         <img src="${product.image}" alt="${product.name}" class="slide-image" loading="lazy">
                         <div class="slide-content">
                             <h3>${product.name}</h3>
-                            <div class="slide-actions">
-                                <a href="#need-help" class="btn btn-primary">Get Quote</a>
-                            </div>
                         </div>
                     </div>
                 `).join('')}

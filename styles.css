@@ -717,14 +717,6 @@ section {
     text-align: center;
 }
 
-.slide-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
 /* Button styles */
 .btn {
     display: inline-flex;
