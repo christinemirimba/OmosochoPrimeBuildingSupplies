@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nikit Hardware Design System - Construction Materials E-Commerce
+All colors MUST be HSL. Professional, robust, and futuristic design.
+*/
+
+@layer base {
+  :root {
+    /* Brand Colors - Nikit Hardware */
+    --primary: 210 100% 40%;              /* Confident Blue #0066cc */
+    --primary-foreground: 0 0% 100%;       /* White text on blue */
+    --primary-hover: 210 100% 35%;         /* Darker blue on hover */
+    
+    --accent: 15 100% 68%;                 /* Energetic Orange #ff7a59 */
+    --accent-foreground: 0 0% 100%;        /* White text on orange */
+    --accent-hover: 15 100% 60%;           /* Darker orange on hover */
+    
+    /* Neutral Palette */
+    --background: 0 0% 100%;               /* Pure white */
+    --foreground: 220 39% 18%;             /* Charcoal Gray #1f2937 */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 220 39% 18%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 39% 18%;
+    
+    --secondary: 220 13% 95%;              /* Light gray */
+    --secondary-foreground: 220 39% 18%;
+    
+    --muted: 220 13% 95%;
+    --muted-foreground: 220 13% 50%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 210 100% 40%;
+    
+    /* Construction-specific colors */
+    --steel: 220 9% 46%;                   /* Steel gray */
+    --cement: 30 7% 85%;                   /* Cement light gray */
+    --safety: 48 100% 50%;                 /* Safety yellow */
+    
+    /* Design tokens */
+    --radius: 8px;                         /* Consistent 8px border radius */
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 40%), hsl(210 100% 50%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 39% 18%), hsl(220 39% 25%));
+    --gradient-accent: linear-gradient(135deg, hsl(15 100% 68%), hsl(15 100% 75%));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(220 39% 18% / 0.1), 0 2px 4px -1px hsl(220 39% 18% / 0.06);
+    --shadow-button: 0 2px 4px hsl(210 100% 40% / 0.3);
+    --shadow-hover: 0 8px 25px hsl(220 39% 18% / 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode with construction professional theme */
+    --background: 220 39% 12%;
+    --foreground: 0 0% 95%;
+    
+    --card: 220 39% 15%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 220 39% 15%;
+    --popover-foreground: 0 0% 95%;
+    
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 220 39% 20%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --muted: 220 39% 20%;
+    --muted-foreground: 220 13% 70%;
+    
+    --accent: 15 100% 65%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 39% 25%;
+    --input: 220 39% 25%;
+    --ring: 210 100% 50%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(220 39% 8%), hsl(220 39% 15%));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* Button variants */
+  .btn-hero {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200;
+  }
+  
+  /* Card styles */
+  .card-product {
+    @apply bg-card border border-border rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1;
+  }
+  
+  .card-category {
+    @apply bg-gradient-to-br from-secondary to-secondary/80 rounded-xl p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:scale-105;
+  }
+  
+  /* Animation utilities */
+  .fade-in {
+    @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
+  }
+  
+  .fade-in.visible {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .slide-up {
+    @apply translate-y-8 opacity-0 transition-all duration-500 ease-out;
+  }
+  
+  .slide-up.visible {
+    @apply translate-y-0 opacity-100;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bg-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-primary-gradient {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-accent-gradient {
+    background: var(--gradient-accent);
+  }
+}
