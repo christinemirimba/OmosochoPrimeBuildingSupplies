@@ -1334,6 +1334,7 @@ section {
 }
 
 .contact-item {
+    text-decoration: none;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
@@ -1353,6 +1354,9 @@ section {
 .contact-item p {
     color: #666;
     margin-bottom: 0;
+}
+.contact-item p a {
+    text-decoration: none;
 }
 
 /* Contact Form */
@@ -1504,6 +1508,10 @@ section {
     display: flex;
     align-items: center;
     gap: 8px; /* spacing between icon + text */
+}
+
+.contact-info-footer p a {
+  text-decoration: none;
 }
 
 /* Contact Icons (SVG) */
