@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const getQuoteBtn = document.querySelector('.btn.btn-primary');
     const navbar = document.getElementById('navbar');
     const backToTopButton = document.getElementById('back-to-top');
 
@@ -20,6 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Close mobile menu when clicking the Get Quote button
+    if (getQuoteBtn) {
+      getQuoteBtn.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    }
+    
     // Smooth scrolling for navigation links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
