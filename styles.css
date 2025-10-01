@@ -1071,9 +1071,9 @@ section {
         max-width: 320px;
     }
     
-    .arrow-indicators {
-        bottom: 70px;
-        gap: 12px;
+arrow-indicators {
+        bottom: 80px;
+        gap: 6px;
     }
     
     .arrow-indicator {
