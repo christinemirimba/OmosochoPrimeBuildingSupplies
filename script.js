@@ -786,7 +786,7 @@ function showProducts(category) {
     // Clear previous products
     productsGrid.innerHTML = '';
 
-    // Create slider structure
+    // Create slider structure using only data from your dataset
     const sliderHTML = `
         <div class="slider-container">
             <div class="slider-track">
@@ -795,6 +795,9 @@ function showProducts(category) {
                         <img src="${product.image}" alt="${product.name}" class="slide-image" loading="lazy">
                         <div class="slide-content">
                             <h3>${product.name}</h3>
+                            <div class="slide-actions">
+                                <a href="#need-help" class="btn btn-primary">Get Quote</a>
+                            </div>
                         </div>
                     </div>
                 `).join('')}
@@ -1223,6 +1226,7 @@ function hideModal() {
     // Clear current products
     currentProducts = [];
 }
+
 // Service card hover effects
 const serviceCards = document.querySelectorAll('.service-card');
 serviceCards.forEach(card => {
