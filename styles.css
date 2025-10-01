@@ -1077,9 +1077,9 @@ section {
     }
     
     .arrow-indicator {
-        width: 35px;
-        height: 35px;
-        font-size: 1.3rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.9rem;
     }
 }
 
