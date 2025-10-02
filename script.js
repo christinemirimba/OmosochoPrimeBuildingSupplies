@@ -152,6 +152,80 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     window.addEventListener('scroll', highlightNavigation);
+
+    // Auto-sliding functionality for Services
+    const servicesGrid = document.querySelector('.services-grid');
+    const servicesContainer = document.querySelector('.services-slider-container');
+    let servicesIndex = 0;
+    let servicesInterval;
+    
+    function slideServices() {
+        if (!servicesGrid || !servicesContainer) return;
+        
+        const cards = servicesGrid.querySelectorAll('.service-card');
+        const containerWidth = servicesContainer.offsetWidth;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 32; // 2rem gap
+        const slideWidth = cardWidth + gap;
+        
+        servicesIndex++;
+        if (servicesIndex >= cards.length) {
+            servicesIndex = 0;
+        }
+        
+        servicesGrid.style.transform = `translateX(-${servicesIndex * slideWidth}px)`;
+    }
+    
+    function startServicesSlider() {
+        servicesInterval = setInterval(slideServices, 3000);
+    }
+    
+    function stopServicesSlider() {
+        clearInterval(servicesInterval);
+    }
+    
+    if (servicesContainer) {
+        startServicesSlider();
+        servicesContainer.addEventListener('mouseenter', stopServicesSlider);
+        servicesContainer.addEventListener('mouseleave', startServicesSlider);
+    }
+
+    // Auto-sliding functionality for Trusted Brands
+    const brandsGrid = document.querySelector('.brands-grid');
+    const brandsContainer = document.querySelector('.brands-slider-container');
+    let brandsIndex = 0;
+    let brandsInterval;
+    
+    function slideBrands() {
+        if (!brandsGrid || !brandsContainer) return;
+        
+        const items = brandsGrid.querySelectorAll('.brand-item');
+        const containerWidth = brandsContainer.offsetWidth;
+        const itemWidth = items[0].offsetWidth;
+        const gap = 16; // 1rem gap
+        const slideWidth = itemWidth + gap;
+        
+        brandsIndex++;
+        if (brandsIndex >= items.length) {
+            brandsIndex = 0;
+        }
+        
+        brandsGrid.style.transform = `translateX(-${brandsIndex * slideWidth}px)`;
+    }
+    
+    function startBrandsSlider() {
+        brandsInterval = setInterval(slideBrands, 3000);
+    }
+    
+    function stopBrandsSlider() {
+        clearInterval(brandsInterval);
+    }
+    
+    if (brandsContainer) {
+        startBrandsSlider();
+        brandsContainer.addEventListener('mouseenter', stopBrandsSlider);
+        brandsContainer.addEventListener('mouseleave', startBrandsSlider);
+    }
   
     // products dataset
 const productsData = [
