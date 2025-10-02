@@ -284,13 +284,13 @@ p {
 
 /* Section Styles */
 section {
-    padding: 80px 0;
+    padding: 60px 0;
 }
 
 .section-header {
     text-align: center;
     max-width: 600px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 3rem;
 }
 
 .section-header h2 {
@@ -303,11 +303,46 @@ section {
     color: #666;
 }
 
+/* Slider Navigation Dots */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+}
+
+.slider-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.slider-dot.active {
+    background: #8b5cf6;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+    width: 24px;
+    border-radius: 5px;
+}
+
 /* Services Section */
 .services {
     background: linear-gradient(135deg, #0a0a1e 0%, #1a1a3e 100%);
     position: relative;
     overflow: hidden;
+    padding: 40px 0;
 }
 
 .services::before {
@@ -326,35 +361,42 @@ section {
 .services .section-header h2 {
     color: white;
     text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .services .section-header p {
     color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+.services .section-header {
+    margin-bottom: 2rem;
 }
 
 .services-slider-container {
     overflow: hidden;
     position: relative;
-    padding: 1rem 0;
+    padding: 0.5rem 0 2.5rem;
 }
 
 .services-grid {
     display: flex;
-    gap: 1.5rem;
-    transition: transform 0.5s ease;
+    gap: 1rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(139, 92, 246, 0.2);
-    padding: 1.2rem;
-    border-radius: 16px;
+    padding: 1rem;
+    border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     text-align: center;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 240px;
-    flex: 0 0 240px;
+    min-width: 220px;
+    flex: 0 0 220px;
     position: relative;
     overflow: hidden;
 }
@@ -383,15 +425,15 @@ section {
 }
 
 .service-icon {
-    font-size: 2rem;
-    margin-bottom: 0.6rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
     filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
 }
 
 .service-card h3 {
     color: white;
-    margin-bottom: 0.6rem;
-    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
     background: linear-gradient(135deg, #ffffff, #8b5cf6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -400,23 +442,23 @@ section {
 
 .service-card p {
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 0.8rem;
-    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.75rem;
 }
 
 .service-card ul {
     list-style: none;
     text-align: left;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
 }
 
 .service-card li {
-    padding: 0.3rem 0;
+    padding: 0.25rem 0;
     border-bottom: 1px solid rgba(139, 92, 246, 0.2);
     color: rgba(255, 255, 255, 0.7);
     position: relative;
-    padding-left: 1.3rem;
-    font-size: 0.8rem;
+    padding-left: 1.2rem;
+    font-size: 0.7rem;
 }
 
 .service-card li::before {
@@ -429,11 +471,18 @@ section {
 }
 
 .service-price {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #8b5cf6;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
     text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+.service-card .btn-primary {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    width: 100%;
+    max-width: 150px;
 }
 
 /* ================================
@@ -1193,8 +1242,8 @@ section {
 
 .trusted-brands h3 {
     color: white;
-    margin-bottom: 2rem;
-    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
     position: relative;
     z-index: 1;
     background: linear-gradient(135deg, #ffffff, #3b82f6);
@@ -1207,30 +1256,30 @@ section {
 .brands-slider-container {
     overflow: hidden;
     position: relative;
-    padding: 1rem 0;
+    padding: 0.5rem 0 2.5rem;
 }
 
 .brands-grid {
     display: flex;
-    gap: 1.5rem;
-    transition: transform 0.5s ease;
+    gap: 1rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand-item {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(59, 130, 246, 0.3);
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1.2rem;
     border-radius: 12px;
     font-weight: 600;
     color: white;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 180px;
-    flex: 0 0 180px;
+    min-width: 160px;
+    flex: 0 0 160px;
     position: relative;
     overflow: hidden;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     letter-spacing: 0.5px;
 }
 
@@ -1246,8 +1295,10 @@ section {
     transition: opacity 0.4s ease;
 }
 
-.brand-item:hover::before {
-    opacity: 1;
+.brand-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
 }
 
 .brand-item:hover {
@@ -1752,6 +1803,76 @@ section {
     .nav-toggle.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
+    
+    /* Services Section Mobile */
+    .services {
+        padding: 30px 0;
+    }
+    
+    .services .section-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .services .section-header p {
+        font-size: 0.85rem;
+    }
+    
+    .services .section-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .service-card {
+        min-width: 200px;
+        flex: 0 0 200px;
+        padding: 0.8rem;
+    }
+    
+    .service-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .service-card p {
+        font-size: 0.7rem;
+    }
+    
+    .service-card li {
+        font-size: 0.65rem;
+        padding: 0.2rem 0;
+    }
+    
+    .service-card .btn-primary {
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        max-width: 120px;
+    }
+    
+    /* Trusted Brands Mobile */
+    .trusted-brands {
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .trusted-brands h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .brand-item {
+        min-width: 140px;
+        flex: 0 0 140px;
+        padding: 0.6rem 1rem;
+        font-size: 0.7rem;
+    }
+    
+    /* Section padding reduction */
+    section {
+        padding: 40px 0;
+    }
+    
+    .section-header {
+        margin-bottom: 2rem;
+    }
 
     .hero-text h1 {
         font-size: 2.5rem;
@@ -1815,6 +1936,17 @@ section {
 @media (max-width: 480px) {
     .hero-text h1 {
         font-size: 2rem;
+    }
+    
+    .service-card {
+        min-width: 180px;
+        flex: 0 0 180px;
+    }
+    
+    .brand-item {
+        min-width: 120px;
+        flex: 0 0 120px;
+        font-size: 0.65rem;
     }
 
     .stats-grid {
