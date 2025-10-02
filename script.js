@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const getQuoteBtn = document.querySelector('.btn.btn-primary');
     const navbar = document.getElementById('navbar');
     const backToTopButton = document.getElementById('back-to-top');
 
@@ -20,6 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Close mobile menu when clicking the Get Quote button
+    if (getQuoteBtn) {
+      getQuoteBtn.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    }
+    
     // Smooth scrolling for navigation links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -786,7 +795,7 @@ function showProducts(category) {
     // Clear previous products
     productsGrid.innerHTML = '';
 
-    // Create slider structure
+    // Create slider structure using data from the products dataset
     const sliderHTML = `
         <div class="slider-container">
             <div class="slider-track">
@@ -804,13 +813,6 @@ function showProducts(category) {
                 <span>Auto-slide</span>
                 <div class="auto-slide-toggle ${isAutoSlideEnabled ? 'active' : ''}" id="autoSlideToggle"></div>
             </div>
-            
-            ${filteredProducts.length > 1 ? `
-                <div class="arrow-indicators" id="arrowIndicators">
-                    <div class="arrow-indicator arrow-left" id="arrowLeft">‹</div>
-                    <div class="arrow-indicator arrow-right" id="arrowRight">›</div>
-                </div>
-            ` : ''}
             
             <div class="slider-nav">
                 <button class="slider-prev" id="sliderPrev">‹</button>
@@ -877,8 +879,6 @@ function initSlider() {
     const sliderDots = document.getElementById('sliderDots');
     const autoSlideToggle = document.getElementById('autoSlideToggle');
     const sliderTrack = document.querySelector('.slider-track');
-    const arrowLeft = document.getElementById('arrowLeft');
-    const arrowRight = document.getElementById('arrowRight');
     
     // Remove any existing event listeners first
     if (sliderPrev) {
@@ -902,21 +902,6 @@ function initSlider() {
     
     if (freshSliderNext) {
         freshSliderNext.addEventListener('click', function() {
-            goToNextSlide();
-            handleManualNavigation();
-        });
-    }
-    
-    // Arrow indicator navigation
-    if (arrowLeft) {
-        arrowLeft.addEventListener('click', function() {
-            goToPrevSlide();
-            handleManualNavigation();
-        });
-    }
-    
-    if (arrowRight) {
-        arrowRight.addEventListener('click', function() {
             goToNextSlide();
             handleManualNavigation();
         });
