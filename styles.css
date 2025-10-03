@@ -83,7 +83,8 @@ p {
 
 
 .btn-secondary:hover {
-    background-color: orangered;
+    background-color: transparent;
+    outline: 2px solid orange;
     color: white;
 }
 .btn-secondary:active {
