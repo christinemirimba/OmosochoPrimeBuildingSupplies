@@ -83,7 +83,8 @@ p {
 
 
 .btn-secondary:hover {
-    background-color: orangered;
+    background-color: transparent;
+    outline: 2px solid orange;
     color: white;
 }
 .btn-secondary:active {
@@ -337,12 +338,14 @@ section {
     border-radius: 5px;
 }
 
-/* Services Section */
+
+
+/* Services Section - Simplified Fixed Version */
 .services {
     background: linear-gradient(135deg, #0a0a1e 0%, #1a1a3e 100%);
+    padding: 40px 0;
     position: relative;
     overflow: hidden;
-    padding: 40px 0;
 }
 
 .services::before {
@@ -355,135 +358,166 @@ section {
     background: 
         radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
-    pointer-events: none;
+}
+
+.services .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 0 20px;
 }
 
 .services .section-header h2 {
     color: white;
-    text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .services .section-header p {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 0.95rem;
-}
-
-.services .section-header {
-    margin-bottom: 2rem;
+    font-size: 1rem;
 }
 
 .services-slider-container {
     overflow: hidden;
-    position: relative;
-    padding: 0.5rem 0 2.5rem;
+    padding: 20px 0;
 }
 
 .services-grid {
     display: flex;
-    gap: 1rem;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 20px;
+    animation: scrollServices 30s linear infinite;
 }
 
 .service-card {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(139, 92, 246, 0.2);
-    padding: 1rem;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 220px;
-    flex: 0 0 220px;
-    position: relative;
-    overflow: hidden;
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.service-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(139, 92, 246, 0.6);
-    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.4),
-                0 0 40px rgba(139, 92, 246, 0.2);
+    min-width: 280px;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
 }
 
 .service-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+    font-size: 2rem;
+    margin-bottom: 15px;
 }
 
 .service-card h3 {
     color: white;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    background: linear-gradient(135deg, #ffffff, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 .service-card p {
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 0.6rem;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .service-card ul {
     list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
     text-align: left;
-    margin-bottom: 0.6rem;
 }
 
 .service-card li {
-    padding: 0.25rem 0;
-    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
     color: rgba(255, 255, 255, 0.7);
+    padding: 5px 0;
+    padding-left: 20px;
     position: relative;
-    padding-left: 1.2rem;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
 .service-card li::before {
     content: '✓';
     color: #8b5cf6;
-    font-weight: bold;
     position: absolute;
     left: 0;
-    text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
 }
 
 .service-price {
-    font-size: 0.85rem;
-    font-weight: 600;
     color: #8b5cf6;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .service-card .btn-primary {
-    padding: 8px 16px;
-    font-size: 0.8rem;
-    width: 100%;
-    max-width: 150px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
 }
+
+.service-card .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+}
+
+
+@keyframes scrollServices {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-280px * 4 - 20px * 4)); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .services {
+        padding: 30px 0;
+    }
+    
+    .services .section-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .services .section-header p {
+        font-size: 0.9rem;
+    }
+    
+    .service-card {
+        min-width: 250px;
+        padding: 15px;
+    }
+    
+    @keyframes scrollServices {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-250px * 4 - 20px * 4)); }
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .service-card {
+        min-width: 220px;
+        padding: 12px;
+    }
+    
+    .service-card h3 {
+        font-size: 1rem;
+    }
+    
+    .service-card p {
+        font-size: 0.8rem;
+    }
+    
+    .service-card li {
+        font-size: 0.75rem;
+        padding-left: 18px;
+    }
+    
+    @keyframes scrollServices {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-220px * 4 - 20px * 4)); }
+    }
+}
+
 
 /* ================================
    PRODUCTS SECTION
@@ -569,16 +603,18 @@ section {
     transform: scale(1.1);
 }
 
-.category-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    display: inline-block;
-    animation: float 3s ease-in-out infinite;
+.category-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+.category-card:hover .category-image {
+    transform: scale(1.05);
 }
 
 .category-content h3 {
@@ -1213,6 +1249,8 @@ section {
     }
 }
 
+
+
 /* Trusted Brands */
 .trusted-brands {
     text-align: center;
@@ -1262,7 +1300,8 @@ section {
 .brands-grid {
     display: flex;
     gap: 1rem;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: scrollBrands 20s linear infinite;
+    width: max-content;
 }
 
 .brand-item {
@@ -1308,6 +1347,21 @@ section {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4),
                 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+/* Pause animation on hover */
+.brands-slider-container:hover .brands-grid {
+    animation-play-state: paused;
+}
+
+/* Continuous scrolling animation */
+@keyframes scrollBrands {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-160px * 4 - 1rem * 4)); /* Move by one set of brands */
+    }
 }
 
 /* Features Styles */
@@ -1572,6 +1626,46 @@ section {
     resize: vertical;
     min-height: 120px;
 }
+
+/* Need Help Section*/
+
+/* Business Hours Status Styles */
+.business-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.business-status.open {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.business-status.almost-closing {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffe0b2;
+}
+
+.business-status.closed {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.current-time {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+
 /* Footer */
 .footer {
     background: #1a2332;
