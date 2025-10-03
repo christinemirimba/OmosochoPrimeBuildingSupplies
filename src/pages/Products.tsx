@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { Search, Grid, List, Filter } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Search, Grid, List, Filter, X, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import FadeInSection from '@/components/FadeInSection';
 
 // Sample product data
@@ -311,16 +316,41 @@ const categories = [
 ];
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [minRating, setMinRating] = useState(0);
+  const [showInStockOnly, setShowInStockOnly] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  useEffect(() => {
+    const searchParam = searchParams.get('search');
+    const categoryParam = searchParams.get('category');
+    if (searchParam) setSearchQuery(searchParam);
+    if (categoryParam) setSelectedCategory(categoryParam);
+  }, [searchParams]);
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesRating = product.rating >= minRating;
+    const matchesStock = !showInStockOnly || product.inStock;
+    return matchesSearch && matchesCategory && matchesRating && matchesStock;
   });
+
+  const clearFilters = () => {
+    setSelectedCategory('all');
+    setMinRating(0);
+    setShowInStockOnly(false);
+    setSearchQuery('');
+  };
+
+  const activeFiltersCount = 
+    (selectedCategory !== 'all' ? 1 : 0) +
+    (minRating > 0 ? 1 : 0) +
+    (showInStockOnly ? 1 : 0);
 
   return (
     <div className="min-h-screen bg-background">
@@ -341,53 +371,168 @@ const Products = () => {
       </section>
 
       <div className="container mx-auto px-4 py-12">
-        {/* Filters and Search */}
+        {/* Enhanced Filters and Search */}
         <FadeInSection>
-          <div className="flex flex-col lg:flex-row gap-6 mb-8">
-            {/* Search Bar */}
-            <div className="flex-1">
-              <div className="relative">
+          <div className="space-y-6 mb-8">
+            {/* Search Bar and Filter Button */}
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
                 <Input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder="Search products by name or description..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 pr-4 py-3 text-lg"
                 />
               </div>
-            </div>
+              
+              {/* Mobile Filter Button */}
+              <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" className="md:hidden relative">
+                    <SlidersHorizontal className="w-4 h-4 mr-2" />
+                    Filters
+                    {activeFiltersCount > 0 && (
+                      <Badge variant="default" className="ml-2 h-5 w-5 p-0 flex items-center justify-center rounded-full">
+                        {activeFiltersCount}
+                      </Badge>
+                    )}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] overflow-y-auto">
+                  <SheetHeader>
+                    <SheetTitle>Filters</SheetTitle>
+                    <SheetDescription>
+                      Refine your product search
+                    </SheetDescription>
+                  </SheetHeader>
+                  <div className="space-y-6 mt-6">
+                    {/* Mobile Filters Content */}
+                    <div>
+                      <Label className="text-sm font-semibold mb-3 block">Category</Label>
+                      <div className="space-y-2">
+                        {categories.map((category) => (
+                          <Button
+                            key={category.id}
+                            variant={selectedCategory === category.id ? "default" : "outline"}
+                            onClick={() => setSelectedCategory(category.id)}
+                            className="w-full justify-start"
+                            size="sm"
+                          >
+                            {category.name}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-sm font-semibold mb-3 block">
+                        Minimum Rating: {minRating.toFixed(1)}★
+                      </Label>
+                      <Slider
+                        value={[minRating]}
+                        onValueChange={(value) => setMinRating(value[0])}
+                        max={5}
+                        step={0.5}
+                        className="w-full"
+                      />
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="stock-mobile"
+                        checked={showInStockOnly}
+                        onCheckedChange={(checked) => setShowInStockOnly(checked as boolean)}
+                      />
+                      <Label htmlFor="stock-mobile" className="text-sm cursor-pointer">
+                        Show in-stock only
+                      </Label>
+                    </div>
 
-            {/* Category Filter */}
-            <div className="flex gap-2 flex-wrap">
-              {categories.map((category) => (
+                    <Button onClick={clearFilters} variant="outline" className="w-full">
+                      <X className="w-4 h-4 mr-2" />
+                      Clear Filters
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+
+              {/* View Mode Toggle */}
+              <div className="flex gap-2">
                 <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "default" : "outline"}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className="whitespace-nowrap"
+                  variant={viewMode === 'grid' ? "default" : "outline"}
+                  size="icon"
+                  onClick={() => setViewMode('grid')}
                 >
-                  {category.name}
+                  <Grid className="w-4 h-4" />
                 </Button>
-              ))}
+                <Button
+                  variant={viewMode === 'list' ? "default" : "outline"}
+                  size="icon"
+                  onClick={() => setViewMode('list')}
+                >
+                  <List className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
 
-            {/* View Mode Toggle */}
-            <div className="flex gap-2">
-              <Button
-                variant={viewMode === 'grid' ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-              >
-                <Grid className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode('list')}
-              >
-                <List className="w-4 h-4" />
-              </Button>
+            {/* Desktop Filters */}
+            <div className="hidden md:block">
+              <Card className="p-6">
+                <div className="flex flex-wrap items-center gap-6">
+                  {/* Category Pills */}
+                  <div className="flex-1">
+                    <Label className="text-sm font-semibold mb-2 block">Category</Label>
+                    <div className="flex gap-2 flex-wrap">
+                      {categories.map((category) => (
+                        <Button
+                          key={category.id}
+                          variant={selectedCategory === category.id ? "default" : "outline"}
+                          onClick={() => setSelectedCategory(category.id)}
+                          size="sm"
+                        >
+                          {category.name}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Rating Filter */}
+                  <div className="w-64">
+                    <Label className="text-sm font-semibold mb-2 block">
+                      Min Rating: {minRating.toFixed(1)}★
+                    </Label>
+                    <Slider
+                      value={[minRating]}
+                      onValueChange={(value) => setMinRating(value[0])}
+                      max={5}
+                      step={0.5}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Stock Filter */}
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="stock-desktop"
+                      checked={showInStockOnly}
+                      onCheckedChange={(checked) => setShowInStockOnly(checked as boolean)}
+                    />
+                    <Label htmlFor="stock-desktop" className="text-sm cursor-pointer">
+                      In stock only
+                    </Label>
+                  </div>
+
+                  {/* Clear Filters */}
+                  {activeFiltersCount > 0 && (
+                    <Button onClick={clearFilters} variant="outline" size="sm">
+                      <X className="w-4 h-4 mr-2" />
+                      Clear ({activeFiltersCount})
+                    </Button>
+                  )}
+                </div>
+              </Card>
             </div>
           </div>
         </FadeInSection>

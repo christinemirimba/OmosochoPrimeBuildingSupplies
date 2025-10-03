@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Award, Truck, Headphones, Star, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, Award, Truck, Headphones, Star, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import FadeInSection from '@/components/FadeInSection';
 import heroImage from '@/assets/hero-construction.jpg';
 import cementImage from '@/assets/category-cement.jpg';
@@ -10,6 +12,16 @@ import steelImage from '@/assets/category-steel.jpg';
 import safetyImage from '@/assets/category-safety.jpg';
 
 const Index = () => {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   const categories = [
     {
       name: 'Cement & Concrete',
@@ -115,6 +127,54 @@ const Index = () => {
                   Learn More
                 </Button>
               </Link>
+            </div>
+          </FadeInSection>
+        </div>
+      </section>
+
+      {/* Search Section */}
+      <section className="py-16 bg-secondary">
+        <div className="container mx-auto px-4">
+          <FadeInSection>
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Find Your Construction Materials
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Search from our extensive catalog of premium construction materials and tools
+              </p>
+              <form onSubmit={handleSearch} className="relative">
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                    <Input
+                      type="text"
+                      placeholder="Search for cement, tools, steel, safety equipment..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-12 pr-4 py-6 text-lg rounded-lg border-2 border-border focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <Button type="submit" size="lg" className="px-8 py-6 text-lg">
+                    Search
+                  </Button>
+                </div>
+              </form>
+              <div className="mt-6 flex flex-wrap justify-center gap-2">
+                <span className="text-sm text-muted-foreground">Popular searches:</span>
+                {['Cement', 'Power Tools', 'Steel Bars', 'Safety Helmets'].map((term) => (
+                  <button
+                    key={term}
+                    onClick={() => {
+                      setSearchQuery(term);
+                      navigate(`/products?search=${encodeURIComponent(term)}`);
+                    }}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
             </div>
           </FadeInSection>
         </div>
