@@ -153,221 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', highlightNavigation);
 
-    // Auto-sliding functionality for Services
-    const servicesGrid = document.querySelector('.services-grid');
-    const servicesContainer = document.querySelector('.services-slider-container');
-    const servicesDots = document.getElementById('servicesDots');
-    let servicesIndex = 0;
-    let servicesInterval;
-    let servicesStartX = 0;
-    let servicesEndX = 0;
-    
-    // Create navigation dots for services
-    function createServicesDots() {
-        if (!servicesGrid || !servicesDots) return;
-        
-        const cards = servicesGrid.querySelectorAll('.service-card');
-        servicesDots.innerHTML = '';
-        
-        cards.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'slider-dot';
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToServicesSlide(index));
-            servicesDots.appendChild(dot);
-        });
-    }
-    
-    function updateServicesDots() {
-        if (!servicesDots) return;
-        const dots = servicesDots.querySelectorAll('.slider-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === servicesIndex);
-        });
-    }
-    
-    function goToServicesSlide(index) {
-        if (!servicesGrid) return;
-        
-        const cards = servicesGrid.querySelectorAll('.service-card');
-        const cardWidth = cards[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(servicesGrid).gap);
-        const slideWidth = cardWidth + gap;
-        
-        servicesIndex = index;
-        servicesGrid.style.transform = `translateX(-${servicesIndex * slideWidth}px)`;
-        updateServicesDots();
-    }
-    
-    function slideServices() {
-        if (!servicesGrid || !servicesContainer) return;
-        
-        const cards = servicesGrid.querySelectorAll('.service-card');
-        const cardWidth = cards[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(servicesGrid).gap);
-        const slideWidth = cardWidth + gap;
-        
-        servicesIndex++;
-        if (servicesIndex >= cards.length) {
-            servicesIndex = 0;
-        }
-        
-        servicesGrid.style.transform = `translateX(-${servicesIndex * slideWidth}px)`;
-        updateServicesDots();
-    }
-    
-    function startServicesSlider() {
-        servicesInterval = setInterval(slideServices, 3000);
-    }
-    
-    function stopServicesSlider() {
-        clearInterval(servicesInterval);
-    }
-    
-    // Touch support for services
-    if (servicesContainer) {
-        createServicesDots();
-        startServicesSlider();
-        
-        servicesContainer.addEventListener('mouseenter', stopServicesSlider);
-        servicesContainer.addEventListener('mouseleave', startServicesSlider);
-        
-        // Touch events
-        servicesContainer.addEventListener('touchstart', (e) => {
-            servicesStartX = e.touches[0].clientX;
-            stopServicesSlider();
-        });
-        
-        servicesContainer.addEventListener('touchmove', (e) => {
-            servicesEndX = e.touches[0].clientX;
-        });
-        
-        servicesContainer.addEventListener('touchend', () => {
-            const diff = servicesStartX - servicesEndX;
-            const cards = servicesGrid.querySelectorAll('.service-card');
-            
-            if (Math.abs(diff) > 50) { // Minimum swipe distance
-                if (diff > 0 && servicesIndex < cards.length - 1) {
-                    // Swipe left
-                    goToServicesSlide(servicesIndex + 1);
-                } else if (diff < 0 && servicesIndex > 0) {
-                    // Swipe right
-                    goToServicesSlide(servicesIndex - 1);
-                }
-            }
-            
-            startServicesSlider();
-        });
-    }
+    // Initialize business status
+    updateBusinessStatus();
+    updateFooterBusinessStatus();
+});
 
-    // Auto-sliding functionality for Trusted Brands
-    const brandsGrid = document.querySelector('.brands-grid');
-    const brandsContainer = document.querySelector('.brands-slider-container');
-    const brandsDots = document.getElementById('brandsDots');
-    let brandsIndex = 0;
-    let brandsInterval;
-    let brandsStartX = 0;
-    let brandsEndX = 0;
-    
-    // Create navigation dots for brands
-    function createBrandsDots() {
-        if (!brandsGrid || !brandsDots) return;
-        
-        const items = brandsGrid.querySelectorAll('.brand-item');
-        brandsDots.innerHTML = '';
-        
-        items.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'slider-dot';
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToBrandsSlide(index));
-            brandsDots.appendChild(dot);
-        });
-    }
-    
-    function updateBrandsDots() {
-        if (!brandsDots) return;
-        const dots = brandsDots.querySelectorAll('.slider-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === brandsIndex);
-        });
-    }
-    
-    function goToBrandsSlide(index) {
-        if (!brandsGrid) return;
-        
-        const items = brandsGrid.querySelectorAll('.brand-item');
-        const itemWidth = items[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(brandsGrid).gap);
-        const slideWidth = itemWidth + gap;
-        
-        brandsIndex = index;
-        brandsGrid.style.transform = `translateX(-${brandsIndex * slideWidth}px)`;
-        updateBrandsDots();
-    }
-    
-    function slideBrands() {
-        if (!brandsGrid || !brandsContainer) return;
-        
-        const items = brandsGrid.querySelectorAll('.brand-item');
-        const itemWidth = items[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(brandsGrid).gap);
-        const slideWidth = itemWidth + gap;
-        
-        brandsIndex++;
-        if (brandsIndex >= items.length) {
-            brandsIndex = 0;
-        }
-        
-        brandsGrid.style.transform = `translateX(-${brandsIndex * slideWidth}px)`;
-        updateBrandsDots();
-    }
-    
-    function startBrandsSlider() {
-        brandsInterval = setInterval(slideBrands, 3000);
-    }
-    
-    function stopBrandsSlider() {
-        clearInterval(brandsInterval);
-    }
-    
-    // Touch support for brands
-    if (brandsContainer) {
-        createBrandsDots();
-        startBrandsSlider();
-        
-        brandsContainer.addEventListener('mouseenter', stopBrandsSlider);
-        brandsContainer.addEventListener('mouseleave', startBrandsSlider);
-        
-        // Touch events
-        brandsContainer.addEventListener('touchstart', (e) => {
-            brandsStartX = e.touches[0].clientX;
-            stopBrandsSlider();
-        });
-        
-        brandsContainer.addEventListener('touchmove', (e) => {
-            brandsEndX = e.touches[0].clientX;
-        });
-        
-        brandsContainer.addEventListener('touchend', () => {
-            const diff = brandsStartX - brandsEndX;
-            const items = brandsGrid.querySelectorAll('.brand-item');
-            
-            if (Math.abs(diff) > 50) { // Minimum swipe distance
-                if (diff > 0 && brandsIndex < items.length - 1) {
-                    // Swipe left
-                    goToBrandsSlide(brandsIndex + 1);
-                } else if (diff < 0 && brandsIndex > 0) {
-                    // Swipe right
-                    goToBrandsSlide(brandsIndex - 1);
-                }
-            }
-            
-            startBrandsSlider();
-        });
-    }
-  
-    // products dataset
+// products dataset
 const productsData = [
   // =========================
   // Construction (10)
@@ -1447,17 +1238,170 @@ function hideModal() {
     currentProducts = [];
 }
 
-// Service card hover effects
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-8px)';
+// Services section 
+// Simple services initialization
+document.addEventListener('DOMContentLoaded', function() {
+    const servicesGrid = document.querySelector('.services-grid');
+    const container = document.querySelector('.services-slider-container');
+    
+    if (servicesGrid && container) {
+        // Pause on hover
+        container.addEventListener('mouseenter', function() {
+            servicesGrid.style.animationPlayState = 'paused';
+        });
+        
+        container.addEventListener('mouseleave', function() {
+            servicesGrid.style.animationPlayState = 'running';
+        });
+        
+        // Pause on touch
+        container.addEventListener('touchstart', function() {
+            servicesGrid.style.animationPlayState = 'paused';
+        });
+        
+        container.addEventListener('touchend', function() {
+            setTimeout(() => {
+                servicesGrid.style.animationPlayState = 'running';
+            }, 1000);
+        });
+    }
+});
+
+//Trusted Brands section
+// Continuous scrolling for Trusted Brands
+const brandsGrid = document.querySelector('.brands-grid');
+const brandsContainer = document.querySelector('.brands-slider-container');
+
+// Remove the old slider functionality and keep only hover effects
+if (brandsContainer) {
+    // Pause animation on hover for better UX
+    brandsContainer.addEventListener('mouseenter', () => {
+        brandsGrid.style.animationPlayState = 'paused';
     });
     
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
+    brandsContainer.addEventListener('mouseleave', () => {
+        brandsGrid.style.animationPlayState = 'running';
     });
-});
+    
+    // Optional: Reset animation to prevent long pauses
+    brandsGrid.addEventListener('animationiteration', () => {
+        // This ensures smooth continuous looping
+    });
+}
+
+// Business Hours Status Function
+function updateBusinessStatus() {
+    const statusElement = document.getElementById('business-status');
+    const timeElement = document.getElementById('current-time-eat');
+    
+    if (!statusElement || !timeElement) return;
+    
+    // Get current time in East African Time (EAT)
+    const now = new Date();
+    
+    // Convert to EAT (UTC+3)
+    const eatOffset = 3 * 60; // EAT is UTC+3
+    const localOffset = now.getTimezoneOffset();
+    const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+    
+    const hours = eatTime.getHours();
+    const minutes = eatTime.getMinutes();
+    
+    // Format time for display
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    timeElement.textContent = `Current EAT: ${formattedTime}`;
+    
+    // Check if it's a weekend
+    const dayOfWeek = eatTime.getDay(); // 0 = Sunday, 6 = Saturday
+    
+    let status = '';
+    let statusClass = '';
+    
+    if (dayOfWeek === 6) { // Saturday
+        status = 'Closed';
+        statusClass = 'closed';
+    } else if (dayOfWeek === 0) { // Sunday
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    } else { // Weekdays (Monday to Friday)
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    }
+    
+    // Update the status element
+    statusElement.textContent = status;
+    statusElement.className = 'business-status ' + statusClass;
+    
+    // Update every minute
+    setTimeout(updateBusinessStatus, 60000);
+}
+
+// Update footer business status
+function updateFooterBusinessStatus() {
+    const footerStatusElement = document.getElementById('footer-business-status');
+    
+    if (!footerStatusElement) return;
+    
+    // Get current time in East African Time (EAT)
+    const now = new Date();
+    const eatOffset = 3 * 60;
+    const localOffset = now.getTimezoneOffset();
+    const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+    
+    const hours = eatTime.getHours();
+    const dayOfWeek = eatTime.getDay();
+    
+    let status = '';
+    let statusClass = '';
+    
+    if (dayOfWeek === 6) {
+        status = 'Closed';
+        statusClass = 'closed';
+    } else if (dayOfWeek === 0) {
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    } else {
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    }
+    
+    footerStatusElement.textContent = status;
+    footerStatusElement.className = 'business-status ' + statusClass;
+    
+    setTimeout(updateFooterBusinessStatus, 60000);
+}
 
 // Keyboard navigation support for mobile menu
 document.addEventListener('keydown', function(e) {
@@ -1470,83 +1414,83 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-    // Prevent zoom on double tap on mobile
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        const now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
+// Prevent zoom on double tap on mobile
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+
+// Lazy loading for images
+const images = document.querySelectorAll('img[src]');
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.classList.add('fade-in-up');
+            observer.unobserve(img);
         }
-        lastTouchEnd = now;
-    }, false);
-
-    // Lazy loading for images
-    const images = document.querySelectorAll('img[src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.classList.add('fade-in-up');
-                observer.unobserve(img);
-            }
-        });
     });
+});
 
-    images.forEach(img => imageObserver.observe(img));
+images.forEach(img => imageObserver.observe(img));
 
-    // Stats counter animation
-    const statsNumbers = document.querySelectorAll('.stat h3');
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-                const number = parseInt(text.replace(/\D/g, '')) || 0;
-                
-                if (number > 0) {
-                    let current = 0;
-                    const increment = number / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= number) {
-                            target.textContent = text;
-                            clearInterval(timer);
-                        } else {
-                            target.textContent = Math.floor(current) + text.replace(/\d+/, '');
-                        }
-                    }, 40);
-                }
-                statsObserver.unobserve(target);
+//Our Proven Track Record section
+// Stats counter animation
+const statsNumbers = document.querySelectorAll('.stat h3');
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = entry.target;
+            const text = target.textContent;
+            const number = parseInt(text.replace(/\D/g, '')) || 0;
+            
+            if (number > 0) {
+                let current = 0;
+                const increment = number / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= number) {
+                        target.textContent = text;
+                        clearInterval(timer);
+                    } else {
+                        target.textContent = Math.floor(current) + text.replace(/\d+/, '');
+                    }
+                }, 40);
             }
-        });
+            statsObserver.unobserve(target);
+        }
     });
+});
 
-    statsNumbers.forEach(stat => statsObserver.observe(stat));
+statsNumbers.forEach(stat => statsObserver.observe(stat));
 
-    // Add loading states for buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (this.href && this.href.includes('#')) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+// Add loading states for buttons
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        if (this.href && this.href.includes('#')) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        });
+        }
     });
+});
 
-    // Initialize tooltips for social media links
-    const socialLinks = document.querySelectorAll('.social-links a');
-    socialLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px) scale(1.1)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
+// Initialize tooltips for social media links
+const socialLinks = document.querySelectorAll('.social-links a');
+socialLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px) scale(1.1)';
+    });
+    
+    link.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
     });
 });
 
