@@ -472,11 +472,9 @@ section {
     border-bottom: 1px solid rgba(139, 92, 246, 0.2);
     color: rgba(255, 255, 255, 0.7);
     position: relative;
-    padding-left: 2rem;
+    padding-left: 1.8rem;
     font-size: 0.85rem;
     line-height: 1.4;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
 .service-card li:last-child {
@@ -488,7 +486,7 @@ section {
     color: #8b5cf6;
     font-weight: bold;
     position: absolute;
-    left: 0.8rem;
+    left: 0;
     top: 0.5rem;
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
     font-size: 1rem;
@@ -563,12 +561,12 @@ section {
     .service-card li {
         padding: 0.6rem 0;
         font-size: 0.9rem;
-        padding-left: 2.2rem;
+        padding-left: 2rem;
         line-height: 1.5;
     }
     
     .service-card li::before {
-        left: 1rem;
+        left: 0;
         top: 0.6rem;
         font-size: 1.1rem;
     }
@@ -603,12 +601,13 @@ section {
     }
     
     .service-card li {
-        padding-left: 2.5rem;
+        padding-left: 2.2rem;
         font-size: 0.95rem;
     }
     
     .service-card li::before {
-        left: 1.2rem;
+        left: 0;
+        top: 0.6rem;
     }
     
     @keyframes scrollServices {
