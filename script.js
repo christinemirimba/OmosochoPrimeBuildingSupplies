@@ -153,219 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', highlightNavigation);
 
-    // Auto-sliding functionality for Services
-    const servicesGrid = document.querySelector('.services-grid');
-    const servicesContainer = document.querySelector('.services-slider-container');
-    const servicesDots = document.getElementById('servicesDots');
-    let servicesIndex = 0;
-    let servicesInterval;
-    let servicesStartX = 0;
-    let servicesEndX = 0;
-    
-    // Create navigation dots for services
-    function createServicesDots() {
-        if (!servicesGrid || !servicesDots) return;
-        
-        const cards = servicesGrid.querySelectorAll('.service-card');
-        servicesDots.innerHTML = '';
-        
-        cards.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'slider-dot';
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToServicesSlide(index));
-            servicesDots.appendChild(dot);
-        });
-    }
-    
-    function updateServicesDots() {
-        if (!servicesDots) return;
-        const dots = servicesDots.querySelectorAll('.slider-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === servicesIndex);
-        });
-    }
-    
-    function goToServicesSlide(index) {
-        if (!servicesGrid) return;
-        
-        const cards = servicesGrid.querySelectorAll('.service-card');
-        const cardWidth = cards[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(servicesGrid).gap);
-        const slideWidth = cardWidth + gap;
-        
-        servicesIndex = index;
-        servicesGrid.style.transform = `translateX(-${servicesIndex * slideWidth}px)`;
-        updateServicesDots();
-    }
-    
-    function slideServices() {
-        if (!servicesGrid || !servicesContainer) return;
-        
-        const cards = servicesGrid.querySelectorAll('.service-card');
-        const cardWidth = cards[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(servicesGrid).gap);
-        const slideWidth = cardWidth + gap;
-        
-        servicesIndex++;
-        if (servicesIndex >= cards.length) {
-            servicesIndex = 0;
-        }
-        
-        servicesGrid.style.transform = `translateX(-${servicesIndex * slideWidth}px)`;
-        updateServicesDots();
-    }
-    
-    function startServicesSlider() {
-        servicesInterval = setInterval(slideServices, 3000);
-    }
-    
-    function stopServicesSlider() {
-        clearInterval(servicesInterval);
-    }
-    
-    // Touch support for services
-    if (servicesContainer) {
-        createServicesDots();
-        startServicesSlider();
-        
-        servicesContainer.addEventListener('mouseenter', stopServicesSlider);
-        servicesContainer.addEventListener('mouseleave', startServicesSlider);
-        
-        // Touch events
-        servicesContainer.addEventListener('touchstart', (e) => {
-            servicesStartX = e.touches[0].clientX;
-            stopServicesSlider();
-        });
-        
-        servicesContainer.addEventListener('touchmove', (e) => {
-            servicesEndX = e.touches[0].clientX;
-        });
-        
-        servicesContainer.addEventListener('touchend', () => {
-            const diff = servicesStartX - servicesEndX;
-            const cards = servicesGrid.querySelectorAll('.service-card');
-            
-            if (Math.abs(diff) > 50) { // Minimum swipe distance
-                if (diff > 0 && servicesIndex < cards.length - 1) {
-                    // Swipe left
-                    goToServicesSlide(servicesIndex + 1);
-                } else if (diff < 0 && servicesIndex > 0) {
-                    // Swipe right
-                    goToServicesSlide(servicesIndex - 1);
-                }
-            }
-            
-            startServicesSlider();
-        });
-    }
 
-    // Auto-sliding functionality for Trusted Brands
-    const brandsGrid = document.querySelector('.brands-grid');
-    const brandsContainer = document.querySelector('.brands-slider-container');
-    const brandsDots = document.getElementById('brandsDots');
-    let brandsIndex = 0;
-    let brandsInterval;
-    let brandsStartX = 0;
-    let brandsEndX = 0;
-    
-    // Create navigation dots for brands
-    function createBrandsDots() {
-        if (!brandsGrid || !brandsDots) return;
-        
-        const items = brandsGrid.querySelectorAll('.brand-item');
-        brandsDots.innerHTML = '';
-        
-        items.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'slider-dot';
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToBrandsSlide(index));
-            brandsDots.appendChild(dot);
-        });
-    }
-    
-    function updateBrandsDots() {
-        if (!brandsDots) return;
-        const dots = brandsDots.querySelectorAll('.slider-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === brandsIndex);
-        });
-    }
-    
-    function goToBrandsSlide(index) {
-        if (!brandsGrid) return;
-        
-        const items = brandsGrid.querySelectorAll('.brand-item');
-        const itemWidth = items[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(brandsGrid).gap);
-        const slideWidth = itemWidth + gap;
-        
-        brandsIndex = index;
-        brandsGrid.style.transform = `translateX(-${brandsIndex * slideWidth}px)`;
-        updateBrandsDots();
-    }
-    
-    function slideBrands() {
-        if (!brandsGrid || !brandsContainer) return;
-        
-        const items = brandsGrid.querySelectorAll('.brand-item');
-        const itemWidth = items[0].offsetWidth;
-        const gap = parseInt(getComputedStyle(brandsGrid).gap);
-        const slideWidth = itemWidth + gap;
-        
-        brandsIndex++;
-        if (brandsIndex >= items.length) {
-            brandsIndex = 0;
-        }
-        
-        brandsGrid.style.transform = `translateX(-${brandsIndex * slideWidth}px)`;
-        updateBrandsDots();
-    }
-    
-    function startBrandsSlider() {
-        brandsInterval = setInterval(slideBrands, 3000);
-    }
-    
-    function stopBrandsSlider() {
-        clearInterval(brandsInterval);
-    }
-    
-    // Touch support for brands
-    if (brandsContainer) {
-        createBrandsDots();
-        startBrandsSlider();
-        
-        brandsContainer.addEventListener('mouseenter', stopBrandsSlider);
-        brandsContainer.addEventListener('mouseleave', startBrandsSlider);
-        
-        // Touch events
-        brandsContainer.addEventListener('touchstart', (e) => {
-            brandsStartX = e.touches[0].clientX;
-            stopBrandsSlider();
-        });
-        
-        brandsContainer.addEventListener('touchmove', (e) => {
-            brandsEndX = e.touches[0].clientX;
-        });
-        
-        brandsContainer.addEventListener('touchend', () => {
-            const diff = brandsStartX - brandsEndX;
-            const items = brandsGrid.querySelectorAll('.brand-item');
-            
-            if (Math.abs(diff) > 50) { // Minimum swipe distance
-                if (diff > 0 && brandsIndex < items.length - 1) {
-                    // Swipe left
-                    goToBrandsSlide(brandsIndex + 1);
-                } else if (diff < 0 && brandsIndex > 0) {
-                    // Swipe right
-                    goToBrandsSlide(brandsIndex - 1);
-                }
-            }
-            
-            startBrandsSlider();
-        });
-    }
   
     // products dataset
 const productsData = [
@@ -1447,17 +1235,101 @@ function hideModal() {
     currentProducts = [];
 }
 
-// Service card hover effects
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-8px)';
+
+// Services section - Continuous scrolling
+function initServicesTicker() {
+    const servicesGrid = document.getElementById('servicesGrid');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const track = document.querySelector('.services-track');
+    
+    // Check if elements exist
+    if (!servicesGrid || !track) {
+        console.log('Services elements not found');
+        return;
+    }
+    
+    // Start scrolling animation
+    setTimeout(() => {
+        servicesGrid.classList.add('scrolling');
+    }, 100);
+    
+    // Hover controls
+    let pauseTimeout;
+    
+    function pauseScroll() {
+        clearTimeout(pauseTimeout);
+        servicesGrid.classList.add('paused');
+    }
+    
+    function resumeScroll() {
+        pauseTimeout = setTimeout(() => {
+            servicesGrid.classList.remove('paused');
+        }, 300);
+    }
+    
+    // Mouse events
+    track.addEventListener('mouseenter', pauseScroll);
+    track.addEventListener('mouseleave', resumeScroll);
+    
+    // Touch events for mobile
+    track.addEventListener('touchstart', pauseScroll);
+    track.addEventListener('touchend', function() {
+        pauseTimeout = setTimeout(() => {
+            servicesGrid.classList.remove('paused');
+        }, 1000);
     });
     
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
+    // Reset animation when it completes for seamless loop
+    servicesGrid.addEventListener('animationiteration', function() {
+        // This ensures the animation loops smoothly
     });
+}
+
+// Service card hover effects
+function initServiceCardEffects() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initServicesTicker();
+    initServiceCardEffects();
 });
+
+
+//Trusted Brands section
+
+// Continuous scrolling for Trusted Brands
+const brandsGrid = document.querySelector('.brands-grid');
+const brandsContainer = document.querySelector('.brands-slider-container');
+
+// Remove the old slider functionality and keep only hover effects
+if (brandsContainer) {
+    // Pause animation on hover for better UX
+    brandsContainer.addEventListener('mouseenter', () => {
+        brandsGrid.style.animationPlayState = 'paused';
+    });
+    
+    brandsContainer.addEventListener('mouseleave', () => {
+        brandsGrid.style.animationPlayState = 'running';
+    });
+    
+    // Optional: Reset animation to prevent long pauses
+    brandsGrid.addEventListener('animationiteration', () => {
+        // This ensures smooth continuous looping
+    });
+}
+
 
 // Keyboard navigation support for mobile menu
 document.addEventListener('keydown', function(e) {
@@ -1494,6 +1366,7 @@ document.addEventListener('keydown', function(e) {
 
     images.forEach(img => imageObserver.observe(img));
 
+     //Our Proven Track Record section
     // Stats counter animation
     const statsNumbers = document.querySelectorAll('.stat h3');
     const statsObserver = new IntersectionObserver((entries) => {

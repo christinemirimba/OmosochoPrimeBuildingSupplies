@@ -338,6 +338,8 @@ section {
     border-radius: 5px;
 }
 
+
+
 /* Services Section */
 .services {
     background: linear-gradient(135deg, #0a0a1e 0%, #1a1a3e 100%);
@@ -384,7 +386,16 @@ section {
 .services-grid {
     display: flex;
     gap: 1rem;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: scrollServices 30s linear infinite;
+    width: max-content;
+}
+
+.services-grid.scrolling {
+    animation-play-state: running;
+}
+
+.services-grid.paused {
+    animation-play-state: paused;
 }
 
 .service-card {
@@ -484,9 +495,42 @@ section {
     font-size: 0.8rem;
     width: 100%;
     max-width: 150px;
-    position: relative; /* Add this */
-    z-index: 10; /* Add this to ensure button is above other elements */
+    position: relative;
+    z-index: 10;
 }
+
+/* Continuous scrolling animation for services */
+@keyframes scrollServices {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-220px * 4 - 1rem * 4));
+    }
+}
+
+/* Pause animation on hover for services */
+.services-slider-container:hover .services-grid {
+    animation-play-state: paused;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .service-card {
+        min-width: 200px;
+        flex: 0 0 200px;
+    }
+    
+    @keyframes scrollServices {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-200px * 4 - 1rem * 4));
+        }
+    }
+}
+
 
 /* ================================
    PRODUCTS SECTION
@@ -1218,6 +1262,8 @@ section {
     }
 }
 
+
+
 /* Trusted Brands */
 .trusted-brands {
     text-align: center;
@@ -1267,7 +1313,8 @@ section {
 .brands-grid {
     display: flex;
     gap: 1rem;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: scrollBrands 20s linear infinite;
+    width: max-content;
 }
 
 .brand-item {
@@ -1313,6 +1360,21 @@ section {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4),
                 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+/* Pause animation on hover */
+.brands-slider-container:hover .brands-grid {
+    animation-play-state: paused;
+}
+
+/* Continuous scrolling animation */
+@keyframes scrollBrands {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-160px * 4 - 1rem * 4)); /* Move by one set of brands */
+    }
 }
 
 /* Features Styles */
