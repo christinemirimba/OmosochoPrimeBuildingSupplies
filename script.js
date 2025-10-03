@@ -153,9 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', highlightNavigation);
 
+    // Initialize business status
+    updateBusinessStatus();
+    updateFooterBusinessStatus();
+});
 
-  
-    // products dataset
+// products dataset
 const productsData = [
   // =========================
   // Construction (10)
@@ -1235,7 +1238,6 @@ function hideModal() {
     currentProducts = [];
 }
 
-
 // Services section 
 // Simple services initialization
 document.addEventListener('DOMContentLoaded', function() {
@@ -1264,8 +1266,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-//Trusted Brands section
 
+//Trusted Brands section
 // Continuous scrolling for Trusted Brands
 const brandsGrid = document.querySelector('.brands-grid');
 const brandsContainer = document.querySelector('.brands-slider-container');
@@ -1287,6 +1289,119 @@ if (brandsContainer) {
     });
 }
 
+// Business Hours Status Function
+function updateBusinessStatus() {
+    const statusElement = document.getElementById('business-status');
+    const timeElement = document.getElementById('current-time-eat');
+    
+    if (!statusElement || !timeElement) return;
+    
+    // Get current time in East African Time (EAT)
+    const now = new Date();
+    
+    // Convert to EAT (UTC+3)
+    const eatOffset = 3 * 60; // EAT is UTC+3
+    const localOffset = now.getTimezoneOffset();
+    const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+    
+    const hours = eatTime.getHours();
+    const minutes = eatTime.getMinutes();
+    
+    // Format time for display
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    timeElement.textContent = `Current EAT: ${formattedTime}`;
+    
+    // Check if it's a weekend
+    const dayOfWeek = eatTime.getDay(); // 0 = Sunday, 6 = Saturday
+    
+    let status = '';
+    let statusClass = '';
+    
+    if (dayOfWeek === 6) { // Saturday
+        status = 'Closed';
+        statusClass = 'closed';
+    } else if (dayOfWeek === 0) { // Sunday
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    } else { // Weekdays (Monday to Friday)
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    }
+    
+    // Update the status element
+    statusElement.textContent = status;
+    statusElement.className = 'business-status ' + statusClass;
+    
+    // Update every minute
+    setTimeout(updateBusinessStatus, 60000);
+}
+
+// Update footer business status
+function updateFooterBusinessStatus() {
+    const footerStatusElement = document.getElementById('footer-business-status');
+    
+    if (!footerStatusElement) return;
+    
+    // Get current time in East African Time (EAT)
+    const now = new Date();
+    const eatOffset = 3 * 60;
+    const localOffset = now.getTimezoneOffset();
+    const eatTime = new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+    
+    const hours = eatTime.getHours();
+    const dayOfWeek = eatTime.getDay();
+    
+    let status = '';
+    let statusClass = '';
+    
+    if (dayOfWeek === 6) {
+        status = 'Closed';
+        statusClass = 'closed';
+    } else if (dayOfWeek === 0) {
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    } else {
+        if (hours >= 8 && hours < 16) {
+            status = 'Open';
+            statusClass = 'open';
+        } else if (hours >= 16 && hours < 18) {
+            status = 'Almost Closing';
+            statusClass = 'almost-closing';
+        } else {
+            status = 'Closed';
+            statusClass = 'closed';
+        }
+    }
+    
+    footerStatusElement.textContent = status;
+    footerStatusElement.className = 'business-status ' + statusClass;
+    
+    setTimeout(updateFooterBusinessStatus, 60000);
+}
 
 // Keyboard navigation support for mobile menu
 document.addEventListener('keydown', function(e) {
@@ -1299,84 +1414,83 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-    // Prevent zoom on double tap on mobile
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        const now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
+// Prevent zoom on double tap on mobile
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+
+// Lazy loading for images
+const images = document.querySelectorAll('img[src]');
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.classList.add('fade-in-up');
+            observer.unobserve(img);
         }
-        lastTouchEnd = now;
-    }, false);
-
-    // Lazy loading for images
-    const images = document.querySelectorAll('img[src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.classList.add('fade-in-up');
-                observer.unobserve(img);
-            }
-        });
     });
+});
 
-    images.forEach(img => imageObserver.observe(img));
+images.forEach(img => imageObserver.observe(img));
 
-     //Our Proven Track Record section
-    // Stats counter animation
-    const statsNumbers = document.querySelectorAll('.stat h3');
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-                const number = parseInt(text.replace(/\D/g, '')) || 0;
-                
-                if (number > 0) {
-                    let current = 0;
-                    const increment = number / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= number) {
-                            target.textContent = text;
-                            clearInterval(timer);
-                        } else {
-                            target.textContent = Math.floor(current) + text.replace(/\d+/, '');
-                        }
-                    }, 40);
-                }
-                statsObserver.unobserve(target);
+//Our Proven Track Record section
+// Stats counter animation
+const statsNumbers = document.querySelectorAll('.stat h3');
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = entry.target;
+            const text = target.textContent;
+            const number = parseInt(text.replace(/\D/g, '')) || 0;
+            
+            if (number > 0) {
+                let current = 0;
+                const increment = number / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= number) {
+                        target.textContent = text;
+                        clearInterval(timer);
+                    } else {
+                        target.textContent = Math.floor(current) + text.replace(/\d+/, '');
+                    }
+                }, 40);
             }
-        });
+            statsObserver.unobserve(target);
+        }
     });
+});
 
-    statsNumbers.forEach(stat => statsObserver.observe(stat));
+statsNumbers.forEach(stat => statsObserver.observe(stat));
 
-    // Add loading states for buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (this.href && this.href.includes('#')) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+// Add loading states for buttons
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        if (this.href && this.href.includes('#')) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        });
+        }
     });
+});
 
-    // Initialize tooltips for social media links
-    const socialLinks = document.querySelectorAll('.social-links a');
-    socialLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px) scale(1.1)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
+// Initialize tooltips for social media links
+const socialLinks = document.querySelectorAll('.social-links a');
+socialLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px) scale(1.1)';
+    });
+    
+    link.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
     });
 });
 

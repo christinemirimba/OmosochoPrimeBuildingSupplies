@@ -446,7 +446,7 @@ section {
 }
 
 .service-card .btn-primary {
-    background: #8b5cf6;
+    background: linear-gradient(135deg, #f97316, #ea580c);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -454,6 +454,13 @@ section {
     text-decoration: none;
     display: inline-block;
 }
+
+.service-card .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+}
+
 
 @keyframes scrollServices {
     0% { transform: translateX(0); }
@@ -1619,6 +1626,46 @@ section {
     resize: vertical;
     min-height: 120px;
 }
+
+/* Need Help Section*/
+
+/* Business Hours Status Styles */
+.business-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.business-status.open {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.business-status.almost-closing {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffe0b2;
+}
+
+.business-status.closed {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.current-time {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+
 /* Footer */
 .footer {
     background: #1a2332;

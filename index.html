@@ -525,18 +525,19 @@
                     </div>
 
                     <!-- Business Hours -->
-                    <div class="contact-item">
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 1a11 11 0 1 0 11 11A11.013 11.013 0 0 0 12 1zm0 
-                                20a9 9 0 1 1 9-9a9.01 9.01 0 0 1-9 9zm.5-9.293V6h-1v6h6v-1z"/>
-                            </svg>
-                        </span>
-                        <div>
-                            <h4>Business Hours</h4>
-                            <p>Mon-Fri: 8:00 AM - 6:00 PM<br>Saturday: Closed<br>Sunday: 8:00 AM - 6:00 PM</p>
-                        </div>
-                    </div>
+<div class="contact-item">
+    <span class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 1a11 11 0 1 0 11 11A11.013 11.013 0 0 0 12 1zm0 
+            20a9 9 0 1 1 9-9a9.01 9.01 0 0 1-9 9zm.5-9.293V6h-1v6h6v-1z"/>
+        </svg>
+    </span>
+    <div>
+        <h4>Business Hours <span id="business-status" class="business-status"></span></h4>
+        <p>Mon-Fri: 8:00 AM - 6:00 PM<br>Saturday: Closed<br>Sunday: 8:00 AM - 6:00 PM</p>
+        <div class="current-time" id="current-time-eat"></div>
+    </div>
+</div>
 
                 </div>
             </div>
@@ -663,15 +664,15 @@
         </ul>
       </div>
 
-      <!-- Business Hours -->
-      <div class="footer-section">
-        <h4>Business Hours</h4>
-        <div class="business-hours">
-          <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-          <p>Saturday: Closed</p>
-          <p>Sunday: 8:00 AM - 6:00 PM</p>
-        </div>
-      </div>
+      <!-- Business Hours in Footer -->
+<div class="footer-section">
+    <h4>Business Hours <span id="footer-business-status" class="business-status"></span></h4>
+    <div class="business-hours">
+        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+        <p>Saturday: Closed</p>
+        <p>Sunday: 8:00 AM - 6:00 PM</p>
+    </div>
+</div>
 
       <!-- Contact Info -->
       <div class="footer-section">
