@@ -1236,77 +1236,34 @@ function hideModal() {
 }
 
 
-// Services section - Continuous scrolling
-function initServicesTicker() {
-    const servicesGrid = document.getElementById('servicesGrid');
-    const serviceCards = document.querySelectorAll('.service-card');
-    const track = document.querySelector('.services-track');
+// Services section 
+// Simple services initialization
+document.addEventListener('DOMContentLoaded', function() {
+    const servicesGrid = document.querySelector('.services-grid');
+    const container = document.querySelector('.services-slider-container');
     
-    // Check if elements exist
-    if (!servicesGrid || !track) {
-        console.log('Services elements not found');
-        return;
-    }
-    
-    // Start scrolling animation
-    setTimeout(() => {
-        servicesGrid.classList.add('scrolling');
-    }, 100);
-    
-    // Hover controls
-    let pauseTimeout;
-    
-    function pauseScroll() {
-        clearTimeout(pauseTimeout);
-        servicesGrid.classList.add('paused');
-    }
-    
-    function resumeScroll() {
-        pauseTimeout = setTimeout(() => {
-            servicesGrid.classList.remove('paused');
-        }, 300);
-    }
-    
-    // Mouse events
-    track.addEventListener('mouseenter', pauseScroll);
-    track.addEventListener('mouseleave', resumeScroll);
-    
-    // Touch events for mobile
-    track.addEventListener('touchstart', pauseScroll);
-    track.addEventListener('touchend', function() {
-        pauseTimeout = setTimeout(() => {
-            servicesGrid.classList.remove('paused');
-        }, 1000);
-    });
-    
-    // Reset animation when it completes for seamless loop
-    servicesGrid.addEventListener('animationiteration', function() {
-        // This ensures the animation loops smoothly
-    });
-}
-
-// Service card hover effects
-function initServiceCardEffects() {
-    const serviceCards = document.querySelectorAll('.service-card');
-    
-    serviceCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
+    if (servicesGrid && container) {
+        // Pause on hover
+        container.addEventListener('mouseenter', function() {
+            servicesGrid.style.animationPlayState = 'paused';
         });
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+        container.addEventListener('mouseleave', function() {
+            servicesGrid.style.animationPlayState = 'running';
         });
-    });
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initServicesTicker();
-    initServiceCardEffects();
+        
+        // Pause on touch
+        container.addEventListener('touchstart', function() {
+            servicesGrid.style.animationPlayState = 'paused';
+        });
+        
+        container.addEventListener('touchend', function() {
+            setTimeout(() => {
+                servicesGrid.style.animationPlayState = 'running';
+            }, 1000);
+        });
+    }
 });
-
-
 //Trusted Brands section
 
 // Continuous scrolling for Trusted Brands
