@@ -426,7 +426,7 @@
     <div class="container">
         <div class="section-header">
             <h2>Your Project Planning Assistant</h2>
-            <p>Describe your project and get material recommendations instantly</p>
+            <p>Describe your project vision and receive instant material recommendations</p>
         </div>
         
         <div class="assistant-container">
@@ -452,8 +452,8 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="projectDescription">Additional Details:</label>
-                    <textarea id="projectDescription" placeholder="Describe your project in detail... (e.g., 'affordable 2-bedroom house with modern finish')" rows="3"></textarea>
+                    <label for="projectDescription">Project Vision:</label>
+                    <textarea id="projectDescription" placeholder="Describe your project vision in detail... (e.g., 'sustainable 2-bedroom home with modern finishes')" rows="3"></textarea>
                 </div>
                 
                 <button id="generatePlan" class="btn btn-primary btn-large">
@@ -467,9 +467,6 @@
             <div class="ai-results-section" id="aiResults" style="display: none;">
                 <div class="results-header">
                     <h3>Your AI-Generated Material Plan</h3>
-                    <div class="sdg-impact">
-                        <span class="sdg-badge">SDG 9 Impact: Optimized Supply Chain</span>
-                    </div>
                 </div>
                 
                 <div class="materials-list" id="materialsList">
@@ -477,13 +474,13 @@
                 </div>
                 
                 <div class="plan-actions">
-                    <button class="btn btn-secondary" id="savePlan">
+                    <button class="btn btn-secondary" id="downloadPlan">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                            <polyline points="17 21 17 13 7 13 7 21"/>
-                            <polyline points="7 3 7 8 15 8"/>
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
                         </svg>
-                        Save Plan
+                        Download Plan
                     </button>
                     <button class="btn btn-primary" id="getQuoteAll">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -491,28 +488,6 @@
                         </svg>
                         Get Quote for All Items
                     </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Demand Prediction Section -->
-        <div class="demand-prediction" id="demandPrediction" style="display: none;">
-            <div class="prediction-header">
-                <h4>📊 AI Demand Prediction Insights</h4>
-                <p>Helping optimize inventory and reduce environmental waste (SDG 9)</p>
-            </div>
-            <div class="prediction-stats">
-                <div class="prediction-stat">
-                    <span class="stat-value" id="predictedDemand">0</span>
-                    <span class="stat-label">Predicted Monthly Demand</span>
-                </div>
-                <div class="prediction-stat">
-                    <span class="stat-value" id="wasteReduction">0%</span>
-                    <span class="stat-label">Potential Waste Reduction</span>
-                </div>
-                <div class="prediction-stat">
-                    <span class="stat-value" id="supplyOptimization">0%</span>
-                    <span class="stat-label">Supply Chain Optimization</span>
                 </div>
             </div>
         </div>

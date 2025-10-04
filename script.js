@@ -321,6 +321,7 @@ function initializeSearchFunctionality() {
     }
 }
 
+
 // =========================
 // AI PROJECT PLANNING ASSISTANT
 // =========================
@@ -451,6 +452,9 @@ class AIProjectPlanner {
                 if (desc.includes('luxury') && material.category === 'Finishing') {
                     adjustedQuantity = this.adjustQuantity(adjustedQuantity, 1.5);
                 }
+                if (desc.includes('sustainable') && material.category === 'Building') {
+                    adjustedQuantity = this.adjustQuantity(adjustedQuantity, 1.1);
+                }
             }
 
             return {
@@ -479,26 +483,6 @@ class AIProjectPlanner {
         }
         return quantity;
     }
-
-    predictDemand(projectPlan) {
-        // AI demand prediction based on project type and materials
-        const baseDemand = projectPlan.materials.reduce((total, material) => {
-            const range = material.quantity.split('-');
-            const avgQuantity = range.length === 2 ? 
-                (parseInt(range[0]) + parseInt(range[1])) / 2 : parseInt(material.quantity);
-            return total + avgQuantity;
-        }, 0);
-
-        const predictedDemand = Math.round(baseDemand * 0.1); // 10% of project size as monthly demand
-        const wasteReduction = Math.round((1 - (predictedDemand / (baseDemand * 0.2))) * 100); // Calculate waste reduction
-        const supplyOptimization = Math.min(95, Math.round(wasteReduction * 1.2));
-
-        return {
-            predictedDemand,
-            wasteReduction: Math.max(0, wasteReduction),
-            supplyOptimization: Math.max(0, supplyOptimization)
-        };
-    }
 }
 
 function initializeAIProjectAssistant() {
@@ -506,8 +490,7 @@ function initializeAIProjectAssistant() {
     const generatePlanBtn = document.getElementById('generatePlan');
     const aiResults = document.getElementById('aiResults');
     const materialsList = document.getElementById('materialsList');
-    const demandPrediction = document.getElementById('demandPrediction');
-    const savePlanBtn = document.getElementById('savePlan');
+    const downloadPlanBtn = document.getElementById('downloadPlan'); // Fixed variable name
     const getQuoteAllBtn = document.getElementById('getQuoteAll');
 
     generatePlanBtn.addEventListener('click', function() {
@@ -526,13 +509,8 @@ function initializeAIProjectAssistant() {
         if (plan) {
             displayMaterialPlan(plan);
             
-            // Generate demand predictions
-            const predictions = aiPlanner.predictDemand(plan);
-            displayDemandPredictions(predictions);
-            
-            // Show results sections
+            // Show results section
             aiResults.style.display = 'block';
-            demandPrediction.style.display = 'block';
             
             // Scroll to results
             aiResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -556,26 +534,50 @@ function initializeAIProjectAssistant() {
         });
     }
 
-    function displayDemandPredictions(predictions) {
-        document.getElementById('predictedDemand').textContent = predictions.predictedDemand;
-        document.getElementById('wasteReduction').textContent = predictions.wasteReduction + '%';
-        document.getElementById('supplyOptimization').textContent = predictions.supplyOptimization + '%';
-    }
+    downloadPlanBtn.addEventListener('click', function() {
+        // Create a downloadable PDF or text file
+        const projectType = document.getElementById('projectType').value;
+        const projectSize = document.getElementById('projectSize').value;
+        const projectDescription = document.getElementById('projectDescription').value;
+        
+        // Get the current material plan
+        const materials = Array.from(materialsList.children).map(item => {
+            const name = item.querySelector('h4').textContent;
+            const category = item.querySelector('p').textContent;
+            const quantity = item.querySelector('.material-quantity').textContent;
+            return { name, category, quantity };
+        });
 
-    savePlanBtn.addEventListener('click', function() {
-        // Save plan to localStorage
-        const plan = {
-            projectType: document.getElementById('projectType').value,
-            size: document.getElementById('projectSize').value,
-            description: document.getElementById('projectDescription').value,
-            timestamp: new Date().toISOString()
-        };
+        // Create download content
+        const content = `
+AI-GENERATED MATERIAL PLAN
+===========================
+
+Project Type: ${projectType}
+Project Size: ${projectSize} sq ft
+Project Description: ${projectDescription}
+Generated on: ${new Date().toLocaleDateString()}
+
+MATERIALS REQUIRED:
+${materials.map((material, index) => 
+    `${index + 1}. ${material.name} (${material.category}): ${material.quantity}`
+).join('\n')}
+
+Thank you for using our AI Project Planning Assistant!
+        `.trim();
+
+        // Create and trigger download
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `material-plan-${projectType}-${new Date().getTime()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
         
-        const savedPlans = JSON.parse(localStorage.getItem('savedPlans') || '[]');
-        savedPlans.push(plan);
-        localStorage.setItem('savedPlans', JSON.stringify(savedPlans));
-        
-        alert('Project plan saved successfully!');
+        alert('Material plan downloaded successfully!');
     });
 
     getQuoteAllBtn.addEventListener('click', function() {
@@ -593,9 +595,9 @@ function initializeAIProjectAssistant() {
     });
 }
 
-// =========================
-// GLOBAL FUNCTIONS
-// =========================
+// Initialize the AI assistant when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeAIProjectAssistant);
+
 
 // Products section
 // products dataset
