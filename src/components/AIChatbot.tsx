@@ -37,13 +37,26 @@ const AIChatbot = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with actual Lovable Cloud integration
-      // For now, using a mock response
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ messages: [...messages, userMessage] }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to get AI response');
+      }
+
+      const data = await response.json();
       const aiResponse: Message = {
         role: 'assistant',
-        content: `I understand you're asking about "${input}". To provide accurate project planning assistance, I need to be connected to Gemini AI through Lovable Cloud. Please enable Cloud integration to get real-time AI responses with material estimates, tool recommendations, and project planning advice.`
+        content: data.response
       };
       
       setMessages(prev => [...prev, aiResponse]);
@@ -51,7 +64,7 @@ const AIChatbot = () => {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.'
+        content: 'Sorry, I encountered an error connecting to the AI. Please make sure your Gemini API key is configured correctly and try again.'
       }]);
     } finally {
       setIsLoading(false);
