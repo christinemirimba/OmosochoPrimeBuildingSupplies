@@ -55,31 +55,32 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Search Bar - Desktop */}
-          <form onSubmit={handleSearch} className="hidden md:flex items-center space-x-2 flex-1 max-w-md mx-8">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                type="text"
-                placeholder="Search construction materials..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full"
-              />
-            </div>
-            <Button type="submit" size="sm" className="px-4">
-              Search
-            </Button>
-          </form>
-
-          {/* Actions */}
-          <div className="flex items-center space-x-4">
+          {/* Actions - Top Right */}
+          <div className="flex items-center gap-3">
             {/* User Account */}
             <Button variant="ghost" size="sm" className="hidden sm:flex">
               <User className="w-4 h-4 mr-2" />
               Account
             </Button>
 
+            {/* Search Button - Always Visible in Top Right */}
+            <form onSubmit={handleSearch} className="hidden md:flex items-center">
+              <div className="relative flex items-center gap-2">
+                <div className="relative w-64">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Input
+                    type="text"
+                    placeholder="Search materials..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full"
+                  />
+                </div>
+                <Button type="submit" size="sm" className="bg-primary hover:bg-primary/90">
+                  <Search className="w-4 h-4" />
+                </Button>
+              </div>
+            </form>
 
             {/* Mobile Menu Toggle */}
             <Button
