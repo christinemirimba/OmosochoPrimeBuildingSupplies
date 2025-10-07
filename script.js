@@ -156,8 +156,450 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize business status
     updateBusinessStatus();
     updateFooterBusinessStatus();
+
+    // Initialize Search Functionality
+    initializeSearchFunctionality();
+
+    // Initialize AI Project Assistant
+    initializeAIProjectAssistant();
 });
 
+// =========================
+// SEARCH FUNCTIONALITY
+// =========================
+function initializeSearchFunctionality() {
+    const searchInput = document.getElementById('mainSearch');
+    const searchButton = document.getElementById('searchButton');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const brandFilter = document.getElementById('brandFilter');
+    const sortResults = document.getElementById('sortResults');
+    const resultsGrid = document.getElementById('resultsGrid');
+    const resultsCount = document.getElementById('resultsCount');
+    const noResults = document.getElementById('noResults');
+    const clearSearch = document.getElementById('clearSearch');
+    const quickTags = document.querySelectorAll('.quick-tag');
+
+    let currentSearchTerm = '';
+    let currentFilters = {
+        category: '',
+        brand: ''
+    };
+
+    // Search function
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        currentSearchTerm = searchTerm;
+        
+        const category = categoryFilter.value;
+        const brand = brandFilter.value;
+        const sort = sortResults.value;
+
+        currentFilters = { category, brand };
+
+        let filteredProducts = productsData.filter(product => {
+            // Text search
+            const matchesSearch = !searchTerm || 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm);
+            
+            // Category filter
+            const matchesCategory = !category || product.category === category;
+            
+            // Brand filter (simplified - you'd need to add brand data to your products)
+            const matchesBrand = !brand || 
+                product.name.toLowerCase().includes(brand) ||
+                (brand === 'crown' && product.name.toLowerCase().includes('paint')) ||
+                (brand === 'simba' && product.name.toLowerCase().includes('cement'));
+            
+            return matchesSearch && matchesCategory && matchesBrand;
+        });
+
+        // Sort results
+        filteredProducts = sortProducts(filteredProducts, sort);
+
+        displaySearchResults(filteredProducts);
+    }
+
+    // Sort products
+    function sortProducts(products, sortBy) {
+        switch(sortBy) {
+            case 'name':
+                return products.sort((a, b) => a.name.localeCompare(b.name));
+            case 'name-desc':
+                return products.sort((a, b) => b.name.localeCompare(a.name));
+            default: // relevance
+                return products;
+        }
+    }
+
+    // Display search results
+    function displaySearchResults(products) {
+        resultsGrid.innerHTML = '';
+        
+        if (products.length === 0) {
+            noResults.style.display = 'block';
+            resultsCount.textContent = 'No products found';
+            return;
+        }
+        
+        noResults.style.display = 'none';
+        resultsCount.textContent = `${products.length} products found`;
+        
+        products.forEach(product => {
+            const productCard = createProductCard(product);
+            resultsGrid.appendChild(productCard);
+        });
+    }
+
+    // Create product card for search results
+    function createProductCard(product) {
+        const card = document.createElement('div');
+        card.className = 'search-product-card';
+        
+        card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="search-product-image" loading="lazy">
+            <span class="search-product-category">${product.category}</span>
+            <h4>${product.name}</h4>
+            <div class="search-product-actions">
+                <button class="btn btn-primary" onclick="showProductDetail('${product.id}')">View Details</button>
+                <button class="btn btn-secondary" onclick="requestQuote('${product.id}')">Get Quote</button>
+            </div>
+        `;
+        
+        return card;
+    }
+
+    // Event listeners
+    searchInput.addEventListener('input', function() {
+        if (this.value.trim().length >= 2) {
+            performSearch();
+        } else if (this.value.trim().length === 0) {
+            clearSearchResults();
+        }
+    });
+
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    searchButton.addEventListener('click', performSearch);
+
+    // Filter change events
+    [categoryFilter, brandFilter, sortResults].forEach(filter => {
+        filter.addEventListener('change', performSearch);
+    });
+
+    // Quick search tags
+    quickTags.forEach(tag => {
+        tag.addEventListener('click', function() {
+            const searchTerm = this.getAttribute('data-search');
+            searchInput.value = searchTerm;
+            performSearch();
+            
+            // Scroll to results
+            document.querySelector('.search-results').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+    });
+
+    // Clear search
+    clearSearch.addEventListener('click', function() {
+        searchInput.value = '';
+        categoryFilter.value = '';
+        brandFilter.value = '';
+        sortResults.value = 'relevance';
+        clearSearchResults();
+    });
+
+    function clearSearchResults() {
+        resultsGrid.innerHTML = '';
+        resultsCount.textContent = 'Search Results';
+        noResults.style.display = 'none';
+    }
+}
+
+
+// =========================
+// AI PROJECT PLANNING ASSISTANT
+// =========================
+class AIProjectPlanner {
+    constructor() {
+        this.projectTemplates = {
+            'small-house': {
+                name: 'Small House (1-2 bedroom)',
+                materials: [
+                    { id: 1, name: 'Cement Bag (50kg)', quantity: '80-100 bags', category: 'Construction' },
+                    { id: 41, name: 'Timber Planks', quantity: '150-200 pieces', category: 'Building' },
+                    { id: 11, name: 'Steel Rods (16mm)', quantity: '40-60 pieces', category: 'Metals' },
+                    { id: 44, name: 'Roofing Tiles', quantity: '800-1000 pieces', category: 'Building' },
+                    { id: 51, name: 'LED Bulb', quantity: '15-20 units', category: 'Electrical' },
+                    { id: 61, name: 'PVC Pipe (3m)', quantity: '20-30 pieces', category: 'Plumbing' },
+                    { id: 81, name: 'Wall Paint (5L)', quantity: '8-12 cans', category: 'Finishing' }
+                ]
+            },
+            'medium-house': {
+                name: 'Medium House (3-4 bedroom)',
+                materials: [
+                    { id: 1, name: 'Cement Bag (50kg)', quantity: '150-200 bags', category: 'Construction' },
+                    { id: 41, name: 'Timber Planks', quantity: '300-400 pieces', category: 'Building' },
+                    { id: 11, name: 'Steel Rods (16mm)', quantity: '80-120 pieces', category: 'Metals' },
+                    { id: 44, name: 'Roofing Tiles', quantity: '1500-2000 pieces', category: 'Building' },
+                    { id: 51, name: 'LED Bulb', quantity: '25-35 units', category: 'Electrical' },
+                    { id: 61, name: 'PVC Pipe (3m)', quantity: '40-60 pieces', category: 'Plumbing' },
+                    { id: 81, name: 'Wall Paint (5L)', quantity: '15-20 cans', category: 'Finishing' }
+                ]
+            },
+            'large-house': {
+                name: 'Large House (5+ bedroom)',
+                materials: [
+                    { id: 1, name: 'Cement Bag (50kg)', quantity: '250-350 bags', category: 'Construction' },
+                    { id: 41, name: 'Timber Planks', quantity: '500-700 pieces', category: 'Building' },
+                    { id: 11, name: 'Steel Rods (16mm)', quantity: '150-200 pieces', category: 'Metals' },
+                    { id: 44, name: 'Roofing Tiles', quantity: '2500-3500 pieces', category: 'Building' },
+                    { id: 51, name: 'LED Bulb', quantity: '40-60 units', category: 'Electrical' },
+                    { id: 61, name: 'PVC Pipe (3m)', quantity: '70-100 pieces', category: 'Plumbing' },
+                    { id: 81, name: 'Wall Paint (5L)', quantity: '25-35 cans', category: 'Finishing' }
+                ]
+            },
+            'shop': {
+                name: 'Commercial Shop',
+                materials: [
+                    { id: 1, name: 'Cement Bag (50kg)', quantity: '50-80 bags', category: 'Construction' },
+                    { id: 41, name: 'Timber Planks', quantity: '100-150 pieces', category: 'Building' },
+                    { id: 51, name: 'LED Bulb', quantity: '10-15 units', category: 'Electrical' },
+                    { id: 55, name: 'Wall Socket', quantity: '8-12 units', category: 'Electrical' },
+                    { id: 81, name: 'Wall Paint (5L)', quantity: '4-6 cans', category: 'Finishing' }
+                ]
+            },
+            'school': {
+                name: 'School Building',
+                materials: [
+                    { id: 1, name: 'Cement Bag (50kg)', quantity: '300-500 bags', category: 'Construction' },
+                    { id: 41, name: 'Timber Planks', quantity: '500-800 pieces', category: 'Building' },
+                    { id: 11, name: 'Steel Rods (16mm)', quantity: '200-300 pieces', category: 'Metals' },
+                    { id: 51, name: 'LED Bulb', quantity: '50-80 units', category: 'Electrical' },
+                    { id: 81, name: 'Wall Paint (5L)', quantity: '20-30 cans', category: 'Finishing' }
+                ]
+            },
+            'renovation': {
+                name: 'Home Renovation',
+                materials: [
+                    { id: 81, name: 'Wall Paint (5L)', quantity: '5-10 cans', category: 'Finishing' },
+                    { id: 82, name: 'Wall Tiles', quantity: '200-400 pieces', category: 'Finishing' },
+                    { id: 41, name: 'Timber Planks', quantity: '50-100 pieces', category: 'Building' },
+                    { id: 51, name: 'LED Bulb', quantity: '10-20 units', category: 'Electrical' },
+                    { id: 31, name: 'Wood Screws (100pcs)', quantity: '5-10 packs', category: 'Fasteners' }
+                ]
+            },
+            'fence': {
+                name: 'Fence/Wall Construction',
+                materials: [
+                    { id: 1, name: 'Cement Bag (50kg)', quantity: '30-50 bags', category: 'Construction' },
+                    { id: 11, name: 'Steel Rods (16mm)', quantity: '20-40 pieces', category: 'Metals' },
+                    { id: 19, name: 'Corrugated Iron Sheets', quantity: '50-100 sheets', category: 'Metals' },
+                    { id: 15, name: 'Nails (1kg)', quantity: '5-10 kg', category: 'Metals' }
+                ]
+            },
+            'roofing': {
+                name: 'Roofing Project',
+                materials: [
+                    { id: 44, name: 'Roofing Tiles', quantity: '500-1000 pieces', category: 'Building' },
+                    { id: 41, name: 'Timber Planks', quantity: '100-200 pieces', category: 'Building' },
+                    { id: 15, name: 'Nails (1kg)', quantity: '3-5 kg', category: 'Metals' },
+                    { id: 49, name: 'Roofing Felt', quantity: '2-4 rolls', category: 'Building' }
+                ]
+            }
+        };
+    }
+
+    generateMaterialPlan(projectType, size, description) {
+        const template = this.projectTemplates[projectType];
+        if (!template) return null;
+
+        // AI logic to adjust quantities based on size and description
+        let adjustedMaterials = template.materials.map(material => {
+            let adjustedQuantity = material.quantity;
+            
+            // Simple AI adjustment based on project size
+            if (size) {
+                const baseSize = projectType === 'small-house' ? 1000 : 
+                                projectType === 'medium-house' ? 2000 : 
+                                projectType === 'large-house' ? 3000 : 500;
+                const sizeFactor = size / baseSize;
+                
+                // Adjust quantity based on size factor
+                if (material.category === 'Construction') {
+                    adjustedQuantity = this.adjustQuantity(material.quantity, sizeFactor * 1.2);
+                } else if (material.category === 'Building') {
+                    adjustedQuantity = this.adjustQuantity(material.quantity, sizeFactor * 1.1);
+                } else {
+                    adjustedQuantity = this.adjustQuantity(material.quantity, sizeFactor);
+                }
+            }
+
+            // AI analysis of description for additional requirements
+            if (description) {
+                const desc = description.toLowerCase();
+                if (desc.includes('modern') && material.category === 'Finishing') {
+                    adjustedQuantity = this.adjustQuantity(adjustedQuantity, 1.3);
+                }
+                if (desc.includes('affordable') && material.category === 'Construction') {
+                    adjustedQuantity = this.adjustQuantity(adjustedQuantity, 0.9);
+                }
+                if (desc.includes('luxury') && material.category === 'Finishing') {
+                    adjustedQuantity = this.adjustQuantity(adjustedQuantity, 1.5);
+                }
+                if (desc.includes('sustainable') && material.category === 'Building') {
+                    adjustedQuantity = this.adjustQuantity(adjustedQuantity, 1.1);
+                }
+            }
+
+            return {
+                ...material,
+                quantity: adjustedQuantity
+            };
+        });
+
+        return {
+            projectName: template.name,
+            materials: adjustedMaterials,
+            size: size,
+            description: description
+        };
+    }
+
+    adjustQuantity(quantity, factor) {
+        // Simple quantity adjustment logic
+        const range = quantity.split('-');
+        if (range.length === 2) {
+            const min = parseInt(range[0]);
+            const max = parseInt(range[1]);
+            const adjustedMin = Math.round(min * factor);
+            const adjustedMax = Math.round(max * factor);
+            return `${adjustedMin}-${adjustedMax}`;
+        }
+        return quantity;
+    }
+}
+
+function initializeAIProjectAssistant() {
+    const aiPlanner = new AIProjectPlanner();
+    const generatePlanBtn = document.getElementById('generatePlan');
+    const aiResults = document.getElementById('aiResults');
+    const materialsList = document.getElementById('materialsList');
+    const downloadPlanBtn = document.getElementById('downloadPlan'); // Fixed variable name
+    const getQuoteAllBtn = document.getElementById('getQuoteAll');
+
+    generatePlanBtn.addEventListener('click', function() {
+        const projectType = document.getElementById('projectType').value;
+        const projectSize = document.getElementById('projectSize').value;
+        const projectDescription = document.getElementById('projectDescription').value;
+
+        if (!projectType) {
+            alert('Please select a project type');
+            return;
+        }
+
+        // Generate AI material plan
+        const plan = aiPlanner.generateMaterialPlan(projectType, projectSize, projectDescription);
+        
+        if (plan) {
+            displayMaterialPlan(plan);
+            
+            // Show results section
+            aiResults.style.display = 'block';
+            
+            // Scroll to results
+            aiResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+
+    function displayMaterialPlan(plan) {
+        materialsList.innerHTML = '';
+        
+        plan.materials.forEach(material => {
+            const materialItem = document.createElement('div');
+            materialItem.className = 'material-item';
+            materialItem.innerHTML = `
+                <div class="material-info">
+                    <h4>${material.name}</h4>
+                    <p>${material.category}</p>
+                </div>
+                <div class="material-quantity">${material.quantity}</div>
+            `;
+            materialsList.appendChild(materialItem);
+        });
+    }
+
+    downloadPlanBtn.addEventListener('click', function() {
+        // Create a downloadable PDF or text file
+        const projectType = document.getElementById('projectType').value;
+        const projectSize = document.getElementById('projectSize').value;
+        const projectDescription = document.getElementById('projectDescription').value;
+        
+        // Get the current material plan
+        const materials = Array.from(materialsList.children).map(item => {
+            const name = item.querySelector('h4').textContent;
+            const category = item.querySelector('p').textContent;
+            const quantity = item.querySelector('.material-quantity').textContent;
+            return { name, category, quantity };
+        });
+
+        // Create download content
+        const content = `
+AI-GENERATED MATERIAL PLAN
+===========================
+
+Project Type: ${projectType}
+Project Size: ${projectSize} sq ft
+Project Description: ${projectDescription}
+Generated on: ${new Date().toLocaleDateString()}
+
+MATERIALS REQUIRED:
+${materials.map((material, index) => 
+    `${index + 1}. ${material.name} (${material.category}): ${material.quantity}`
+).join('\n')}
+
+Thank you for using our AI Project Planning Assistant!
+        `.trim();
+
+        // Create and trigger download
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `material-plan-${projectType}-${new Date().getTime()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        alert('Material plan downloaded successfully!');
+    });
+
+    getQuoteAllBtn.addEventListener('click', function() {
+        // Redirect to contact form with project details
+        const projectType = document.getElementById('projectType').value;
+        const projectSize = document.getElementById('projectSize').value;
+        
+        localStorage.setItem('quoteProject', JSON.stringify({
+            type: projectType,
+            size: projectSize,
+            isAIRecommended: true
+        }));
+        
+        window.location.href = '#need-help';
+    });
+}
+
+// Initialize the AI assistant when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeAIProjectAssistant);
+
+
+// Products section
 // products dataset
 const productsData = [
   // =========================
@@ -1238,56 +1680,6 @@ function hideModal() {
     currentProducts = [];
 }
 
-// Services section 
-// Simple services initialization
-document.addEventListener('DOMContentLoaded', function() {
-    const servicesGrid = document.querySelector('.services-grid');
-    const container = document.querySelector('.services-slider-container');
-    
-    if (servicesGrid && container) {
-        // Pause on hover
-        container.addEventListener('mouseenter', function() {
-            servicesGrid.style.animationPlayState = 'paused';
-        });
-        
-        container.addEventListener('mouseleave', function() {
-            servicesGrid.style.animationPlayState = 'running';
-        });
-        
-        // Pause on touch
-        container.addEventListener('touchstart', function() {
-            servicesGrid.style.animationPlayState = 'paused';
-        });
-        
-        container.addEventListener('touchend', function() {
-            setTimeout(() => {
-                servicesGrid.style.animationPlayState = 'running';
-            }, 1000);
-        });
-    }
-});
-
-//Trusted Brands section
-// Continuous scrolling for Trusted Brands
-const brandsGrid = document.querySelector('.brands-grid');
-const brandsContainer = document.querySelector('.brands-slider-container');
-
-// Remove the old slider functionality and keep only hover effects
-if (brandsContainer) {
-    // Pause animation on hover for better UX
-    brandsContainer.addEventListener('mouseenter', () => {
-        brandsGrid.style.animationPlayState = 'paused';
-    });
-    
-    brandsContainer.addEventListener('mouseleave', () => {
-        brandsGrid.style.animationPlayState = 'running';
-    });
-    
-    // Optional: Reset animation to prevent long pauses
-    brandsGrid.addEventListener('animationiteration', () => {
-        // This ensures smooth continuous looping
-    });
-}
 
 // Business Hours Status Function
 function updateBusinessStatus() {
@@ -1401,6 +1793,59 @@ function updateFooterBusinessStatus() {
     footerStatusElement.className = 'business-status ' + statusClass;
     
     setTimeout(updateFooterBusinessStatus, 60000);
+}
+
+// ... [KEEP ALL YOUR EXISTING UTILITY FUNCTIONS AT THE END] ...
+
+// Services section 
+// Simple services initialization
+document.addEventListener('DOMContentLoaded', function() {
+    const servicesGrid = document.querySelector('.services-grid');
+    const container = document.querySelector('.services-slider-container');
+    
+    if (servicesGrid && container) {
+        // Pause on hover
+        container.addEventListener('mouseenter', function() {
+            servicesGrid.style.animationPlayState = 'paused';
+        });
+        
+        container.addEventListener('mouseleave', function() {
+            servicesGrid.style.animationPlayState = 'running';
+        });
+        
+        // Pause on touch
+        container.addEventListener('touchstart', function() {
+            servicesGrid.style.animationPlayState = 'paused';
+        });
+        
+        container.addEventListener('touchend', function() {
+            setTimeout(() => {
+                servicesGrid.style.animationPlayState = 'running';
+            }, 1000);
+        });
+    }
+});
+
+//Trusted Brands section
+// Continuous scrolling for Trusted Brands
+const brandsGrid = document.querySelector('.brands-grid');
+const brandsContainer = document.querySelector('.brands-slider-container');
+
+// Remove the old slider functionality and keep only hover effects
+if (brandsContainer) {
+    // Pause animation on hover for better UX
+    brandsContainer.addEventListener('mouseenter', () => {
+        brandsGrid.style.animationPlayState = 'paused';
+    });
+    
+    brandsContainer.addEventListener('mouseleave', () => {
+        brandsGrid.style.animationPlayState = 'running';
+    });
+    
+    // Optional: Reset animation to prevent long pauses
+    brandsGrid.addEventListener('animationiteration', () => {
+        // This ensures smooth continuous looping
+    });
 }
 
 // Keyboard navigation support for mobile menu
