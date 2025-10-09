@@ -262,7 +262,9 @@ function initializeSearchFunctionality() {
             <h4>${product.name}</h4>
             <div class="search-product-actions">
                 <button class="btn btn-primary" onclick="showProductDetail('${product.id}')">View Details</button>
-                <button class="btn btn-secondary" onclick="requestQuote('${product.id}')">Get Quote</button>
+                <a href="#need-help" class="btn btn-primary quote-btn-nav" id="quoteBtn">Get Quote</a>
+
+                
             </div>
         `;
         
