@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -575,251 +577,6 @@ section {
     color: #adb5bd;
     margin-bottom: 20px;
 }
-
-
-/* AI Assistant Styles */
-.ai-assistant {
-    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
-    padding: 80px 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.ai-assistant::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.ai-assistant .section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.ai-assistant .section-header p {
-    font-size: 1.2rem;
-    color: #6c757d;
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 3rem;
-}
-
-.assistant-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.project-input-section {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 1.5rem;
-}
-
-.input-group label {
-    font-weight: 600;
-    color: #2c3e50;
-    font-size: 0.95rem;
-}
-
-.input-group input,
-.input-group select,
-.input-group textarea {
-    padding: 12px 15px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    background: white;
-    color: #2c3e50;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.input-group input::placeholder,
-.input-group textarea::placeholder {
-    color: #6c757d;
-}
-
-.input-group input:focus,
-.input-group select:focus,
-.input-group textarea:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-    background: white;
-}
-
-.input-group:last-child {
-    grid-column: 1 / -1;
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-    color: white;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
-}
-
-.btn-large {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    width: 100%;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.btn-secondary {
-    background: #6c757d;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background: #5a6268;
-    transform: translateY(-1px);
-}
-
-/* Download Plan Button Specific Styles */
-#downloadPlan {
-    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-    color: white;
-}
-
-#downloadPlan:hover {
-    background: linear-gradient(135deg, #219653 0%, #27ae60 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
-}
-
-/* AI Results */
-.ai-results-section {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    margin-top: 0;
-}
-
-.ai-results-section .results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #f8f9fa;
-}
-
-.ai-results-section .results-header h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin: 0;
-}
-
-
-.materials-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-}
-
-.material-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #3498db;
-    transition: all 0.3s ease;
-}
-
-.material-item:hover {
-    transform: translateX(5px);
-    background: #e9ecef;
-}
-
-.material-info h4 {
-    margin: 0 0 0.25rem 0;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.material-info p {
-    margin: 0;
-    color: #6c757d;
-    font-size: 0.85rem;
-}
-
-.material-quantity {
-    font-weight: 700;
-    color: #3498db;
-    font-size: 1rem;
-}
-
-/* Plan Actions - Responsive Fix */
-.plan-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-}
-
-.plan-actions .btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: fit-content;
-    justify-content: center;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .search-box {
@@ -853,73 +610,7 @@ section {
     .search-product-actions {
         flex-direction: column;
     }
-    
-    .assistant-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 0 1rem;
-    }
-    
-    .project-input-section,
-    .ai-results-section {
-        padding: 2rem;
-    }
-    
-    .ai-assistant .section-header h2 {
-        font-size: 2rem;
-    }
-    
-    .plan-actions {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .plan-actions .btn {
-        width: 100%;
-        justify-content: center;
-        padding: 1rem 1.5rem;
-    }
-    
-    .material-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    .material-quantity {
-        align-self: flex-end;
-    }
-}
 
-@media (max-width: 480px) {
-    .ai-assistant {
-        padding: 60px 0;
-    }
-    
-    .project-input-section,
-    .ai-results-section {
-        padding: 1.5rem;
-    }
-    
-    .ai-assistant .section-header h2 {
-        font-size: 1.75rem;
-    }
-    
-    .ai-assistant .section-header p {
-        font-size: 1rem;
-    }
-    
-    .results-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-    
-    .plan-actions .btn {
-        font-size: 0.95rem;
-        padding: 0.875rem 1.25rem;
-    }
-    
     /* Ensure buttons don't overflow on very small screens */
     .btn-large,
     .plan-actions .btn {
@@ -941,6 +632,509 @@ section {
         height: 14px;
     }
 }
+
+
+
+
+
+/* ========================= */
+/* AI ASSISTANT SECTION */
+/* ========================= */
+
+/* Custom Tailwind Configuration (Setting the dark primary color) */
+:root {
+    --primary-dark: #1a4a8d; /* A dark blue for the header */
+    --primary-blue: #3b82f6; /* Tailwind: blue-500 */
+}
+
+/* General Body and Container Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f1f5f9; 
+}
+
+/* Header Styling (Dark Blue) */
+.main-header {
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Input Card Styling (White Card) */
+.main-card {
+    background-color: white;
+    padding: 2rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) { /* Tailwind: md breakpoint */
+    .input-row {
+        flex-direction: row;
+    }
+}
+
+.input-group {
+    flex: 1;
+}
+
+/* Input Field Styling for Project Details */
+.input-group select,
+.input-group input[type="text"],
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1; /* Tailwind: border-slate-300 */
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    transition: border-color 0.2s;
+    height: 48px;
+}
+
+.input-group select:focus,
+.input-group input:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--primary-blue);
+}
+
+/* Button Styling for Plan Generation */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #2563eb; /* Tailwind: bg-blue-600 */
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff;
+    border-radius: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Chat Specific Styles --- */
+
+/* Message Bubbles - MINIMAL PADDING for 'from the edge' feel */
+.ai-chat-bubble {
+    background-color: #f8fafc; /* bg-slate-50 */
+    border: 1px solid #e2e8f0; /* border-slate-200 */
+    border-radius: 0.75rem;
+    padding: 0.5rem; /* Reduced to 8px for minimal spacing */
+    line-height: 1.6;
+}
+
+.user-chat-bubble {
+    background-color: #dbeafe; /* bg-blue-100 */
+    border: 1px solid #93c5fd; /* border-blue-300 */
+    border-radius: 0.75rem;
+    padding: 0.5rem; /* Reduced to 8px for minimal spacing */
+    line-height: 1.6;
+    /* Move user message to the right */
+    margin-left: auto;
+    max-width: 80%;
+}
+
+.ai-chat-bubble p, .user-chat-bubble p {
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+    color: #334155;
+    /* Ensures the paragraph starts right after the header without extra margin */
+    margin-top: 0; 
+    margin-bottom: 0;
+}
+
+.ai-chat-bubble strong, .user-chat-bubble strong {
+    font-weight: 600;
+}
+
+/* Chat Input Bar Container */
+.chat-input-container {
+    display: flex;
+    gap: 0.75rem; /* Slightly more space */
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Professional Chat Input Field */
+#chatInput {
+    flex-grow: 1;
+    height: 44px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    border: none;
+    background-color: #f1f5f9; /* Light gray background */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06); /* Subtle inner shadow */
+}
+
+#chatInput:focus {
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 0 2px var(--primary-blue); /* Outer shadow for clean focus */
+}
+
+/* Professional Send Button (Circular) */
+.send-btn {
+    width: 44px;
+    height: 44px;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 9999px; /* rounded-full */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s;
+    cursor: pointer;
+    border: none;
+    flex-shrink: 0; 
+}
+
+.send-btn:hover:not(:disabled) {
+    background-color: #2563eb; 
+    transform: translateY(-1px); /* Subtle lift effect */
+}
+
+.send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--primary-blue);
+    transform: none;
+}
+
+/* ========================= */
+/* ENHANCED RESPONSIVE DESIGN */
+/* ========================= */
+
+/* Mobile-first responsive improvements */
+@media (max-width: 768px) {
+    .ai-assistant .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .main-card {
+        padding: 1.25rem;
+        margin: 0.5rem;
+    }
+    
+    .input-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .input-group {
+        width: 100%;
+    }
+    
+    .header-brand h1 {
+        font-size: 1.125rem;
+    }
+    
+    .main-header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .main-header > div:last-child {
+        align-self: flex-end;
+        font-size: 0.75rem;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    #chatHistory {
+        max-height: 300px;
+        font-size: 0.9rem;
+    }
+    
+    .ai-chat-bubble,
+    .user-chat-bubble {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .user-chat-bubble {
+        max-width: 95%;
+        margin-left: 0;
+    }
+    
+    .chat-input-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    #chatInput {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .send-btn {
+        align-self: flex-end;
+    }
+}
+
+/* Tablet responsive adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-card {
+        padding: 1.5rem;
+    }
+    
+    .input-row {
+        gap: 1rem;
+    }
+    
+    #chatHistory {
+        max-height: 350px;
+    }
+}
+
+/* Large screen enhancements */
+@media (min-width: 1025px) {
+    .assistant-container {
+        max-width: 48rem;
+        margin: 0 auto;
+    }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    .send-btn,
+    .input-group select,
+    .input-group input {
+        min-height: 44px; /* Better touch targets */
+    }
+    
+    .ai-chat-bubble,
+    .user-chat-bubble {
+        padding: 1rem;
+    }
+}
+
+/* ========================= */
+/* ACCESSIBILITY IMPROVEMENTS */
+/* ========================= */
+
+/* Focus styles for keyboard navigation */
+.btn:focus,
+.send-btn:focus,
+.input-group select:focus,
+.input-group input:focus,
+#chatInput:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* High contrast mode improvements */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        border: 2px solid currentColor;
+    }
+    
+    .input-group select,
+    .input-group input {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .ai-assistant {
+        background-color: #1e293b;
+    }
+    
+    .main-card {
+        background-color: #334155;
+        color: #f1f5f9;
+    }
+    
+    .input-group select,
+    .input-group input {
+        background-color: #475569;
+        border-color: #64748b;
+        color: #f1f5f9;
+    }
+    
+    .input-group select:focus,
+    .input-group input:focus {
+        border-color: #3b82f6;
+    }
+    
+    .ai-chat-bubble {
+        background-color: #475569;
+        border-color: #64748b;
+        color: #f1f5f9;
+    }
+    
+    .user-chat-bubble {
+        background-color: #1e40af;
+        border-color: #3b82f6;
+        color: #f1f5f9;
+    }
+    
+    #chatInput {
+        background-color: #475569;
+        color: #f1f5f9;
+    }
+    
+    .ai-chat-bubble p, 
+    .user-chat-bubble p {
+        color: #f1f5f9;
+    }
+}
+
+/* Enhanced high contrast mode support */
+@media (prefers-contrast: high) {
+    .ai-chat-bubble {
+        border: 2px solid #1e40af;
+        background-color: #ffffff;
+    }
+    
+    .user-chat-bubble {
+        border: 2px solid #1e3a8a;
+        background-color: #dbeafe;
+    }
+    
+    .btn-primary {
+        border: 2px solid #1e40af;
+    }
+    
+    .main-header {
+        border: 1px solid #000;
+    }
+}
+
+/* Print styles */
+@media print {
+    .ai-assistant {
+        background-color: white !important;
+    }
+    
+    .main-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    .btn, .send-btn, .chat-input-container {
+        display: none !important;
+    }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation-duration: 2s;
+    }
+    
+    * {
+        scroll-behavior: auto;
+    }
+}
+
+/* Error state enhancements */
+.input-group select:invalid,
+.input-group input:invalid {
+    border-color: #ef4444;
+}
+
+.input-group select:valid,
+.input-group input:valid {
+    border-color: #10b981;
+}
+
+/* Loading state improvements */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Smooth scrolling for chat history */
+#chatHistory {
+    scroll-behavior: smooth;
+}
+
+/* Selection styles */
+.ai-chat-bubble ::selection,
+.user-chat-bubble ::selection {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* Focus visible for keyboard users */
+.btn:focus-visible,
+.send-btn:focus-visible,
+.input-group select:focus-visible,
+.input-group input:focus-visible,
+#chatInput:focus-visible {
+    outline: 3px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+
+
 
 
 /* Services Section */
