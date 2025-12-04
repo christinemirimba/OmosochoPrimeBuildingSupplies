@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
-import { Music } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, Music } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -49,11 +48,14 @@ const Footer = () => {
               <Link to="/products" className="text-background/80 hover:text-background transition-colors">
                 Products
               </Link>
+              <Link to="/services" className="text-background/80 hover:text-background transition-colors">
+                Services
+              </Link>
+              <Link to="/plan" className="text-background/80 hover:text-background transition-colors">
+                Plan Your Project
+              </Link>
               <Link to="/about" className="text-background/80 hover:text-background transition-colors">
                 About Us
-              </Link>
-              <Link to="/testimonials" className="text-background/80 hover:text-background transition-colors">
-                Testimonials
               </Link>
               <Link to="/contact" className="text-background/80 hover:text-background transition-colors">
                 Contact
@@ -61,21 +63,21 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Categories */}
+          {/* Resources */}
           <div className="space-y-4">
-            <h3 className="text-lg font-heading font-semibold">Categories</h3>
+            <h3 className="text-lg font-heading font-semibold">Resources</h3>
             <nav className="flex flex-col space-y-2">
-              <Link to="/products?category=construction" className="text-background/80 hover:text-background transition-colors">
-                Construction Materials
+              <Link to="/faq" className="text-background/80 hover:text-background transition-colors">
+                FAQ
               </Link>
-              <Link to="/products?category=metals" className="text-background/80 hover:text-background transition-colors">
-                Metals & Steel
+              <Link to="/privacy" className="text-background/80 hover:text-background transition-colors">
+                Privacy Policy
               </Link>
-              <Link to="/products?category=tools" className="text-background/80 hover:text-background transition-colors">
-                Tools & Equipment
+              <Link to="/ai-support" className="text-background/80 hover:text-background transition-colors">
+                AI Support
               </Link>
-              <Link to="/products?category=safety" className="text-background/80 hover:text-background transition-colors">
-                Safety Gear
+              <Link to="/testimonials" className="text-background/80 hover:text-background transition-colors">
+                Testimonials
               </Link>
             </nav>
           </div>
@@ -117,11 +119,11 @@ const Footer = () => {
               <Link to="/privacy" className="text-background/60 hover:text-background transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-background/60 hover:text-background transition-colors">
-                Terms of Service
+              <Link to="/faq" className="text-background/60 hover:text-background transition-colors">
+                FAQ
               </Link>
-              <Link to="/shipping" className="text-background/60 hover:text-background transition-colors">
-                Shipping Info
+              <Link to="/contact" className="text-background/60 hover:text-background transition-colors">
+                Contact
               </Link>
             </div>
           </div>

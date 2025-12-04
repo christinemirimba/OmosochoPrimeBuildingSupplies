@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import FadeInSection from '@/components/FadeInSection';
-import AIChatbot from '@/components/AIChatbot';
 import heroImage from '@/assets/hero-construction.jpg';
 import cementImage from '@/assets/category-cement.jpg';
 import toolsImage from '@/assets/category-tools.jpg';
@@ -317,9 +316,6 @@ const Index = () => {
           </FadeInSection>
         </div>
       </section>
-
-      {/* AI Chatbot Section */}
-      <AIChatbot />
 
       {/* CTA Section */}
       <section className="py-20 bg-hero">
