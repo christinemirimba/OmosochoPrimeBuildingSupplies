@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Search, Grid, List, Filter, X, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,334 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FadeInSection from '@/components/FadeInSection';
-
-// Sample product data
-const products = [
-  // Construction Materials
-  {
-    id: '1',
-    name: 'Premium Portland Cement',
-    description: 'High-grade Portland cement for construction projects',
-    category: 'construction',
-    brand: 'simba',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '2',
-    name: 'Sand & Gravel',
-    description: 'Quality sand and gravel for concrete mixing',
-    category: 'construction',
-    brand: 'simba',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '3',
-    name: 'Bricks & Blocks',
-    description: 'Durable bricks and concrete blocks',
-    category: 'construction',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  {
-    id: '4',
-    name: 'Tiles',
-    description: 'Floor and wall tiles for finishing',
-    category: 'finishing',
-    brand: 'twyford',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.5,
-  },
-  
-  // Metals & Steel
-  {
-    id: '5',
-    name: 'Reinforcing Steel Bars (Rebar)',
-    description: 'High-strength steel bars for reinforced concrete',
-    category: 'metals',
-    brand: 'maisha',
-    image: '/src/assets/category-steel.jpg',
-    inStock: true,
-    rating: 4.9,
-  },
-  {
-    id: '6',
-    name: 'Steel Beams & Channels',
-    description: 'Structural steel beams and channels',
-    category: 'metals',
-    image: '/src/assets/category-steel.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '7',
-    name: 'Pipes & Tubes',
-    description: 'Steel pipes and tubes for construction',
-    category: 'metals',
-    image: '/src/assets/category-steel.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '8',
-    name: 'Wire Mesh',
-    description: 'Welded wire mesh for reinforcement',
-    category: 'metals',
-    image: '/src/assets/category-steel.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  
-  // Tools & Equipment
-  {
-    id: '9',
-    name: 'Hand Tools',
-    description: 'Hammers, screwdrivers, wrenches, pliers',
-    category: 'tools',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '10',
-    name: 'Power Tools',
-    description: 'Drills, saws, grinders for professional use',
-    category: 'tools',
-    brand: 'bosch',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.9,
-  },
-  {
-    id: '11',
-    name: 'Measuring Tools',
-    description: 'Tape measures, levels, calipers',
-    category: 'tools',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '12',
-    name: 'Cutting Tools',
-    description: 'Blades, cutters, chisels for precision work',
-    category: 'tools',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  
-  // Fasteners & Fittings
-  {
-    id: '13',
-    name: 'Nails & Screws',
-    description: 'Various nails and screws for construction',
-    category: 'fasteners',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.5,
-  },
-  {
-    id: '14',
-    name: 'Bolts & Nuts',
-    description: 'Heavy-duty bolts and nuts',
-    category: 'fasteners',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '15',
-    name: 'Anchors & Hooks',
-    description: 'Wall anchors and mounting hooks',
-    category: 'fasteners',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  
-  // Building Hardware
-  {
-    id: '16',
-    name: 'Hinges & Locks',
-    description: 'Door hinges, locks and latches',
-    category: 'hardware',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '17',
-    name: 'Handles & Knobs',
-    description: 'Door handles and cabinet knobs',
-    category: 'hardware',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.5,
-  },
-  
-  // Electrical Hardware
-  {
-    id: '18',
-    name: 'Switches & Sockets',
-    description: 'Electrical switches and power sockets',
-    category: 'electrical',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '19',
-    name: 'Cables & Wires',
-    description: 'Electrical cables and wiring',
-    category: 'electrical',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  {
-    id: '20',
-    name: 'Circuit Breakers',
-    description: 'Electrical circuit breakers and panels',
-    category: 'electrical',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  
-  // Plumbing Hardware
-  {
-    id: '21',
-    name: 'Plumbing Pipes & Fittings',
-    description: 'Water pipes and plumbing fittings',
-    category: 'plumbing',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '22',
-    name: 'Taps & Faucets',
-    description: 'Kitchen and bathroom taps',
-    category: 'plumbing',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  {
-    id: '23',
-    name: 'Water Tanks',
-    description: 'Plastic and steel water storage tanks',
-    category: 'plumbing',
-    image: '/src/assets/category-tools.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  
-  // Safety Gear
-  {
-    id: '24',
-    name: 'Safety Helmets',
-    description: 'Hard hats and protective helmets',
-    category: 'safety',
-    image: '/src/assets/category-safety.jpg',
-    inStock: true,
-    rating: 4.9,
-  },
-  {
-    id: '25',
-    name: 'Safety Gloves & Boots',
-    description: 'Protective gloves and safety boots',
-    category: 'safety',
-    image: '/src/assets/category-safety.jpg',
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '26',
-    name: 'Goggles & Face Shields',
-    description: 'Eye protection and face shields',
-    category: 'safety',
-    image: '/src/assets/category-safety.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '27',
-    name: 'Reflective Jackets',
-    description: 'High-visibility safety jackets',
-    category: 'safety',
-    image: '/src/assets/category-safety.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-  
-  // Finishing Materials
-  {
-    id: '28',
-    name: 'Paints & Primers',
-    description: 'Interior and exterior paints',
-    category: 'finishing',
-    brand: 'crown',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '29',
-    name: 'Varnishes & Sealants',
-    description: 'Wood varnishes and waterproof sealants',
-    category: 'finishing',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.5,
-  },
-  {
-    id: '30',
-    name: 'Adhesives & Grout',
-    description: 'Construction adhesives and tile grout',
-    category: 'finishing',
-    image: '/src/assets/category-cement.jpg',
-    inStock: true,
-    rating: 4.6,
-  },
-];
-
-const categories = [
-  { id: 'all', name: 'All Products' },
-  { id: 'construction', name: '🧱 Construction Materials' },
-  { id: 'metals', name: '🔩 Metals & Steel' },
-  { id: 'tools', name: '🛠️ Tools & Equipment' },
-  { id: 'fasteners', name: '🧰 Fasteners & Fittings' },
-  { id: 'hardware', name: '🚪 Building Hardware' },
-  { id: 'electrical', name: '⚡ Electrical Hardware' },
-  { id: 'plumbing', name: '💧 Plumbing Hardware' },
-  { id: 'safety', name: '🦺 Safety Gear' },
-  { id: 'finishing', name: '🎨 Finishing Materials' },
-];
-
-const brands = [
-  { id: 'all', name: 'All Brands' },
-  { id: 'crown', name: 'Crown Paints' },
-  { id: 'simba', name: 'Simba Cement' },
-  { id: 'maisha', name: 'Maisha Mabati' },
-  { id: 'twyford', name: 'Twyford Tiles' },
-  { id: 'bosch', name: 'Bosch' },
-];
-
-const quickSearches = [
-  { id: 'cement', label: 'Cement' },
-  { id: 'paint', label: 'Paint' },
-  { id: 'hammer', label: 'Hammer' },
-  { id: 'nails', label: 'Nails' },
-  { id: 'tiles', label: 'Tiles' },
-  { id: 'power tools', label: 'Power Tools' },
-];
+import { products, categories, brands, quickSearches } from '@/data/products';
 
 const Products = () => {
   const [searchParams] = useSearchParams();
@@ -671,48 +344,50 @@ const Products = () => {
           }>
             {sortedProducts.map((product, index) => (
               <FadeInSection key={product.id} delay={index * 100}>
-                <Card className="card-product h-full">
-                  <CardHeader className="p-0">
-                    <div className="aspect-square overflow-hidden rounded-t-lg">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-2">
-                      <CardTitle className="text-lg font-semibold line-clamp-2">
-                        {product.name}
-                      </CardTitle>
-                      <Badge variant={product.inStock ? "default" : "secondary"}>
-                        {product.inStock ? "In Stock" : "Out of Stock"}
-                      </Badge>
-                    </div>
-                    <CardDescription className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                      {product.description}
-                    </CardDescription>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-semibold text-primary">
-                        Available
-                      </span>
-                      <div className="flex items-center gap-1">
-                        <span className="text-sm text-muted-foreground">★</span>
-                        <span className="text-sm font-medium">{product.rating}</span>
+                <Link to={`/product/${product.id}`}>
+                  <Card className="card-product h-full cursor-pointer hover:shadow-lg transition-shadow">
+                    <CardHeader className="p-0">
+                      <div className="aspect-square overflow-hidden rounded-t-lg">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter className="p-6 pt-0">
-                    <Button 
-                      className="w-full" 
-                      disabled={!product.inStock}
-                      variant={product.inStock ? "default" : "secondary"}
-                    >
-                      {product.inStock ? "Contact Us" : "Out of Stock"}
-                    </Button>
-                  </CardFooter>
-                </Card>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-2">
+                        <CardTitle className="text-lg font-semibold line-clamp-2">
+                          {product.name}
+                        </CardTitle>
+                        <Badge variant={product.inStock ? "default" : "secondary"}>
+                          {product.inStock ? "In Stock" : "Out of Stock"}
+                        </Badge>
+                      </div>
+                      <CardDescription className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        {product.description}
+                      </CardDescription>
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-semibold text-primary">
+                          Available
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-sm text-muted-foreground">★</span>
+                          <span className="text-sm font-medium">{product.rating}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="p-6 pt-0">
+                      <Button 
+                        className="w-full" 
+                        disabled={!product.inStock}
+                        variant={product.inStock ? "default" : "secondary"}
+                      >
+                        {product.inStock ? "View Details" : "Out of Stock"}
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </Link>
               </FadeInSection>
             ))}
           </div>

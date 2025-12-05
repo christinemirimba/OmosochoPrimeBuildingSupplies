@@ -1,40 +1,12 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus, Star, Shield, Truck, HeadphonesIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import FadeInSection from '@/components/FadeInSection';
-
-// Sample product data (would come from API)
-const productDetails = {
-  '1': {
-    id: '1',
-    name: 'Premium Portland Cement',
-    description: 'High-grade Portland cement suitable for all types of construction projects. This cement provides excellent strength and durability for both residential and commercial applications.',
-    price: 12.99,
-    category: 'cement',
-    images: ['/src/assets/category-cement.jpg'],
-    inStock: true,
-    rating: 4.8,
-    reviews: 124,
-    specifications: {
-      'Weight': '50 kg',
-      'Type': 'Portland Cement',
-      'Grade': 'Grade 53',
-      'Compressive Strength': '53 MPa',
-      'Setting Time': '30 minutes initial, 600 minutes final',
-    },
-    features: [
-      'Superior strength and durability',
-      'Consistent quality and performance',
-      'Suitable for all weather conditions',
-      'Meets international standards',
-      'Eco-friendly production process',
-    ],
-  },
-};
+import { getProductById, products } from '@/data/products';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -42,7 +14,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const product = productDetails[id as keyof typeof productDetails];
+  const product = id ? getProductById(id) : undefined;
 
   if (!product) {
     return (
@@ -61,20 +33,12 @@ const ProductDetail = () => {
     setQuantity(Math.max(1, quantity + change));
   };
 
-  const relatedProducts = [
-    {
-      id: '2',
-      name: 'Professional Power Drill',
-      price: 89.99,
-      image: '/src/assets/category-tools.jpg',
-    },
-    {
-      id: '3',
-      name: 'Reinforcing Steel Bars',
-      price: 45.50,
-      image: '/src/assets/category-steel.jpg',
-    },
-  ];
+  // Get related products from the same category
+  const relatedProducts = products
+    .filter(p => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
+
+  const productImages = [product.image];
 
   return (
     <div className="min-h-screen bg-background">
@@ -97,14 +61,14 @@ const ProductDetail = () => {
             <div className="space-y-4">
               <div className="aspect-square overflow-hidden rounded-lg bg-secondary">
                 <img
-                  src={product.images[selectedImage]}
+                  src={productImages[selectedImage]}
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
               </div>
-              {product.images.length > 1 && (
+              {productImages.length > 1 && (
                 <div className="flex gap-2">
-                  {product.images.map((image, index) => (
+                  {productImages.map((image, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
@@ -149,7 +113,9 @@ const ProductDetail = () => {
                     ))}
                     <span className="font-medium ml-2">{product.rating}</span>
                   </div>
-                  <span className="text-muted-foreground">({product.reviews} reviews)</span>
+                  {product.reviews && (
+                    <span className="text-muted-foreground">({product.reviews} reviews)</span>
+                  )}
                 </div>
                 <p className="text-muted-foreground text-lg leading-relaxed">
                   {product.description}
@@ -157,8 +123,8 @@ const ProductDetail = () => {
               </div>
 
               <div className="space-y-4">
-                <div className="text-3xl font-bold text-primary">
-                  ${product.price}
+                <div className="text-2xl font-semibold text-primary">
+                  Available - Contact for Quote
                 </div>
 
                 {/* Quantity Selector */}
@@ -184,14 +150,16 @@ const ProductDetail = () => {
                   </div>
                 </div>
 
-                {/* Add to Cart Button */}
+                {/* Action Buttons */}
                 <div className="flex gap-4">
-                  <Button 
-                    className="btn-hero flex-1"
-                    disabled={!product.inStock}
-                  >
-                    Add to Cart - ${(product.price * quantity).toFixed(2)}
-                  </Button>
+                  <Link to="/contact" className="flex-1">
+                    <Button 
+                      className="btn-hero w-full"
+                      disabled={!product.inStock}
+                    >
+                      Get Quote
+                    </Button>
+                  </Link>
                   <Button variant="outline">
                     Add to Wishlist
                   </Button>
@@ -221,74 +189,83 @@ const ProductDetail = () => {
         <FadeInSection delay={400}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Specifications */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Specifications</CardTitle>
-                <CardDescription>Technical details and specifications</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between py-2 border-b border-border last:border-b-0">
-                      <span className="font-medium">{key}</span>
-                      <span className="text-muted-foreground">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            {product.specifications && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Specifications</CardTitle>
+                  <CardDescription>Technical details and specifications</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {Object.entries(product.specifications).map(([key, value]) => (
+                      <div key={key} className="flex justify-between py-2 border-b border-border last:border-b-0">
+                        <span className="font-medium">{key}</span>
+                        <span className="text-muted-foreground">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Features */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Key Features</CardTitle>
-                <CardDescription>What makes this product special</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            {product.features && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Key Features</CardTitle>
+                  <CardDescription>What makes this product special</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {product.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </FadeInSection>
 
         {/* Related Products */}
-        <FadeInSection delay={600}>
-          <div>
-            <h3 className="text-2xl font-bold mb-6">Related Products</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relatedProducts.map((relatedProduct, index) => (
-                <FadeInSection key={relatedProduct.id} delay={index * 100}>
-                  <Card className="card-product cursor-pointer" onClick={() => navigate(`/product/${relatedProduct.id}`)}>
-                    <CardHeader className="p-0">
-                      <div className="aspect-square overflow-hidden rounded-t-lg">
-                        <img
-                          src={relatedProduct.image}
-                          alt={relatedProduct.name}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-4">
-                      <CardTitle className="text-sm font-semibold line-clamp-2 mb-2">
-                        {relatedProduct.name}
-                      </CardTitle>
-                      <div className="text-lg font-bold text-primary">
-                        ${relatedProduct.price}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </FadeInSection>
-              ))}
+        {relatedProducts.length > 0 && (
+          <FadeInSection delay={600}>
+            <div>
+              <h3 className="text-2xl font-bold mb-6">Related Products</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {relatedProducts.map((relatedProduct, index) => (
+                  <FadeInSection key={relatedProduct.id} delay={index * 100}>
+                    <Link to={`/product/${relatedProduct.id}`}>
+                      <Card className="card-product cursor-pointer">
+                        <CardHeader className="p-0">
+                          <div className="aspect-square overflow-hidden rounded-t-lg">
+                            <img
+                              src={relatedProduct.image}
+                              alt={relatedProduct.name}
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
+                        </CardHeader>
+                        <CardContent className="p-4">
+                          <CardTitle className="text-sm font-semibold line-clamp-2 mb-2">
+                            {relatedProduct.name}
+                          </CardTitle>
+                          <div className="flex items-center gap-1">
+                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                            <span className="text-sm font-medium">{relatedProduct.rating}</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </FadeInSection>
+                ))}
+              </div>
             </div>
-          </div>
-        </FadeInSection>
+          </FadeInSection>
+        )}
       </div>
     </div>
   );
