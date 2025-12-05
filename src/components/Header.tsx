@@ -26,7 +26,6 @@ const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
     { name: 'Products', href: '/products' },
     { name: 'Services', href: '/services' },
     { name: 'Plan', href: '/plan' },

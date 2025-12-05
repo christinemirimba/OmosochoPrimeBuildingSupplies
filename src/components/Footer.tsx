@@ -42,9 +42,6 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-heading font-semibold">Quick Links</h3>
             <nav className="flex flex-col space-y-2">
-              <Link to="/" className="text-background/80 hover:text-background transition-colors">
-                Home
-              </Link>
               <Link to="/products" className="text-background/80 hover:text-background transition-colors">
                 Products
               </Link>
