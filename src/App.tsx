@@ -23,6 +23,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Settings from "./pages/Settings";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ChatBubble from "./components/ChatBubble";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
                             </Routes>
                         </main>
                         <Footer />
+                        <ChatBubble />
                     </div>
                 </BrowserRouter>
             </TooltipProvider>
