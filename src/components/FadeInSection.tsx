@@ -1,50 +1,45 @@
-import { useEffect, useRef, useState, ReactNode } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface FadeInSectionProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
+    children: React.ReactNode;
+    delay?: number;
 }
 
-const FadeInSection = ({ children, className = '', delay = 0 }: FadeInSectionProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+const FadeInSection = ({ children, delay = 0 }: FadeInSectionProps) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const domRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, delay);
+    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        setIsVisible(true);
+                    }, delay);
+                }
+            });
+        });
+
+        const currentRef = domRef.current;
+        if (currentRef) {
+            observer.observe(currentRef);
         }
-      },
-      { threshold: 0.1 }
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [delay]);
+
+    return (
+        <div
+            className={`fade-in ${isVisible ? 'visible' : ''}`}
+            ref={domRef}
+        >
+            {children}
+        </div>
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [delay]);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        isVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-8'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
 };
 
 export default FadeInSection;

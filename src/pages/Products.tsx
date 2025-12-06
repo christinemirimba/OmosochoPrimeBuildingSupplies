@@ -14,402 +14,402 @@ import FadeInSection from '@/components/FadeInSection';
 import { products, categories, brands, quickSearches } from '@/data/products';
 
 const Products = () => {
-  const [searchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedBrand, setSelectedBrand] = useState('all');
-  const [sortBy, setSortBy] = useState('relevance');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [minRating, setMinRating] = useState(0);
-  const [showInStockOnly, setShowInStockOnly] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [searchParams] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedBrand, setSelectedBrand] = useState('all');
+    const [sortBy, setSortBy] = useState('relevance');
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [minRating, setMinRating] = useState(0);
+    const [showInStockOnly, setShowInStockOnly] = useState(false);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  useEffect(() => {
-    const searchParam = searchParams.get('search');
-    const categoryParam = searchParams.get('category');
-    if (searchParam) setSearchQuery(searchParam);
-    if (categoryParam) setSelectedCategory(categoryParam);
-  }, [searchParams]);
+    useEffect(() => {
+        const searchParam = searchParams.get('search');
+        const categoryParam = searchParams.get('category');
+        if (searchParam) setSearchQuery(searchParam);
+        if (categoryParam) setSelectedCategory(categoryParam);
+    }, [searchParams]);
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-    const matchesBrand = selectedBrand === 'all' || product.brand === selectedBrand;
-    const matchesRating = product.rating >= minRating;
-    const matchesStock = !showInStockOnly || product.inStock;
-    return matchesSearch && matchesCategory && matchesBrand && matchesRating && matchesStock;
-  });
+    const filteredProducts = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+        const matchesBrand = selectedBrand === 'all' || product.brand === selectedBrand;
+        const matchesRating = product.rating >= minRating;
+        const matchesStock = !showInStockOnly || product.inStock;
+        return matchesSearch && matchesCategory && matchesBrand && matchesRating && matchesStock;
+    });
 
-  // Sort products
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortBy === 'name-desc') {
-      return b.name.localeCompare(a.name);
-    }
-    // Default is relevance (no sorting)
-    return 0;
-  });
+    // Sort products
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        if (sortBy === 'name') {
+            return a.name.localeCompare(b.name);
+        } else if (sortBy === 'name-desc') {
+            return b.name.localeCompare(a.name);
+        }
+        // Default is relevance (no sorting)
+        return 0;
+    });
 
-  const clearFilters = () => {
-    setSelectedCategory('all');
-    setSelectedBrand('all');
-    setMinRating(0);
-    setShowInStockOnly(false);
-    setSearchQuery('');
-    setSortBy('relevance');
-  };
+    const clearFilters = () => {
+        setSelectedCategory('all');
+        setSelectedBrand('all');
+        setMinRating(0);
+        setShowInStockOnly(false);
+        setSearchQuery('');
+        setSortBy('relevance');
+    };
 
-  const activeFiltersCount = 
-    (selectedCategory !== 'all' ? 1 : 0) +
-    (selectedBrand !== 'all' ? 1 : 0) +
-    (minRating > 0 ? 1 : 0) +
-    (showInStockOnly ? 1 : 0);
+    const activeFiltersCount =
+        (selectedCategory !== 'all' ? 1 : 0) +
+        (selectedBrand !== 'all' ? 1 : 0) +
+        (minRating > 0 ? 1 : 0) +
+        (showInStockOnly ? 1 : 0);
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Header Section */}
-      <section className="bg-hero py-16">
-        <div className="container mx-auto px-4">
-          <FadeInSection>
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center text-white mb-8">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                  Find Exactly What You Need
-                </h1>
-                <p className="text-xl text-white/90">
-                  Search from 500+ hardware products, tools, and building materials
-                </p>
-              </div>
+    return (
+        <div className="min-h-screen bg-background">
+            {/* Header Section */}
+            <section className="bg-hero py-16">
+                <div className="container mx-auto px-4">
+                    <FadeInSection>
+                        <div className="max-w-4xl mx-auto">
+                            <div className="text-center text-white mb-8">
+                                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                                    Find Exactly What You Need
+                                </h1>
+                                <p className="text-xl text-white/90">
+                                    Search from 90+ hardware products, tools, and building materials
+                                </p>
+                            </div>
 
-              {/* Main Search Box */}
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20">
-                <div className="flex gap-2 mb-4">
-                  <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                    <Input
-                      type="text"
-                      placeholder="Search for products, tools, or materials..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10 pr-4 py-6 text-lg bg-white"
-                    />
-                  </div>
-                  <Button size="lg" className="px-6">
-                    <Search className="w-5 h-5 mr-2" />
-                    Search
-                  </Button>
+                            {/* Main Search Box */}
+                            <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20">
+                                <div className="flex gap-2 mb-4">
+                                    <div className="flex-1 relative">
+                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                                        <Input
+                                            type="text"
+                                            placeholder="Search for products, tools, or materials..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            className="pl-10 pr-4 py-6 text-lg bg-white"
+                                        />
+                                    </div>
+                                    <Button size="lg" className="px-6">
+                                        <Search className="w-5 h-5 mr-2" />
+                                        Search
+                                    </Button>
+                                </div>
+
+                                {/* Quick Search Tags */}
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="text-white/80 text-sm">Popular Searches:</span>
+                                    {quickSearches.map((search) => (
+                                        <Button
+                                            key={search.id}
+                                            variant="secondary"
+                                            size="sm"
+                                            onClick={() => setSearchQuery(search.id)}
+                                            className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+                                        >
+                                            {search.label}
+                                        </Button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </FadeInSection>
                 </div>
+            </section>
 
-                {/* Quick Search Tags */}
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-white/80 text-sm">Popular Searches:</span>
-                  {quickSearches.map((search) => (
-                    <Button
-                      key={search.id}
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => setSearchQuery(search.id)}
-                      className="bg-white/20 hover:bg-white/30 text-white border-white/30"
-                    >
-                      {search.label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+            <div className="container mx-auto px-4 py-12">
+                {/* Filters and Sort */}
+                <FadeInSection>
+                    <div className="space-y-6 mb-8">
+                        {/* Top Bar: Filter Button + Sort + View Mode */}
+                        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                            <div className="flex gap-2 flex-1">
+                                {/* Mobile Filter Button */}
+                                <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+                                    <SheetTrigger asChild>
+                                        <Button variant="outline" className="md:hidden relative">
+                                            <SlidersHorizontal className="w-4 h-4 mr-2" />
+                                            Filters
+                                            {activeFiltersCount > 0 && (
+                                                <Badge variant="default" className="ml-2 h-5 w-5 p-0 flex items-center justify-center rounded-full">
+                                                    {activeFiltersCount}
+                                                </Badge>
+                                            )}
+                                        </Button>
+                                    </SheetTrigger>
+                                    <SheetContent side="left" className="w-[300px] overflow-y-auto">
+                                        <SheetHeader>
+                                            <SheetTitle>Filters</SheetTitle>
+                                            <SheetDescription>
+                                                Refine your product search
+                                            </SheetDescription>
+                                        </SheetHeader>
+                                        <div className="space-y-6 mt-6">
+                                            {/* Mobile Filters Content */}
+                                            <div>
+                                                <Label className="text-sm font-semibold mb-3 block">Category</Label>
+                                                <div className="space-y-2">
+                                                    {categories.map((category) => (
+                                                        <Button
+                                                            key={category.id}
+                                                            variant={selectedCategory === category.id ? "default" : "outline"}
+                                                            onClick={() => setSelectedCategory(category.id)}
+                                                            className="w-full justify-start"
+                                                            size="sm"
+                                                        >
+                                                            {category.name}
+                                                        </Button>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <Label className="text-sm font-semibold mb-3 block">Brand</Label>
+                                                <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select brand" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {brands.map((brand) => (
+                                                            <SelectItem key={brand.id} value={brand.id}>
+                                                                {brand.name}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+
+                                            <div>
+                                                <Label className="text-sm font-semibold mb-3 block">
+                                                    Minimum Rating: {minRating.toFixed(1)}★
+                                                </Label>
+                                                <Slider
+                                                    value={[minRating]}
+                                                    onValueChange={(value) => setMinRating(value[0])}
+                                                    max={5}
+                                                    step={0.5}
+                                                    className="w-full"
+                                                />
+                                            </div>
+
+                                            <div className="flex items-center space-x-2">
+                                                <Checkbox
+                                                    id="stock-mobile"
+                                                    checked={showInStockOnly}
+                                                    onCheckedChange={(checked) => setShowInStockOnly(checked as boolean)}
+                                                />
+                                                <Label htmlFor="stock-mobile" className="text-sm cursor-pointer">
+                                                    Show in-stock only
+                                                </Label>
+                                            </div>
+
+                                            <Button onClick={clearFilters} variant="outline" className="w-full">
+                                                <X className="w-4 h-4 mr-2" />
+                                                Clear Filters
+                                            </Button>
+                                        </div>
+                                    </SheetContent>
+                                </Sheet>
+
+                                {/* Results Count */}
+                                <p className="text-muted-foreground flex items-center">
+                                    Showing {sortedProducts.length} of {products.length} products
+                                </p>
+                            </div>
+
+                            {/* Sort and View Mode */}
+                            <div className="flex gap-2 items-center">
+                                <Label className="text-sm text-muted-foreground hidden md:block">Sort by:</Label>
+                                <Select value={sortBy} onValueChange={setSortBy}>
+                                    <SelectTrigger className="w-[180px]">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="relevance">Relevance</SelectItem>
+                                        <SelectItem value="name">Name (A-Z)</SelectItem>
+                                        <SelectItem value="name-desc">Name (Z-A)</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                {/* View Mode Toggle */}
+                                <div className="flex gap-2">
+                                    <Button
+                                        variant={viewMode === 'grid' ? "default" : "outline"}
+                                        size="icon"
+                                        onClick={() => setViewMode('grid')}
+                                    >
+                                        <Grid className="w-4 h-4" />
+                                    </Button>
+                                    <Button
+                                        variant={viewMode === 'list' ? "default" : "outline"}
+                                        size="icon"
+                                        onClick={() => setViewMode('list')}
+                                    >
+                                        <List className="w-4 h-4" />
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Desktop Filters */}
+                        <div className="hidden md:block">
+                            <Card className="p-6">
+                                <div className="space-y-4">
+                                    {/* Category Pills */}
+                                    <div>
+                                        <Label className="text-sm font-semibold mb-2 block">Category</Label>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {categories.map((category) => (
+                                                <Button
+                                                    key={category.id}
+                                                    variant={selectedCategory === category.id ? "default" : "outline"}
+                                                    onClick={() => setSelectedCategory(category.id)}
+                                                    size="sm"
+                                                >
+                                                    {category.name}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-wrap items-end gap-6">
+                                        {/* Brand Filter */}
+                                        <div className="w-48">
+                                            <Label className="text-sm font-semibold mb-2 block">Brand</Label>
+                                            <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select brand" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {brands.map((brand) => (
+                                                        <SelectItem key={brand.id} value={brand.id}>
+                                                            {brand.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+
+                                        {/* Rating Filter */}
+                                        <div className="w-64">
+                                            <Label className="text-sm font-semibold mb-2 block">
+                                                Min Rating: {minRating.toFixed(1)}★
+                                            </Label>
+                                            <Slider
+                                                value={[minRating]}
+                                                onValueChange={(value) => setMinRating(value[0])}
+                                                max={5}
+                                                step={0.5}
+                                                className="w-full"
+                                            />
+                                        </div>
+
+                                        {/* Stock Filter */}
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                id="stock-desktop"
+                                                checked={showInStockOnly}
+                                                onCheckedChange={(checked) => setShowInStockOnly(checked as boolean)}
+                                            />
+                                            <Label htmlFor="stock-desktop" className="text-sm cursor-pointer">
+                                                In stock only
+                                            </Label>
+                                        </div>
+
+                                        {/* Clear Filters */}
+                                        {activeFiltersCount > 0 && (
+                                            <Button onClick={clearFilters} variant="outline" size="sm">
+                                                <X className="w-4 h-4 mr-2" />
+                                                Clear ({activeFiltersCount})
+                                            </Button>
+                                        )}
+                                    </div>
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </FadeInSection>
+
+                {/* Products Grid */}
+                <FadeInSection delay={200}>
+                    <div className={viewMode === 'grid'
+                        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        : "space-y-4"
+                    }>
+                        {sortedProducts.map((product, index) => (
+                            <FadeInSection key={product.id} delay={index * 100}>
+                                <Link to={`/product/${product.id}`}>
+                                    <Card className="card-product h-full cursor-pointer hover:shadow-lg transition-shadow">
+                                        <CardHeader className="p-0">
+                                            <div className="aspect-square overflow-hidden rounded-t-lg">
+                                                <img
+                                                    src={product.image}
+                                                    alt={product.name}
+                                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                                />
+                                            </div>
+                                        </CardHeader>
+                                        <CardContent className="p-6">
+                                            <div className="flex items-start justify-between mb-2">
+                                                <CardTitle className="text-lg font-semibold line-clamp-2">
+                                                    {product.name}
+                                                </CardTitle>
+                                                <Badge variant={product.inStock ? "default" : "secondary"}>
+                                                    {product.inStock ? "In Stock" : "Out of Stock"}
+                                                </Badge>
+                                            </div>
+                                            <CardDescription className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                                                {product.description}
+                                            </CardDescription>
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-lg font-semibold text-primary">
+                                                    Available
+                                                </span>
+                                                <div className="flex items-center gap-1">
+                                                    <span className="text-sm text-muted-foreground">★</span>
+                                                    <span className="text-sm font-medium">{product.rating}</span>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                        <CardFooter className="p-6 pt-0">
+                                            <Button
+                                                className="w-full"
+                                                disabled={!product.inStock}
+                                                variant={product.inStock ? "default" : "secondary"}
+                                            >
+                                                {product.inStock ? "View Details" : "Out of Stock"}
+                                            </Button>
+                                        </CardFooter>
+                                    </Card>
+                                </Link>
+                            </FadeInSection>
+                        ))}
+                    </div>
+                </FadeInSection>
+
+                {/* No Results */}
+                {sortedProducts.length === 0 && (
+                    <FadeInSection>
+                        <div className="text-center py-12">
+                            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Search className="w-8 h-8 text-muted-foreground" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-2">No products found</h3>
+                            <p className="text-muted-foreground">
+                                Try adjusting your search or filter criteria
+                            </p>
+                        </div>
+                    </FadeInSection>
+                )}
             </div>
-          </FadeInSection>
         </div>
-      </section>
-
-      <div className="container mx-auto px-4 py-12">
-        {/* Filters and Sort */}
-        <FadeInSection>
-          <div className="space-y-6 mb-8">
-            {/* Top Bar: Filter Button + Sort + View Mode */}
-            <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-              <div className="flex gap-2 flex-1">
-                {/* Mobile Filter Button */}
-                <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="md:hidden relative">
-                      <SlidersHorizontal className="w-4 h-4 mr-2" />
-                      Filters
-                      {activeFiltersCount > 0 && (
-                        <Badge variant="default" className="ml-2 h-5 w-5 p-0 flex items-center justify-center rounded-full">
-                          {activeFiltersCount}
-                        </Badge>
-                      )}
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-[300px] overflow-y-auto">
-                    <SheetHeader>
-                      <SheetTitle>Filters</SheetTitle>
-                      <SheetDescription>
-                        Refine your product search
-                      </SheetDescription>
-                    </SheetHeader>
-                    <div className="space-y-6 mt-6">
-                      {/* Mobile Filters Content */}
-                      <div>
-                        <Label className="text-sm font-semibold mb-3 block">Category</Label>
-                        <div className="space-y-2">
-                          {categories.map((category) => (
-                            <Button
-                              key={category.id}
-                              variant={selectedCategory === category.id ? "default" : "outline"}
-                              onClick={() => setSelectedCategory(category.id)}
-                              className="w-full justify-start"
-                              size="sm"
-                            >
-                              {category.name}
-                            </Button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label className="text-sm font-semibold mb-3 block">Brand</Label>
-                        <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select brand" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {brands.map((brand) => (
-                              <SelectItem key={brand.id} value={brand.id}>
-                                {brand.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div>
-                        <Label className="text-sm font-semibold mb-3 block">
-                          Minimum Rating: {minRating.toFixed(1)}★
-                        </Label>
-                        <Slider
-                          value={[minRating]}
-                          onValueChange={(value) => setMinRating(value[0])}
-                          max={5}
-                          step={0.5}
-                          className="w-full"
-                        />
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="stock-mobile"
-                          checked={showInStockOnly}
-                          onCheckedChange={(checked) => setShowInStockOnly(checked as boolean)}
-                        />
-                        <Label htmlFor="stock-mobile" className="text-sm cursor-pointer">
-                          Show in-stock only
-                        </Label>
-                      </div>
-
-                      <Button onClick={clearFilters} variant="outline" className="w-full">
-                        <X className="w-4 h-4 mr-2" />
-                        Clear Filters
-                      </Button>
-                    </div>
-                  </SheetContent>
-                </Sheet>
-
-                {/* Results Count */}
-                <p className="text-muted-foreground flex items-center">
-                  Showing {sortedProducts.length} of {products.length} products
-                </p>
-              </div>
-
-              {/* Sort and View Mode */}
-              <div className="flex gap-2 items-center">
-                <Label className="text-sm text-muted-foreground hidden md:block">Sort by:</Label>
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="relevance">Relevance</SelectItem>
-                    <SelectItem value="name">Name (A-Z)</SelectItem>
-                    <SelectItem value="name-desc">Name (Z-A)</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                {/* View Mode Toggle */}
-                <div className="flex gap-2">
-                  <Button
-                    variant={viewMode === 'grid' ? "default" : "outline"}
-                    size="icon"
-                    onClick={() => setViewMode('grid')}
-                  >
-                    <Grid className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    variant={viewMode === 'list' ? "default" : "outline"}
-                    size="icon"
-                    onClick={() => setViewMode('list')}
-                  >
-                    <List className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Desktop Filters */}
-            <div className="hidden md:block">
-              <Card className="p-6">
-                <div className="space-y-4">
-                  {/* Category Pills */}
-                  <div>
-                    <Label className="text-sm font-semibold mb-2 block">Category</Label>
-                    <div className="flex gap-2 flex-wrap">
-                      {categories.map((category) => (
-                        <Button
-                          key={category.id}
-                          variant={selectedCategory === category.id ? "default" : "outline"}
-                          onClick={() => setSelectedCategory(category.id)}
-                          size="sm"
-                        >
-                          {category.name}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap items-end gap-6">
-                    {/* Brand Filter */}
-                    <div className="w-48">
-                      <Label className="text-sm font-semibold mb-2 block">Brand</Label>
-                      <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select brand" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {brands.map((brand) => (
-                            <SelectItem key={brand.id} value={brand.id}>
-                              {brand.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Rating Filter */}
-                    <div className="w-64">
-                      <Label className="text-sm font-semibold mb-2 block">
-                        Min Rating: {minRating.toFixed(1)}★
-                      </Label>
-                      <Slider
-                        value={[minRating]}
-                        onValueChange={(value) => setMinRating(value[0])}
-                        max={5}
-                        step={0.5}
-                        className="w-full"
-                      />
-                    </div>
-
-                    {/* Stock Filter */}
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="stock-desktop"
-                        checked={showInStockOnly}
-                        onCheckedChange={(checked) => setShowInStockOnly(checked as boolean)}
-                      />
-                      <Label htmlFor="stock-desktop" className="text-sm cursor-pointer">
-                        In stock only
-                      </Label>
-                    </div>
-
-                    {/* Clear Filters */}
-                    {activeFiltersCount > 0 && (
-                      <Button onClick={clearFilters} variant="outline" size="sm">
-                        <X className="w-4 h-4 mr-2" />
-                        Clear ({activeFiltersCount})
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </FadeInSection>
-
-        {/* Products Grid */}
-        <FadeInSection delay={200}>
-          <div className={viewMode === 'grid' 
-            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-            : "space-y-4"
-          }>
-            {sortedProducts.map((product, index) => (
-              <FadeInSection key={product.id} delay={index * 100}>
-                <Link to={`/product/${product.id}`}>
-                  <Card className="card-product h-full cursor-pointer hover:shadow-lg transition-shadow">
-                    <CardHeader className="p-0">
-                      <div className="aspect-square overflow-hidden rounded-t-lg">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <CardTitle className="text-lg font-semibold line-clamp-2">
-                          {product.name}
-                        </CardTitle>
-                        <Badge variant={product.inStock ? "default" : "secondary"}>
-                          {product.inStock ? "In Stock" : "Out of Stock"}
-                        </Badge>
-                      </div>
-                      <CardDescription className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {product.description}
-                      </CardDescription>
-                      <div className="flex items-center justify-between">
-                        <span className="text-lg font-semibold text-primary">
-                          Available
-                        </span>
-                        <div className="flex items-center gap-1">
-                          <span className="text-sm text-muted-foreground">★</span>
-                          <span className="text-sm font-medium">{product.rating}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="p-6 pt-0">
-                      <Button 
-                        className="w-full" 
-                        disabled={!product.inStock}
-                        variant={product.inStock ? "default" : "secondary"}
-                      >
-                        {product.inStock ? "View Details" : "Out of Stock"}
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Link>
-              </FadeInSection>
-            ))}
-          </div>
-        </FadeInSection>
-
-        {/* No Results */}
-        {sortedProducts.length === 0 && (
-          <FadeInSection>
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-muted-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">No products found</h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search or filter criteria
-              </p>
-            </div>
-          </FadeInSection>
-        )}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Products;

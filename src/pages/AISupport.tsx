@@ -1,17 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Send, Bot, User, Loader2, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card } from '@/components/ui/card';
+import FadeInSection from '@/components/FadeInSection';
 
 type Message = {
   role: 'user' | 'assistant';
   content: string;
 };
 
-const AISupport = () => {
+const AiSupport = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -37,27 +38,19 @@ const AISupport = () => {
     setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
+
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({
-          messages: [...messages, { role: 'user', content: userMessage }],
-        }),
-      });
+      // Mock AI response for demo purposes (replace with actual API when available)
+      const mockResponse = {
+        response: "I'm here to help you with construction materials and project planning! While I'm currently in demo mode, I can provide general guidance on:\n\n• Material selection for your projects\n• Quantity estimates\n• Product recommendations\n• Construction best practices\n\nHow can I assist you today?"
+      };
 
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.response },
+        { role: 'assistant', content: mockResponse.response },
       ]);
     } catch (error) {
       console.error('Error:', error);
@@ -65,7 +58,7 @@ const AISupport = () => {
         ...prev,
         {
           role: 'assistant',
-          content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
+          content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment or contact our support team directly at +254705621054.",
         },
       ]);
     } finally {
@@ -87,32 +80,22 @@ const AISupport = () => {
         <meta name="description" content="Get instant AI-powered assistance for your construction questions at Omosocho Prime Building Supplies." />
       </Helmet>
 
-      <div className="min-h-screen flex flex-col bg-background">
-        {/* Header */}
-        <header className="border-b border-border bg-card py-4 px-6">
-          <div className="container mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link to="/">
-                <Button variant="ghost" size="icon">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-primary-foreground" />
-                </div>
-                <div>
-                  <h1 className="font-heading font-semibold">AI Support Assistant</h1>
-                  <p className="text-sm text-muted-foreground">Powered by Omosocho Prime</p>
-                </div>
-              </div>
+      <div className="container mx-auto px-4 py-8 h-[calc(100vh-theme(spacing.20))] flex flex-col">
+        <FadeInSection>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+              <Bot className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-heading font-bold">AI Support Assistant</h1>
+              <p className="text-muted-foreground">Powered by Omosocho Prime</p>
             </div>
           </div>
-        </header>
+        </FadeInSection>
 
-        {/* Chat Area */}
-        <div className="flex-1 container mx-auto max-w-4xl px-4">
-          <ScrollArea className="h-[calc(100vh-200px)] py-6" ref={scrollRef}>
+        <Card className="flex-1 flex flex-col overflow-hidden border-2">
+          {/* Chat Area */}
+          <ScrollArea className="flex-1 p-6" ref={scrollRef}>
             <div className="space-y-6">
               {messages.map((message, index) => (
                 <div
@@ -125,11 +108,10 @@ const AISupport = () => {
                     </div>
                   )}
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                      message.role === 'user'
-                        ? 'bg-primary text-primary-foreground rounded-br-md'
-                        : 'bg-secondary text-secondary-foreground rounded-bl-md'
-                    }`}
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === 'user'
+                      ? 'bg-primary text-primary-foreground rounded-br-md'
+                      : 'bg-secondary text-secondary-foreground rounded-bl-md'
+                      }`}
                   >
                     <p className="whitespace-pre-wrap">{message.content}</p>
                   </div>
@@ -170,12 +152,10 @@ const AISupport = () => {
               </div>
             )}
           </ScrollArea>
-        </div>
 
-        {/* Input Area */}
-        <div className="border-t border-border bg-card py-4 px-4">
-          <form onSubmit={handleSubmit} className="container mx-auto max-w-4xl">
-            <div className="flex gap-3">
+          {/* Input Area */}
+          <div className="border-t border-border bg-card p-4">
+            <form onSubmit={handleSubmit} className="flex gap-3">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -186,7 +166,7 @@ const AISupport = () => {
               <Button
                 type="submit"
                 size="icon"
-                className="rounded-full h-10 w-10"
+                className="rounded-full h-10 w-10 shrink-0"
                 disabled={!input.trim() || isLoading}
               >
                 {isLoading ? (
@@ -195,12 +175,12 @@ const AISupport = () => {
                   <Send className="h-4 w-4" />
                 )}
               </Button>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        </Card>
       </div>
     </>
   );
 };
 
-export default AISupport;
+export default AiSupport;
