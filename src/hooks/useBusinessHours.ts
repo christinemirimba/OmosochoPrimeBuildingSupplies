@@ -1,50 +1,42 @@
-
 import { useState, useEffect } from 'react';
 
 export type BusinessStatus = 'open' | 'closed' | 'closing-soon';
+
+// Convert current time to East Africa Time (UTC+3)
+const getEATTime = (): Date => {
+    const now = new Date();
+    const eatOffset = 3 * 60; // EAT is UTC+3
+    const localOffset = now.getTimezoneOffset();
+    return new Date(now.getTime() + (eatOffset + localOffset) * 60000);
+};
 
 export const useBusinessHours = () => {
     const [status, setStatus] = useState<BusinessStatus>('closed');
 
     useEffect(() => {
         const checkBusinessHours = () => {
-            const now = new Date();
-            // Using East Africa Time (UTC+3)
-            const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            const currentTime = hour + minute / 60;
+            const eatTime = getEATTime();
+            const hours = eatTime.getHours();
+            const dayOfWeek = eatTime.getDay(); // 0 = Sunday, 6 = Saturday
 
-            // Business Hours:
-            // Mon-Fri: 8 AM - 6 PM (18:00)
-            // Saturday: Closed
-            // Sunday: 8 AM - 6 PM (18:00)
+            // Business Hours (EAT):
+            // Saturday: Closed all day
+            // Sunday & Mon-Fri: 8 AM - 6 PM
+            //   - Open: 8:00 - 16:00
+            //   - Closing Soon: 16:00 - 18:00
+            //   - Closed: before 8:00 or after 18:00
 
-            let isOpen = false;
-            let closingTime = 0;
-
-            if (day >= 1 && day <= 5) { // Monday - Friday
-                if (currentTime >= 8 && currentTime < 18) {
-                    isOpen = true;
-                    closingTime = 18;
-                }
-            } else if (day === 0) { // Sunday
-                if (currentTime >= 8 && currentTime < 18) {
-                    isOpen = true;
-                    closingTime = 18;
-                }
-            }
-            // Saturday (day === 6) is closed
-
-            if (!isOpen) {
+            if (dayOfWeek === 6) {
+                // Saturday - Closed all day
                 setStatus('closed');
             } else {
-                // Show "closing soon" when past 4:00 PM (16:00)
-                // This means within 2 hours of closing time (6 PM)
-                if (currentTime >= 16) {
+                // Sunday (0) and Monday-Friday (1-5)
+                if (hours >= 8 && hours < 16) {
+                    setStatus('open');
+                } else if (hours >= 16 && hours < 18) {
                     setStatus('closing-soon');
                 } else {
-                    setStatus('open');
+                    setStatus('closed');
                 }
             }
         };

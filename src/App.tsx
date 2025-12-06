@@ -17,8 +17,8 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Plan from "./pages/Plan";
 import Testimonials from "./pages/Testimonials";
-import Faq from "./pages/Faq";
-import AiSupport from "./pages/AiSupport";
+import FAQ from "./pages/FAQ";
+import AISupport from "./pages/AISupport";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Settings from "./pages/Settings";
 import Header from "./components/Header";
@@ -54,8 +54,8 @@ const App = () => (
                             <Route path="/services" element={<Services />} />
                             <Route path="/plan" element={<Plan />} />
                             <Route path="/testimonials" element={<Testimonials />} />
-                            <Route path="/faq" element={<Faq />} />
-                            <Route path="/ai-support" element={<AiSupport />} />
+                            <Route path="/faq" element={<FAQ />} />
+                            <Route path="/ai-support" element={<AISupport />} />
                             <Route path="/privacy" element={<PrivacyPolicy />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="*" element={<NotFound />} />
