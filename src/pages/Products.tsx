@@ -11,6 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FadeInSection from '@/components/FadeInSection';
+import PageTransition from '@/components/PageTransition';
 import { products, categories, brands, quickSearches } from '@/data/products';
 
 const Products = () => {
@@ -68,6 +69,7 @@ const Products = () => {
         (showInStockOnly ? 1 : 0);
 
     return (
+        <PageTransition>
         <div className="min-h-screen bg-background">
             {/* Header Section */}
             <section className="bg-hero py-16">
@@ -409,6 +411,7 @@ const Products = () => {
                 )}
             </div>
         </div>
+        </PageTransition>
     );
 };
 
