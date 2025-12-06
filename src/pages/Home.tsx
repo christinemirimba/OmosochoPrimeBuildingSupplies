@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import FadeInSection from '@/components/FadeInSection';
+import PageTransition from '@/components/PageTransition';
 import { products } from '@/data/products';
 import { categoryImages } from '@/data/categoryImages';
 
@@ -75,6 +76,7 @@ const Home = () => {
     ].filter(Boolean); // Remove any undefined items
 
     return (
+        <PageTransition>
         <div className="min-h-screen bg-background">
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -352,6 +354,7 @@ const Home = () => {
                 </div>
             </section>
         </div>
+        </PageTransition>
     );
 };
 

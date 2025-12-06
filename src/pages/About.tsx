@@ -1,6 +1,7 @@
 import { Award, Users, Truck, Clock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import FadeInSection from '@/components/FadeInSection';
+import PageTransition from '@/components/PageTransition';
 
 const About = () => {
     const stats = [
@@ -32,6 +33,7 @@ const About = () => {
     ];
 
     return (
+        <PageTransition>
         <div className="min-h-screen bg-background">
             {/* Hero Section */}
             <section className="bg-hero py-20">
@@ -206,6 +208,7 @@ const About = () => {
                 </FadeInSection>
             </div>
         </div>
+        </PageTransition>
     );
 };
 
