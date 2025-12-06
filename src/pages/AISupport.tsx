@@ -16,7 +16,7 @@ const AiSupport = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm your Omosocho Prime AI Assistant. I can help you with construction planning, material selection, project estimates, and any questions about building supplies. How can I assist you today?",
+      content: "Hello! I'm your Project planning AI Assistant. I can help you with construction planning, material selection, project estimates, and any questions about building supplies. How can I assist you today?",
     },
   ]);
   const [input, setInput] = useState('');
@@ -88,7 +88,6 @@ const AiSupport = () => {
             </div>
             <div>
               <h1 className="text-2xl font-heading font-bold">AI Support Assistant</h1>
-              <p className="text-muted-foreground">Powered by Omosocho Prime</p>
             </div>
           </div>
         </FadeInSection>

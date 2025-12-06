@@ -101,7 +101,7 @@ const Home = () => {
                             <span className="block text-accent">Materials & Tools</span>
                         </h1>
                         <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/95 drop-shadow-md">
-                            Quality cement, steel, power tools, and safety equipment for professional contractors.
+                            Your one-stop destination for all construction and hardware needs.
                             Serving Kisii, Nyamache and surrounding areas with quality materials.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">

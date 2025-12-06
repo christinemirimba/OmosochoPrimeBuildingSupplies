@@ -27,7 +27,7 @@ const getStatusBadge = (status: BusinessStatus) => {
         case 'closing-soon':
             return (
                 <Badge className="bg-yellow-500 hover:bg-yellow-600 text-white uppercase text-xs font-semibold">
-                    Closing Soon
+                    Almost Closing
                 </Badge>
             );
         case 'closed':

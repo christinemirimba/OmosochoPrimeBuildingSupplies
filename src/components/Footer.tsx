@@ -15,7 +15,7 @@ const Footer = () => {
                             <h1 className="brand-name">Omosocho Prime</h1>
                         </div>
                         <p className="text-background/80 leading-relaxed">
-                            Premium construction materials and tools for professionals in Kisii, Nyamache and surrounding areas.
+                            Your one-stop destination for all construction and hardware needs.
                         </p>
                         <div className="flex space-x-4">
                             <a

@@ -257,19 +257,20 @@ const Contact = () => {
 
                             {/* Map Placeholder */}
                             <FadeInSection delay={700}>
-                                <Card>
-                                    <CardContent className="p-0">
-                                        <div className="h-64 bg-gradient-to-br from-secondary to-muted rounded-lg flex items-center justify-center">
-                                            <div className="text-center">
-                                                <MapPin className="w-12 h-12 text-primary mx-auto mb-3" />
-                                                <p className="text-lg font-semibold mb-1">Visit Our Location</p>
-                                                <p className="text-muted-foreground">
-                                                    Interactive map would be embedded here
-                                                </p>
+                                    <Card>
+                                        <CardContent className="p-0">
+                                            <div className="rounded-lg overflow-hidden">
+                                                <iframe
+                                                    title="Nyamache, Kisii - Map"
+                                                    src="https://www.google.com/maps?q=Nyamache,+Kisii,+Kenya&z=15&output=embed"
+                                                    className="w-full h-64 border-0"
+                                                    allowFullScreen
+                                                    loading="lazy"
+                                                    referrerPolicy="no-referrer-when-downgrade"
+                                                />
                                             </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                                        </CardContent>
+                                    </Card>
                             </FadeInSection>
                         </div>
                     </div>

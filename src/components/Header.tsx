@@ -58,7 +58,7 @@ const Header = () => {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-6">
+                        <nav className="hidden md:flex items-center space-x-6">
                         {navLinks.map((link) => {
                             const isActive = location.pathname === link.href;
                             return (
@@ -94,12 +94,12 @@ const Header = () => {
                     {/* Actions - Top Right */}
                     <div className="flex items-center gap-2">
                         {/* Business Status */}
-                        <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-xs font-medium">
+                            <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-xs font-medium">
                             <div className={`w-2 h-2 rounded-full ${status === 'open' ? 'bg-green-500' :
                                 status === 'closing-soon' ? 'bg-yellow-500' : 'bg-red-500'
                                 }`} />
-                            <span className="uppercase tracking-wider">
-                                {status === 'open' ? 'Open' : status === 'closing-soon' ? 'Closing Soon' : 'Closed'}
+                                <span className="uppercase tracking-wider">
+                                    {status === 'open' ? 'Open' : status === 'closing-soon' ? 'Almost Closing' : 'Closed'}
                             </span>
                         </div>
 
@@ -131,12 +131,7 @@ const Header = () => {
                         </Button>
 
                         {/* Mobile Menu Toggle */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="lg:hidden h-9 w-9"
-                            onClick={toggleMenu}
-                        >
+                            <Button variant="ghost" size="icon" className="md:hidden h-9 w-9" onClick={toggleMenu}>
                             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                         </Button>
                     </div>
