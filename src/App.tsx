@@ -26,14 +26,6 @@ import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
-const Layout = ({ children }: { children: React.ReactNode }) => (
-    <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-    </div>
-);
-
 const App = () => (
     <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme="system" storageKey="omosocho-theme">
@@ -41,26 +33,30 @@ const App = () => (
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>
-                    <Layout>
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/products" element={<Products />} />
-                            <Route path="/categories" element={<Categories />} />
-                            <Route path="/product/:id" element={<ProductDetail />} />
-                            <Route path="/cart" element={<Cart />} />
-                            <Route path="/favorites" element={<Favorites />} />
-                            <Route path="/contact" element={<Contact />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/services" element={<Services />} />
-                            <Route path="/plan" element={<Plan />} />
-                            <Route path="/testimonials" element={<Testimonials />} />
-                            <Route path="/faq" element={<FAQ />} />
-                            <Route path="/ai-support" element={<AISupport />} />
-                            <Route path="/privacy" element={<PrivacyPolicy />} />
-                            <Route path="/settings" element={<Settings />} />
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                    </Layout>
+                    <div className="flex flex-col min-h-screen">
+                        <Header />
+                        <main className="flex-grow">
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/products" element={<Products />} />
+                                <Route path="/categories" element={<Categories />} />
+                                <Route path="/product/:id" element={<ProductDetail />} />
+                                <Route path="/cart" element={<Cart />} />
+                                <Route path="/favorites" element={<Favorites />} />
+                                <Route path="/contact" element={<Contact />} />
+                                <Route path="/about" element={<About />} />
+                                <Route path="/services" element={<Services />} />
+                                <Route path="/plan" element={<Plan />} />
+                                <Route path="/testimonials" element={<Testimonials />} />
+                                <Route path="/faq" element={<FAQ />} />
+                                <Route path="/ai-support" element={<AISupport />} />
+                                <Route path="/privacy" element={<PrivacyPolicy />} />
+                                <Route path="/settings" element={<Settings />} />
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </main>
+                        <Footer />
+                    </div>
                 </BrowserRouter>
             </TooltipProvider>
         </ThemeProvider>
