@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Award, Truck, Headphones, Star, Search } from 'lucide-react';
+import { ArrowRight, Award, Truck, Headphones, Star, Search, Download, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,17 +8,45 @@ import FadeInSection from '@/components/FadeInSection';
 import PageTransition from '@/components/PageTransition';
 import { products } from '@/data/products';
 import { categoryImages } from '@/data/categoryImages';
+import { generateCatalogPDF } from '@/utils/generateCatalogPDF';
+import { useToast } from '@/hooks/use-toast';
 
 const heroImage = '/assets/hero-image.jpg';
 
 const Home = () => {
     const navigate = useNavigate();
+    const { toast } = useToast();
     const [searchQuery, setSearchQuery] = useState('');
+    const [isDownloading, setIsDownloading] = useState(false);
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         if (searchQuery.trim()) {
             navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+        }
+    };
+
+    const handleDownloadCatalog = async () => {
+        setIsDownloading(true);
+        try {
+            await generateCatalogPDF();
+            toast({
+                title: "Catalog Downloaded",
+                description: "Your product catalog PDF has been downloaded successfully.",
+            });
+        } catch (error) {
+            toast({
+                title: "Download Failed",
+                description: "There was an error downloading the catalog. Please try again.",
+            });
+        }
+        setIsDownloading(false);
+    };
+
+    const scrollToWhyChoose = () => {
+        const element = document.getElementById('why-choose-section');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -106,16 +134,20 @@ const Home = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/products">
-                                <Button className="btn-hero text-lg px-8 py-4">
-                                    Shop Now
+                                <Button size="xl" variant="accent" className="text-lg">
+                                    Explore Products
                                     <ArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
                             </Link>
-                            <Link to="/about">
-                                <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-foreground">
-                                    Learn More
-                                </Button>
-                            </Link>
+                            <Button 
+                                size="xl"
+                                variant="outline" 
+                                className="text-lg text-white border-white hover:bg-white hover:text-foreground"
+                                onClick={scrollToWhyChoose}
+                            >
+                                <FileText className="w-5 h-5 mr-2" />
+                                Learn More
+                            </Button>
                         </div>
                     </FadeInSection>
                 </div>
@@ -175,7 +207,7 @@ const Home = () => {
                     <FadeInSection>
                         <div className="text-center mb-16">
                             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                                Shop by Category
+                                Browse by Category
                             </h2>
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                                 Find everything you need for your construction projects in our comprehensive catalog
@@ -215,8 +247,8 @@ const Home = () => {
                     <FadeInSection delay={600}>
                         <div className="text-center mt-12">
                             <Link to="/categories">
-                                <Button size="lg" variant="outline" className="btn-hero">
-                                    View All Categories
+                                <Button size="lg" variant="outline">
+                                    Explore Collection
                                     <ArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
                             </Link>
@@ -226,7 +258,7 @@ const Home = () => {
             </section>
 
             {/* Features Section */}
-            <section className="py-20 bg-secondary">
+            <section id="why-choose-section" className="py-20 bg-secondary">
                 <div className="container mx-auto px-4">
                     <FadeInSection>
                         <div className="text-center mb-16">
@@ -254,6 +286,21 @@ const Home = () => {
                             </FadeInSection>
                         ))}
                     </div>
+
+                    {/* Download Catalog CTA */}
+                    <FadeInSection delay={600}>
+                        <div className="text-center mt-12">
+                            <Button 
+                                size="xl" 
+                                variant="accent" 
+                                onClick={handleDownloadCatalog}
+                                disabled={isDownloading}
+                            >
+                                <Download className="w-5 h-5 mr-2" />
+                                {isDownloading ? 'Generating PDF...' : 'Download Catalog'}
+                            </Button>
+                        </div>
+                    </FadeInSection>
                 </div>
             </section>
 
@@ -317,7 +364,7 @@ const Home = () => {
                     <FadeInSection delay={400}>
                         <div className="text-center">
                             <Link to="/services">
-                                <Button className="btn-hero">
+                                <Button size="lg" variant="default">
                                     View All Services
                                     <ArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
@@ -340,13 +387,13 @@ const Home = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/products">
-                                <Button className="btn-accent text-lg px-8 py-4">
-                                    Shop Now
+                                <Button size="xl" variant="accent" className="text-lg">
+                                    Explore Products
                                 </Button>
                             </Link>
-                            <Link to="/contact">
-                                <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-foreground">
-                                    Get Quote
+                            <Link to="/quote">
+                                <Button size="xl" variant="outline" className="text-lg text-white border-white hover:bg-white hover:text-foreground">
+                                    Request Quote
                                 </Button>
                             </Link>
                         </div>

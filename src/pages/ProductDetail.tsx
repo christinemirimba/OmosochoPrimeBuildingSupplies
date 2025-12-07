@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Plus, Minus, Star, Shield, Truck, HeadphonesIcon, Heart } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Star, Shield, Truck, HeadphonesIcon, Heart, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,11 @@ import { useToast } from '@/hooks/use-toast';
 import FadeInSection from '@/components/FadeInSection';
 import { getProductById, products } from '@/data/products';
 
+interface QuoteItem {
+    productId: number;
+    quantity: number;
+}
+
 const ProductDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -16,6 +21,7 @@ const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isInQuote, setIsInQuote] = useState(false);
 
     const product = id ? getProductById(id) : undefined;
 
@@ -32,11 +38,14 @@ const ProductDetail = () => {
         );
     }
 
-    // Check if product is in favorites on mount
+    // Check if product is in favorites and quote on mount
     useEffect(() => {
         if (product) {
             const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
             setIsFavorite(favorites.includes(product.id));
+
+            const quote = JSON.parse(localStorage.getItem('quote') || '[]');
+            setIsInQuote(quote.some((item: QuoteItem) => item.productId === product.id));
         }
     }, [product]);
 
@@ -45,7 +54,6 @@ const ProductDetail = () => {
         const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
 
         if (isFavorite) {
-            // Remove from favorites
             const updated = favorites.filter((favId: number) => favId !== product.id);
             localStorage.setItem('favorites', JSON.stringify(updated));
             setIsFavorite(false);
@@ -54,13 +62,35 @@ const ProductDetail = () => {
                 description: `${product.name} has been removed from your wishlist.`,
             });
         } else {
-            // Add to favorites
             const updated = [...favorites, product.id];
             localStorage.setItem('favorites', JSON.stringify(updated));
             setIsFavorite(true);
             toast({
                 title: "Added to Wishlist",
                 description: `${product.name} has been added to your wishlist.`,
+            });
+        }
+    };
+
+    // Toggle quote
+    const toggleQuote = () => {
+        const quote: QuoteItem[] = JSON.parse(localStorage.getItem('quote') || '[]');
+
+        if (isInQuote) {
+            const updated = quote.filter((item) => item.productId !== product.id);
+            localStorage.setItem('quote', JSON.stringify(updated));
+            setIsInQuote(false);
+            toast({
+                title: "Removed from Quote",
+                description: `${product.name} has been removed from your quote.`,
+            });
+        } else {
+            const updated = [...quote, { productId: product.id, quantity }];
+            localStorage.setItem('quote', JSON.stringify(updated));
+            setIsInQuote(true);
+            toast({
+                title: "Added to Quote",
+                description: `${product.name} (${quantity}) has been added to your quote.`,
             });
         }
     };
@@ -139,7 +169,7 @@ const ProductDetail = () => {
                                         {[...Array(5)].map((_, i) => (
                                             <Star
                                                 key={i}
-                                                className={`w-5 h-5 ${i < Math.floor(product.rating)
+                                                className={`w-5 h-5 ${i < Math.floor(product.rating || 0)
                                                     ? 'text-yellow-400 fill-current'
                                                     : 'text-gray-300'
                                                     }`}
@@ -185,16 +215,19 @@ const ProductDetail = () => {
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex gap-4">
-                                    <Link to="/contact" className="flex-1">
-                                        <Button
-                                            className="btn-hero w-full"
-                                            disabled={!product.inStock}
-                                        >
-                                            Get Quote
-                                        </Button>
-                                    </Link>
+                                <div className="flex gap-4 flex-wrap">
                                     <Button
+                                        size="lg"
+                                        variant={isInQuote ? "secondary" : "accent"}
+                                        onClick={toggleQuote}
+                                        disabled={!product.inStock}
+                                        className="flex-1 min-w-[140px]"
+                                    >
+                                        <FileText className="w-4 h-4 mr-2" />
+                                        {isInQuote ? 'In Quote' : 'Add to Quote'}
+                                    </Button>
+                                    <Button
+                                        size="lg"
                                         variant={isFavorite ? "default" : "outline"}
                                         onClick={toggleFavorite}
                                         className="gap-2"
@@ -203,6 +236,15 @@ const ProductDetail = () => {
                                         {isFavorite ? 'In Wishlist' : 'Add to Wishlist'}
                                     </Button>
                                 </div>
+
+                                {/* Quick Link to Quote Page */}
+                                {isInQuote && (
+                                    <Link to="/quote">
+                                        <Button variant="link" className="p-0 text-primary">
+                                            View Quote & Request Pricing →
+                                        </Button>
+                                    </Link>
+                                )}
                             </div>
 
                             {/* Trust Indicators */}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -7,16 +8,16 @@ import FadeInSection from '@/components/FadeInSection';
 const testimonials = [
     {
         id: 1,
-        name: 'David Thompson',
+        name: 'David Okumu',
         role: 'General Contractor',
-        company: 'Thompson Construction Co.',
+        company: 'Okumu Construction Co.',
         rating: 5,
         content: 'Omosocho Prime has been our go-to supplier for over 10 years. Their cement quality is unmatched, and their delivery is always on time. They understand the construction business and our tight deadlines.',
         image: '/placeholder-avatar.jpg',
     },
     {
         id: 2,
-        name: 'Maria Rodriguez',
+        name: 'Maria Nyagaka',
         role: 'Project Manager',
         company: 'Urban Development Ltd.',
         rating: 5,
@@ -25,25 +26,25 @@ const testimonials = [
     },
     {
         id: 3,
-        name: 'James Mitchell',
+        name: 'James Otieno',
         role: 'Site Supervisor',
-        company: 'Mitchell & Sons',
+        company: 'Otieno & Sons',
         rating: 5,
         content: 'Quality products, competitive prices, and reliable service. What more could you ask for? Omosocho Prime has never let us down, even on our most challenging projects.',
         image: '/placeholder-avatar.jpg',
     },
     {
         id: 4,
-        name: 'Lisa Chen',
+        name: 'Lisa Achieng',
         role: 'Architect',
-        company: 'Chen Design Studio',
+        company: 'Achieng Design Studio',
         rating: 5,
         content: 'As an architect, I need suppliers who understand quality and precision. Omosocho Prime consistently delivers materials that meet our exact specifications.',
         image: '/placeholder-avatar.jpg',
     },
     {
         id: 5,
-        name: 'Robert Kim',
+        name: 'Robert Omondi',
         role: 'Construction Manager',
         company: 'Pacific Builders',
         rating: 5,
@@ -52,9 +53,9 @@ const testimonials = [
     },
     {
         id: 6,
-        name: 'Sarah Williams',
+        name: 'Sarah Wanjiku',
         role: 'Owner',
-        company: 'Williams Renovations',
+        company: 'Wanjiku Renovations',
         rating: 5,
         content: 'From small renovations to major projects, Omosocho Prime has everything we need. Their tool selection is impressive, and the quality is always reliable.',
         image: '/placeholder-avatar.jpg',
@@ -222,12 +223,16 @@ const Testimonials = () => {
                             Let us help you build your next successful project.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button className="btn-hero">
-                                Start Shopping
-                            </Button>
-                            <Button variant="outline" size="lg">
-                                Contact Us Today
-                            </Button>
+                            <Link to="/categories">
+                                <Button size="lg" variant="accent">
+                                    Explore Collection
+                                </Button>
+                            </Link>
+                            <Link to="/contact">
+                                <Button variant="outline" size="lg">
+                                    Contact Us Today
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </FadeInSection>

@@ -13,6 +13,7 @@ import Categories from "./pages/Categories";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Favorites from "./pages/Favorites";
+import Quote from "./pages/Quote";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -60,6 +61,7 @@ const InnerRoutes = () => {
                         <Route path="/product/:id" element={<ProductDetail />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/favorites" element={<Favorites />} />
+                        <Route path="/quote" element={<Quote />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/services" element={<Services />} />
