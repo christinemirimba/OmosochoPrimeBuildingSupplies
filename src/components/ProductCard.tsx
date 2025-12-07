@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Eye } from 'lucide-react';
 
 interface ProductCardProps {
     id: number;
@@ -50,7 +51,8 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                         {name}
                     </CardTitle>
                     <CardDescription className="mt-2">
-                        <Button variant="outline" size="sm" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
+                        <Button variant="default" size="sm" className="w-full group-hover:bg-primary/90 transition-colors">
+                            <Eye className="w-4 h-4 mr-2" />
                             View Details
                         </Button>
                     </CardDescription>
