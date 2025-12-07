@@ -10,7 +10,7 @@ declare module 'jspdf' {
     }
 }
 
-export const generateCatalogPDF = async () => {
+export const generateCatalogPDF = async (): Promise<Blob> => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
@@ -288,6 +288,7 @@ export const generateCatalogPDF = async () => {
     doc.setFontSize(9);
     doc.text(`Catalog generated on ${new Date().toLocaleDateString()}`, pageWidth / 2, pageHeight - 15, { align: 'center' });
 
-    // Save the PDF
-    doc.save('Omosocho_Prime_Product_Catalog.pdf');
+    // Return PDF blob to caller so download can be triggered from the user gesture context
+    const blob = doc.output('blob');
+    return blob;
 };

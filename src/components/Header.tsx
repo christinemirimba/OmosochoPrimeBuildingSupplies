@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Search, Menu, X, User, ChevronDown, Settings, Clock } from 'lucide-react';
+import { Search, Menu, X, User, ChevronDown, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -11,14 +11,13 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ThemeToggle } from './ThemeToggle';
-import { useBusinessHours } from '@/hooks/useBusinessHours';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const { status } = useBusinessHours();
+    // Business hours removed from header
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -29,15 +28,22 @@ const Header = () => {
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    const navLinks = [
-        { name: 'Products', href: '/products' },
+    // Grouped navigation for cleaner header
+    const productLinks = [
+        { name: 'All Products', href: '/products' },
         { name: 'Categories', href: '/categories' },
+        { name: 'Featured', href: '/products?filter=featured' },
+        { name: 'Wishlist', href: '/favorites' },
+        { name: 'Quote List', href: '/quote' },
+    ];
+
+    const mainLinks = [
         { name: 'Services', href: '/services' },
         { name: 'Plan', href: '/plan' },
         { name: 'AI Support', href: '/ai-support' },
     ];
 
-    const resourceLinks = [
+    const companyLinks = [
         { name: 'About Us', href: '/about' },
         { name: 'Contact Us', href: '/contact' },
         { name: 'Testimonials', href: '/testimonials' },
@@ -59,49 +65,53 @@ const Header = () => {
 
                     {/* Desktop Navigation */}
                         <nav className="hidden md:flex items-center space-x-6">
-                        {navLinks.map((link) => {
-                            const isActive = location.pathname === link.href;
-                            return (
-                                <Link
-                                    key={link.name}
-                                    to={link.href}
-                                    className={`transition-colors duration-200 font-medium ${isActive
-                                        ? 'text-primary font-bold'
-                                        : 'text-foreground hover:text-primary'
-                                        }`}
-                                >
-                                    {link.name}
-                                </Link>
-                            );
-                        })}
+                            {/* Products Dropdown - groups product related links */}
+                            <DropdownMenu>
+                                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer">
+                                    Products
+                                    <ChevronDown className="w-4 h-4" />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="start">
+                                    {productLinks.map((link) => (
+                                        <DropdownMenuItem key={link.name} asChild>
+                                            <Link to={link.href}>{link.name}</Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
 
-                        {/* Resources Dropdown */}
-                        <DropdownMenu>
-                            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer">
-                                Resources
-                                <ChevronDown className="w-4 h-4" />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                {resourceLinks.map((link) => (
-                                    <DropdownMenuItem key={link.name} asChild>
-                                        <Link to={link.href}>{link.name}</Link>
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </nav>
+                            {/* Main links shown inline for quick access */}
+                            {mainLinks.map((link) => {
+                                const isActive = location.pathname === link.href;
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        to={link.href}
+                                        className={`transition-colors duration-200 font-medium ${isActive ? 'text-primary font-bold' : 'text-foreground hover:text-primary'}`}>
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
+
+                            {/* Company / Resources Dropdown */}
+                            <DropdownMenu>
+                                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer">
+                                    Company
+                                    <ChevronDown className="w-4 h-4" />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    {companyLinks.map((link) => (
+                                        <DropdownMenuItem key={link.name} asChild>
+                                            <Link to={link.href}>{link.name}</Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </nav>
 
                     {/* Actions - Top Right */}
                     <div className="flex items-center gap-2">
-                        {/* Business Status */}
-                            <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-xs font-medium">
-                            <div className={`w-2 h-2 rounded-full ${status === 'open' ? 'bg-green-500' :
-                                status === 'closing-soon' ? 'bg-yellow-500' : 'bg-red-500'
-                                }`} />
-                                <span className="uppercase tracking-wider">
-                                    {status === 'open' ? 'Open' : status === 'closing-soon' ? 'Almost Closing' : 'Closed'}
-                            </span>
-                        </div>
+                        {/* Business hours removed per request */}
 
                         {/* Search Bar - Desktop */}
                         <form onSubmit={handleSearch} className="hidden md:flex items-center">
@@ -154,20 +164,45 @@ const Header = () => {
                 {/* Mobile Navigation Menu */}
                 {isMenuOpen && (
                     <div className="lg:hidden border-t border-border py-4 animate-in slide-in-from-top-2 duration-300">
-                        <nav className="flex flex-col space-y-3">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    to={link.href}
-                                    className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
+                        <nav className="flex flex-col space-y-4 px-4">
+                            {/* Product Group */}
+                            <div>
+                                <p className="text-sm text-muted-foreground mb-2">Products</p>
+                                <div className="flex flex-col">
+                                    {productLinks.map((link) => (
+                                        <Link
+                                            key={link.name}
+                                            to={link.href}
+                                            className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Main Links */}
+                            <div>
+                                <p className="text-sm text-muted-foreground mb-2">Explore</p>
+                                <div className="flex flex-col">
+                                    {mainLinks.map((link) => (
+                                        <Link
+                                            key={link.name}
+                                            to={link.href}
+                                            className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Company / Resources */}
                             <div className="border-t border-border pt-3 mt-2">
-                                <p className="text-sm text-muted-foreground mb-2">Resources</p>
-                                {resourceLinks.map((link) => (
+                                <p className="text-sm text-muted-foreground mb-2">Company</p>
+                                {companyLinks.map((link) => (
                                     <Link
                                         key={link.name}
                                         to={link.href}
@@ -178,17 +213,10 @@ const Header = () => {
                                     </Link>
                                 ))}
                             </div>
+
                             <Link to="/settings" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium py-2" onClick={() => setIsMenuOpen(false)}>
                                 <Settings className="w-4 h-4" /> Settings
                             </Link>
-                            <div className="py-2 flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-muted-foreground" />
-                                <span className={`text-sm font-medium ${status === 'open' ? 'text-green-600' :
-                                    status === 'closing-soon' ? 'text-yellow-600' : 'text-red-600'
-                                    }`}>
-                                    {status === 'open' ? 'We are Open' : status === 'closing-soon' ? 'Closing Soon' : 'Closed Now'}
-                                </span>
-                            </div>
                         </nav>
                     </div>
                 )}

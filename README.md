@@ -91,96 +91,143 @@ Omosocho Prime Building Supplies is a modern, responsive e-commerce platform des
 
 ### Styling
 - **Tailwind CSS 3.4.17** - Utility-first CSS
-- **Shadcn UI** - Component library
-- **Framer Motion 12.23.25** - Animations
-- **Lucide React** - Icon library
+## 🚀 Getting Started (Local Development)
 
-### Routing & Forms
-- **React Router DOM 6.30.1** - Client-side routing
-- **React Hook Form 7.61.1** - Form management
-- **Zod 3.25.76** - Schema validation
-
-### UI Components
-- **Radix UI** - Accessible component primitives
-- **Sonner** - Toast notifications
-- **Embla Carousel** - Touch-friendly carousels
-- **Recharts** - Data visualization
-
-### Backend Ready
-- **Supabase** - Backend as a service
-- **TanStack Query** - Data fetching and caching
-
----
-
-## 📁 Project Structure
-
-```
-omosocho-hardware/
-├── public/
-│   └── assets/
-│       ├── logo.png
-│       ├── hero-image.jpg
-│       ├── products/          # Product images
-│       └── category-images/   # Category images
-├── src/
-│   ├── components/
-│   │   ├── ui/               # Shadcn UI components
-│   │   ├── Header.tsx        # Navigation header
-│   │   ├── Footer.tsx        # Site footer
-│   │   ├── ProductCard.tsx   # Reusable product card
-│   │   ├── CategoryCard.tsx  # Reusable category card
-│   │   ├── SectionHeader.tsx # Reusable section header
-│   │   ├── FadeInSection.tsx # Animation wrapper
-│   │   ├── ThemeProvider.tsx # Theme context
-│   │   └── ThemeToggle.tsx   # Dark/light mode toggle
-│   ├── pages/
-│   │   ├── Home.tsx          # Landing page
-│   │   ├── Products.tsx      # Product catalog
-│   │   ├── ProductDetail.tsx # Single product view
-│   │   ├── Categories.tsx    # Category overview
-│   │   ├── Cart.tsx          # Shopping cart
-│   │   ├── Favorites.tsx     # Saved products
-│   │   ├── Services.tsx      # Services page
-│   │   ├── About.tsx         # About us
-│   │   ├── Contact.tsx       # Contact form
-│   │   ├── AiSupport.tsx     # AI assistant
-│   │   ├── Plan.tsx          # Construction planner
-│   │   ├── Testimonials.tsx  # Customer reviews
-│   │   ├── Faq.tsx           # FAQ page
-│   │   ├── PrivacyPolicy.tsx # Privacy policy
-│   │   ├── Settings.tsx      # User settings
-│   │   └── NotFound.tsx      # 404 page
-│   ├── data/
-│   │   ├── products.ts       # Product catalog data
-│   │   └── categoryImages.ts # Category image paths
-│   ├── hooks/
-│   │   ├── useBusinessHours.ts # Business hours logic
-│   │   └── use-toast.ts      # Toast notifications
-│   ├── App.tsx               # Main app component
-│   ├── main.tsx              # App entry point
-│   └── index.css             # Global styles
-├── index.html                # HTML template
-├── package.json              # Dependencies
-├── tailwind.config.ts        # Tailwind configuration
-├── tsconfig.json             # TypeScript configuration
-└── vite.config.ts            # Vite configuration
-```
-
----
-
-## 🚀 Getting Started
+These instructions get the Omosocho Prime site running locally and explain the most common tasks for development and preparing a production build.
 
 ### Prerequisites
 
-- **Node.js** 18.x or higher
-- **npm** 9.x or higher (or **yarn** / **pnpm**)
+- Node.js 18.x or higher
+- npm 9.x or higher (or `pnpm` / `yarn` if you prefer)
 
-### Installation
+### Quick start
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/omosocho-hardware.git
-   cd omosocho-hardware
+1. Clone the repo and install dependencies:
+
+```powershell
+git clone https://github.com/yourusername/omosocho-hardware.git
+cd omosocho-hardware
+npm install
+```
+
+2. Create environment variables (if you plan to use Supabase or other services):
+
+```powershell
+copy .env.example .env   # Windows PowerShell
+# or on macOS / Linux: cp .env.example .env
+```
+
+Open `.env` and set values for at least:
+
+- `VITE_SUPABASE_URL` (if using Supabase)
+- `VITE_SUPABASE_ANON_KEY` (if using Supabase)
+
+3. Start the dev server (Vite):
+
+```powershell
+npm run dev
+```
+
+4. Open the app:
+
+Visit `http://localhost:5173` in your browser. The dev server supports HMR for fast feedback.
+
+### Important notes while developing
+
+- The `public/assets` folder contains static images (logo, product images). Use `/assets/...` paths when referencing them.
+- PDF generation (catalogs and plan reports) runs client-side using `jspdf` — downloads are triggered by `doc.save()` and require a user gesture in some browsers.
+- Favorites and Quote lists are persisted to `localStorage` for a quick demo-ready experience.
+
+---
+
+## 💻 Development & Build Commands
+
+Use the package scripts below for common tasks. All commands assume you're in the project root.
+
+```powershell
+# Start development server (dev mode, HMR)
+npm run dev
+
+# Build a production bundle
+npm run build
+
+# Preview the production build locally
+npm run preview
+
+# Lint the codebase (if configured)
+npm run lint
+```
+
+### Running a production preview
+
+After `npm run build`, run `npm run preview` — Vite will serve the `dist/` folder so you can verify production behavior (asset paths, routing, downloads).
+
+### Adding data or pages
+
+- Add new products in `src/data/products.ts` (follow existing structure).
+- Create new pages under `src/pages/` and add routes in `src/App.tsx`.
+- Add navigation links in `src/components/Header.tsx` as needed.
+
+---
+
+## 🚀 Build & Deployment (Production)
+
+This project is ready to deploy to static hosting services (Vercel, Netlify) or any static file host because the frontend is a Vite-built SPA.
+
+### Environment variables for production
+
+When deploying, set the same environment variables you used locally (e.g. `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`) in your host's dashboard.
+
+### Vercel (recommended)
+
+1. Install Vercel CLI (optional): `npm i -g vercel`
+2. From project root run `vercel` and follow prompts, or connect the GitHub repo in the Vercel dashboard.
+3. Set build command: `npm run build`
+4. Set publish directory: `dist`
+5. Add the required environment variables in Vercel's project settings.
+
+### Netlify
+
+1. Connect your GitHub repo to Netlify.
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
+4. Add environment variables in the Netlify UI.
+
+### Docker (optional)
+
+Simple production Docker steps:
+
+```dockerfile
+# Build stage
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Serve stage
+FROM nginx:stable-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+Then build and run the image:
+
+```powershell
+docker build -t omosocho-frontend .
+docker run -p 8080:80 omosocho-frontend
+```
+
+Visit `http://localhost:8080` to see the production container.
+
+### Common deployment tips
+
+- Ensure `VITE_` env vars are set in your deployment platform (client-side vite vars must start with `VITE_`).
+- If static assets (images) fail to load after deployment, confirm the `base` setting in `vite.config.ts` matches your hosting path.
+- For reliable PDF downloads across browsers, test the generation flow in the deployed preview — some browsers limit downloads not originating from user gestures.
+
    ```
 
 2. **Install dependencies**
@@ -337,6 +384,7 @@ This project is proprietary software. Unauthorized copying, modification, distri
 
 - **Location**: Kisii & Nyamache, Kenya
 - **Email**: info@omosochoprime.co.ke
+ - **Email**: nikeombura@gmail.com
 - **Phone**: +254 XXX XXX XXX
 
 ---

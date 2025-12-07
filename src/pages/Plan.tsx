@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { generatePlanPDF } from '@/utils/generatePlanPDF';
 import FadeInSection from '@/components/FadeInSection';
 
 const steps = [
@@ -19,6 +20,7 @@ const steps = [
 
 const Plan = () => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
     const [formData, setFormData] = useState({
         projectName: '',
         projectType: '',
@@ -46,40 +48,13 @@ const Plan = () => {
         if (currentStep > 1) setCurrentStep(currentStep - 1);
     };
 
-    const handleDownloadReport = () => {
+    const handleDownloadText = () => {
         toast({
-            title: 'Report Generated!',
-            description: 'Your construction plan report has been prepared for download.',
+            title: 'Report Ready (TXT)',
+            description: 'Your editable TXT report has been prepared for download.',
         });
 
-        // Mock download - create a text file with the plan summary
-        const report = `
-OMOSOCHO PRIME - CONSTRUCTION PLAN REPORT
-==========================================
-
-Project: ${formData.projectName || 'Untitled Project'}
-Type: ${formData.projectType} - ${formData.buildingType}
-
-DIMENSIONS:
-- Length: ${formData.length}m
-- Width: ${formData.width}m
-- Height: ${formData.height}m
-- Floors: ${formData.floors}
-
-MATERIALS:
-- Roofing: ${formData.roofingMaterial}
-- Walls: ${formData.wallMaterial}
-- Flooring: ${formData.flooringMaterial}
-
-ADDITIONAL NOTES:
-${formData.additionalNotes || 'None'}
-
-==========================================
-Generated on: ${new Date().toLocaleDateString()}
-Contact: Omosocho Prime Building Supplies
-Location: Kisii, Nyamache - Kenya
-Phone: +254705621054
-    `;
+        const report = `OMOSOCHO PRIME - CONSTRUCTION PLAN REPORT\n==========================================\n\nProject: ${formData.projectName || 'Untitled Project'}\nType: ${formData.projectType} - ${formData.buildingType}\n\nDIMENSIONS:\n- Length: ${formData.length}m\n- Width: ${formData.width}m\n- Height: ${formData.height}m\n- Floors: ${formData.floors}\n\nMATERIALS:\n- Roofing: ${formData.roofingMaterial}\n- Walls: ${formData.wallMaterial}\n- Flooring: ${formData.flooringMaterial}\n\nADDITIONAL NOTES:\n${formData.additionalNotes || 'None'}\n\n==========================================\nGenerated on: ${new Date().toLocaleDateString()}\nContact: Omosocho Prime Building Supplies\nLocation: Kisii, Nyamache - Kenya\nPhone: +254705621054\n`;
 
         const blob = new Blob([report], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -90,6 +65,42 @@ Phone: +254705621054
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    };
+
+    const handleDownloadPDF = async () => {
+        setIsGeneratingPDF(true);
+        try {
+            toast({
+                title: 'Generating PDF',
+                description: 'Preparing your professional PDF report. This may take a moment.',
+            });
+
+            const blob = await generatePlanPDF(formData);
+
+            // Trigger download from the click handler (user gesture)
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const filename = `${(formData.projectName || 'construction-plan').replace(/[^a-z0-9\-]/gi, '_')}_report.pdf`;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            toast({
+                title: 'PDF Ready',
+                description: 'Your professional PDF report has been downloaded.',
+            });
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: 'PDF Generation Failed',
+                description: 'There was an error generating the PDF. Please try again.',
+            });
+        } finally {
+            setIsGeneratingPDF(false);
+        }
     };
 
     return (
@@ -349,10 +360,16 @@ Phone: +254705621054
                                             </div>
                                         )}
                                     </div>
-                                    <Button onClick={handleDownloadReport} className="w-full" size="lg">
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download Report
-                                    </Button>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <Button onClick={handleDownloadPDF} className="w-full" size="lg" variant="accent" disabled={isGeneratingPDF} aria-label="Download PDF">
+                                            <Download className="w-4 h-4 mr-2" />
+                                            {isGeneratingPDF ? 'Generating...' : 'DOWNLOAD PDF'}
+                                        </Button>
+                                        <Button onClick={handleDownloadText} className="w-full" size="lg" variant="outline">
+                                            <ClipboardList className="w-4 h-4 mr-2" />
+                                            Download TXT (Editable)
+                                        </Button>
+                                    </div>
                                 </div>
                             )}
 

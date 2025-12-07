@@ -29,10 +29,25 @@ const Contact = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
+        // Prepare mailto link to open user's email client with the contact details
+        const subject = encodeURIComponent(`Contact Form: ${formData.subject || 'General Inquiry'}`);
+        const body = encodeURIComponent(
+            `Contact Message from Omosocho Prime Website\n\n` +
+            `Name: ${formData.name}\n` +
+            `Email: ${formData.email}\n` +
+            `Phone: ${formData.phone || 'N/A'}\n\n` +
+            `Message:\n${formData.message || 'No message provided.'}\n\n` +
+            `---\nSubmitted via Contact Form on Omosocho Prime Website\nDate: ${new Date().toLocaleString()}`
+        );
+
+        // Open the user's email client addressed to the requested inbox
+        window.location.href = `mailto:nikeombura@gmail.com?subject=${subject}&body=${body}`;
+
+        // Keep the UX feedback and reset the form
         setTimeout(() => {
             toast({
-                title: "Message sent successfully!",
-                description: "We'll get back to you within 24 hours.",
+                title: "Message prepared",
+                description: "Your email client has been opened. Please send the email to complete your message.",
             });
             setFormData({
                 name: '',

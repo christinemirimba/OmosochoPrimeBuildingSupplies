@@ -29,7 +29,16 @@ const Home = () => {
     const handleDownloadCatalog = async () => {
         setIsDownloading(true);
         try {
-            await generateCatalogPDF();
+            const blob = await generateCatalogPDF();
+            // create object URL and trigger download
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Omosocho_Prime_Product_Catalog.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
             toast({
                 title: "Catalog Downloaded",
                 description: "Your product catalog PDF has been downloaded successfully.",
@@ -139,14 +148,15 @@ const Home = () => {
                                     <ArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
                             </Link>
-                            <Button 
+                            <Button
                                 size="xl"
-                                variant="outline" 
-                                className="text-lg text-white border-white hover:bg-white hover:text-foreground"
-                                onClick={scrollToWhyChoose}
+                                variant="accent"
+                                className="text-lg"
+                                onClick={handleDownloadCatalog}
+                                aria-label="Download product catalog PDF"
                             >
-                                <FileText className="w-5 h-5 mr-2" />
-                                Learn More
+                                <Download className="w-5 h-5 mr-2" />
+                                {isDownloading ? 'Generating PDF...' : 'Download Catalog'}
                             </Button>
                         </div>
                     </FadeInSection>
@@ -287,18 +297,15 @@ const Home = () => {
                         ))}
                     </div>
 
-                    {/* Download Catalog CTA */}
+                    {/* Learn More CTA (moved from hero) */}
                     <FadeInSection delay={600}>
                         <div className="text-center mt-12">
-                            <Button 
-                                size="xl" 
-                                variant="accent" 
-                                onClick={handleDownloadCatalog}
-                                disabled={isDownloading}
-                            >
-                                <Download className="w-5 h-5 mr-2" />
-                                {isDownloading ? 'Generating PDF...' : 'Download Catalog'}
-                            </Button>
+                            <Link to="/about">
+                                <Button size="lg" variant="default">
+                                    Learn More
+                                    <ArrowRight className="w-5 h-5 ml-2" />
+                                </Button>
+                            </Link>
                         </div>
                     </FadeInSection>
                 </div>
