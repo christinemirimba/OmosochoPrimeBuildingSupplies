@@ -225,8 +225,62 @@
 
     /* Card styles */
     .card-product {
-        @apply bg-card border border-border rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1;
+        @apply bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
     }
+
+    .card-product:hover {
+        @apply shadow-lg transform hover:-translate-y-1;
+    }
+
+    .card-product .card-header {
+        @apply bg-gradient-to-b from-transparent to-gray-50/50;
+    }
+
+    /* Premium card enhancements */
+    .card-product {
+        @apply border-transparent;
+    }
+
+    .card-product:hover {
+        @apply border-primary/10;
+    }
+
+    /* Button premium styling */
+    .card-product button {
+        @apply border-transparent;
+    }
+
+    .card-product button:first-child {
+        @apply border-primary/20;
+    }
+
+    /* Premium button styling */
+    .card-product button {
+        @apply transition-all duration-200;
+    }
+
+    .card-product button:hover {
+        @apply transform translate-y-px;
+    }
+
+    /* Category badge premium styling */
+    .card-product .badge {
+        @apply transition-all duration-200;
+    }
+
+    .card-product .badge:hover {
+        @apply transform scale-105;
+    }
+
+    /* Brand badge premium styling */
+    .card-product .badge[class*="bg-primary"] {
+        @apply backdrop-blur-md border border-white/20 shadow-sm;
+    }
+
+    .card-product .badge[class*="bg-primary"]:hover {
+        @apply backdrop-blur-lg border-white/30 shadow-md;
+    }
+
 
     .card-category {
         @apply bg-gradient-to-br from-secondary to-secondary/80 rounded-xl p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:scale-105;
