@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye } from 'lucide-react';
+import { Eye, Plus, Check } from 'lucide-react';
+import { useQuote } from '@/hooks/useQuote';
+import { toast } from 'sonner';
 
 interface ProductCardProps {
     id: number;
@@ -13,51 +15,89 @@ interface ProductCardProps {
     inStock?: boolean;
 }
 
-/**
- * Reusable ProductCard component for displaying product information
- * Used across Products, Home, and other pages
- */
 export const ProductCard = ({ id, name, category, image, brand, inStock = true }: ProductCardProps) => {
+    const { addToQuote, isInQuote } = useQuote();
+    const inQuote = isInQuote(id);
+
+    const handleAddToQuote = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!inQuote) {
+            addToQuote(id, 1);
+            toast.success(`${name} added to quote`, {
+                description: 'View your quote list to review items',
+                action: {
+                    label: 'View Quote',
+                    onClick: () => window.location.href = '/quote'
+                }
+            });
+        }
+    };
+
     return (
-        <Link to={`/product/${id}`}>
-            <Card className="card-product group cursor-pointer h-full hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-0">
-                    <div className="aspect-square overflow-hidden rounded-t-xl relative">
-                        <img
-                            src={image}
-                            alt={name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            loading="lazy"
-                        />
-                        {!inStock && (
-                            <Badge className="absolute top-2 right-2 bg-red-500">
-                                Out of Stock
-                            </Badge>
-                        )}
-                        {brand && (
-                            <Badge className="absolute top-2 left-2 bg-primary/90">
-                                {brand}
-                            </Badge>
-                        )}
-                    </div>
-                </CardContent>
-                <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                        <Badge variant="secondary" className="text-xs">
-                            {category}
+        <Card className="card-product group h-full hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <CardContent className="p-0">
+                <div className="aspect-[4/3] overflow-hidden relative">
+                    <img
+                        src={image}
+                        alt={name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                    />
+                    {!inStock && (
+                        <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground">
+                            Out of Stock
                         </Badge>
-                    </div>
-                    <CardTitle className="text-lg font-semibold line-clamp-2 group-hover:text-primary transition-colors">
-                        {name}
-                    </CardTitle>
-                    <CardDescription className="mt-2">
-                        <Button variant="default" size="sm" className="w-full group-hover:bg-primary/90 transition-colors">
-                            <Eye className="w-4 h-4 mr-2" />
+                    )}
+                    {brand && (
+                        <Badge className="absolute top-2 left-2 bg-primary/90 text-primary-foreground">
+                            {brand}
+                        </Badge>
+                    )}
+                </div>
+            </CardContent>
+            <CardHeader className="p-3 sm:p-4">
+                <div className="flex items-center justify-between mb-2">
+                    <Badge variant="secondary" className="text-xs">
+                        {category}
+                    </Badge>
+                </div>
+                <CardTitle className="text-sm sm:text-base font-semibold line-clamp-2 group-hover:text-primary transition-colors mb-3">
+                    {name}
+                </CardTitle>
+                <div className="flex flex-col sm:flex-row gap-2">
+                    <Button 
+                        variant="default" 
+                        size="sm" 
+                        className="flex-1 text-xs sm:text-sm"
+                        asChild
+                    >
+                        <Link to={`/product/${id}`}>
+                            <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                             View Details
-                        </Button>
-                    </CardDescription>
-                </CardHeader>
-            </Card>
-        </Link>
+                        </Link>
+                    </Button>
+                    <Button 
+                        variant={inQuote ? "secondary" : "outline"}
+                        size="sm" 
+                        className="flex-1 text-xs sm:text-sm"
+                        onClick={handleAddToQuote}
+                        disabled={!inStock}
+                    >
+                        {inQuote ? (
+                            <>
+                                <Check className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                                In Quote
+                            </>
+                        ) : (
+                            <>
+                                <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                                Add to Quote
+                            </>
+                        )}
+                    </Button>
+                </div>
+            </CardHeader>
+        </Card>
     );
 };

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
-import { Search, Grid, List, Filter, X, SlidersHorizontal } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { Search, Grid, List, X, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FadeInSection from '@/components/FadeInSection';
 import PageTransition from '@/components/PageTransition';
+import { ProductCard } from '@/components/ProductCard';
 import { products, categories, brands, quickSearches } from '@/data/products';
 
 const Products = () => {
@@ -341,55 +342,19 @@ const Products = () => {
                 {/* Products Grid */}
                 <FadeInSection delay={200}>
                     <div className={viewMode === 'grid'
-                        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        ? "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6"
                         : "space-y-4"
                     }>
                         {sortedProducts.map((product, index) => (
-                            <FadeInSection key={product.id} delay={index * 100}>
-                                <Link to={`/product/${product.id}`}>
-                                    <Card className="card-product h-full cursor-pointer hover:shadow-lg transition-shadow">
-                                        <CardHeader className="p-0">
-                                            <div className="aspect-square overflow-hidden rounded-t-lg">
-                                                <img
-                                                    src={product.image}
-                                                    alt={product.name}
-                                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                                />
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent className="p-6">
-                                            <div className="flex items-start justify-between mb-2">
-                                                <CardTitle className="text-lg font-semibold line-clamp-2">
-                                                    {product.name}
-                                                </CardTitle>
-                                                <Badge variant={product.inStock ? "default" : "secondary"}>
-                                                    {product.inStock ? "In Stock" : "Out of Stock"}
-                                                </Badge>
-                                            </div>
-                                            <CardDescription className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                                                {product.description}
-                                            </CardDescription>
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-lg font-semibold text-primary">
-                                                    Available
-                                                </span>
-                                                <div className="flex items-center gap-1">
-                                                    <span className="text-sm text-muted-foreground">★</span>
-                                                    <span className="text-sm font-medium">{product.rating}</span>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                        <CardFooter className="p-6 pt-0">
-                                            <Button
-                                                className="w-full"
-                                                disabled={!product.inStock}
-                                                variant={product.inStock ? "default" : "secondary"}
-                                            >
-                                                {product.inStock ? "View Details" : "Out of Stock"}
-                                            </Button>
-                                        </CardFooter>
-                                    </Card>
-                                </Link>
+                            <FadeInSection key={product.id} delay={Math.min(index * 50, 500)}>
+                                <ProductCard
+                                    id={product.id}
+                                    name={product.name}
+                                    category={product.category}
+                                    image={product.image}
+                                    brand={product.brand}
+                                    inStock={product.inStock}
+                                />
                             </FadeInSection>
                         ))}
                     </div>
