@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Search, Menu, X, User, ChevronDown, Settings } from 'lucide-react';
+import { Search, Menu, X, ChevronDown, Settings, FileText, Heart, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,30 +11,29 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ThemeToggle } from './ThemeToggle';
+import { useQuote } from '@/hooks/useQuote';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    // Business hours removed from header
+    const { getQuoteCount } = useQuote();
+    const quoteCount = getQuoteCount();
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         if (searchQuery.trim()) {
             navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+            setIsMenuOpen(false);
         }
     };
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    // Grouped navigation for cleaner header
     const productLinks = [
         { name: 'All Products', href: '/products' },
         { name: 'Categories', href: '/categories' },
-        { name: 'Featured', href: '/products?filter=featured' },
-        { name: 'Wishlist', href: '/favorites' },
-        { name: 'Quote List', href: '/quote' },
     ];
 
     const mainLinks = [
@@ -54,126 +53,181 @@ const Header = () => {
     return (
         <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
             <div className="container mx-auto px-4">
-                <div className="flex items-center justify-between py-4">
+                <div className="flex items-center justify-between py-3 sm:py-4">
                     {/* Logo */}
-                    <Link to="/" className="text-decoration-none">
-                        <div className="logo">
-                            <img src="/assets/logo.png" alt="Omosocho Prime" />
-                            <h1 className="brand-name">Omosocho Prime</h1>
+                    <Link to="/" className="text-decoration-none flex-shrink-0">
+                        <div className="logo flex items-center gap-2">
+                            <img src="/assets/logo.png" alt="Omosocho Prime" className="h-8 sm:h-10 w-auto" />
+                            <h1 className="brand-name text-base sm:text-lg font-bold hidden xs:block">Omosocho Prime</h1>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                        <nav className="hidden md:flex items-center space-x-6">
-                            {/* Products Dropdown - groups product related links */}
-                            <DropdownMenu>
-                                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer">
-                                    Products
-                                    <ChevronDown className="w-4 h-4" />
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="start">
-                                    {productLinks.map((link) => (
-                                        <DropdownMenuItem key={link.name} asChild>
-                                            <Link to={link.href}>{link.name}</Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                    <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+                        {/* Products Dropdown */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer text-sm">
+                                Products
+                                <ChevronDown className="w-4 h-4" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="start">
+                                {productLinks.map((link) => (
+                                    <DropdownMenuItem key={link.name} asChild>
+                                        <Link to={link.href}>{link.name}</Link>
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
 
-                            {/* Main links shown inline for quick access */}
-                            {mainLinks.map((link) => {
-                                const isActive = location.pathname === link.href;
-                                return (
-                                    <Link
-                                        key={link.name}
-                                        to={link.href}
-                                        className={`transition-colors duration-200 font-medium ${isActive ? 'text-primary font-bold' : 'text-foreground hover:text-primary'}`}>
-                                        {link.name}
-                                    </Link>
-                                );
-                            })}
+                        {/* Main links */}
+                        {mainLinks.map((link) => {
+                            const isActive = location.pathname === link.href;
+                            return (
+                                <Link
+                                    key={link.name}
+                                    to={link.href}
+                                    className={`transition-colors duration-200 font-medium text-sm ${isActive ? 'text-primary font-bold' : 'text-foreground hover:text-primary'}`}>
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
 
-                            {/* Company / Resources Dropdown */}
-                            <DropdownMenu>
-                                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer">
-                                    Company
-                                    <ChevronDown className="w-4 h-4" />
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    {companyLinks.map((link) => (
-                                        <DropdownMenuItem key={link.name} asChild>
-                                            <Link to={link.href}>{link.name}</Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </nav>
+                        {/* Company Dropdown */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer text-sm">
+                                Company
+                                <ChevronDown className="w-4 h-4" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {companyLinks.map((link) => (
+                                    <DropdownMenuItem key={link.name} asChild>
+                                        <Link to={link.href}>{link.name}</Link>
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </nav>
 
-                    {/* Actions - Top Right */}
-                    <div className="flex items-center gap-2">
-                        {/* Business hours removed per request */}
-
-                        {/* Search Bar - Desktop */}
+                    {/* Actions */}
+                    <div className="flex items-center gap-1 sm:gap-2">
+                        {/* Search - Desktop */}
                         <form onSubmit={handleSearch} className="hidden md:flex items-center">
-                            <div className="relative flex items-center gap-2">
-                                <div className="relative w-56 lg:w-64">
+                            <div className="relative flex items-center gap-1">
+                                <div className="relative w-40 lg:w-52 xl:w-64">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                                     <Input
                                         type="text"
-                                        placeholder="Search materials..."
+                                        placeholder="Search..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="pl-10 pr-4 py-2 w-full bg-secondary border-0"
+                                        className="pl-9 pr-3 py-2 w-full bg-secondary border-0 text-sm h-9"
                                     />
                                 </div>
-                                <Button type="submit" size="sm" className="bg-primary hover:bg-primary/90">
+                                <Button type="submit" size="sm" className="h-9 px-3">
                                     <Search className="w-4 h-4" />
                                 </Button>
                             </div>
                         </form>
 
-                        {/* Theme Toggle */}
-                        <ThemeToggle />
+                        {/* Quick Actions */}
+                        <div className="flex items-center gap-1">
+                            <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="h-9 w-9 hidden sm:flex" 
+                                onClick={() => navigate('/favorites')}
+                                title="Wishlist"
+                            >
+                                <Heart className="w-4 h-4" />
+                            </Button>
 
-                        {/* Settings */}
-                        <Button variant="ghost" size="icon" className="hidden sm:flex h-9 w-9" onClick={() => navigate('/settings')}>
-                            <Settings className="w-4 h-4" />
-                        </Button>
+                            <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="h-9 w-9 relative" 
+                                onClick={() => navigate('/quote')}
+                                title="Quote List"
+                            >
+                                <FileText className="w-4 h-4" />
+                                {quoteCount > 0 && (
+                                    <Badge 
+                                        className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground"
+                                    >
+                                        {quoteCount > 99 ? '99+' : quoteCount}
+                                    </Badge>
+                                )}
+                            </Button>
 
-                        {/* Mobile Menu Toggle */}
-                            <Button variant="ghost" size="icon" className="md:hidden h-9 w-9" onClick={toggleMenu}>
-                            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </Button>
+                            <ThemeToggle />
+
+                            <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="h-9 w-9 hidden sm:flex" 
+                                onClick={() => navigate('/settings')}
+                                title="Settings"
+                            >
+                                <Settings className="w-4 h-4" />
+                            </Button>
+
+                            {/* Mobile Menu Toggle */}
+                            <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9" onClick={toggleMenu}>
+                                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
-                {/* Mobile Search Bar */}
-                <form onSubmit={handleSearch} className="md:hidden pb-4">
+                {/* Mobile Search */}
+                <form onSubmit={handleSearch} className="md:hidden pb-3">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                         <Input
                             type="text"
-                            placeholder="Search construction materials..."
+                            placeholder="Search materials..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-4 py-2 w-full bg-secondary border-0"
+                            className="pl-10 pr-4 py-2 w-full bg-secondary border-0 text-sm"
                         />
                     </div>
                 </form>
 
                 {/* Mobile Navigation Menu */}
                 {isMenuOpen && (
-                    <div className="lg:hidden border-t border-border py-4 animate-in slide-in-from-top-2 duration-300">
-                        <nav className="flex flex-col space-y-4 px-4">
-                            {/* Product Group */}
+                    <div className="lg:hidden border-t border-border py-4 animate-in slide-in-from-top-2 duration-300 max-h-[70vh] overflow-y-auto">
+                        <nav className="flex flex-col space-y-3 px-2">
+                            {/* Quick Links */}
+                            <div className="flex gap-2 pb-3 border-b border-border">
+                                <Button 
+                                    variant="outline" 
+                                    size="sm" 
+                                    className="flex-1 text-xs"
+                                    onClick={() => { navigate('/favorites'); setIsMenuOpen(false); }}
+                                >
+                                    <Heart className="w-4 h-4 mr-1" /> Wishlist
+                                </Button>
+                                <Button 
+                                    variant="outline" 
+                                    size="sm" 
+                                    className="flex-1 text-xs relative"
+                                    onClick={() => { navigate('/quote'); setIsMenuOpen(false); }}
+                                >
+                                    <FileText className="w-4 h-4 mr-1" /> Quote
+                                    {quoteCount > 0 && (
+                                        <Badge className="ml-1 h-4 px-1 text-xs">{quoteCount}</Badge>
+                                    )}
+                                </Button>
+                            </div>
+
+                            {/* Products */}
                             <div>
-                                <p className="text-sm text-muted-foreground mb-2">Products</p>
-                                <div className="flex flex-col">
+                                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase">Products</p>
+                                <div className="grid grid-cols-2 gap-2">
                                     {productLinks.map((link) => (
                                         <Link
                                             key={link.name}
                                             to={link.href}
-                                            className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+                                            className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             {link.name}
@@ -184,13 +238,13 @@ const Header = () => {
 
                             {/* Main Links */}
                             <div>
-                                <p className="text-sm text-muted-foreground mb-2">Explore</p>
-                                <div className="flex flex-col">
+                                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase">Explore</p>
+                                <div className="grid grid-cols-2 gap-2">
                                     {mainLinks.map((link) => (
                                         <Link
                                             key={link.name}
                                             to={link.href}
-                                            className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+                                            className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             {link.name}
@@ -199,22 +253,28 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            {/* Company / Resources */}
-                            <div className="border-t border-border pt-3 mt-2">
-                                <p className="text-sm text-muted-foreground mb-2">Company</p>
-                                {companyLinks.map((link) => (
-                                    <Link
-                                        key={link.name}
-                                        to={link.href}
-                                        className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        {link.name}
-                                    </Link>
-                                ))}
+                            {/* Company */}
+                            <div className="border-t border-border pt-3">
+                                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase">Company</p>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {companyLinks.map((link) => (
+                                        <Link
+                                            key={link.name}
+                                            to={link.href}
+                                            className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ))}
+                                </div>
                             </div>
 
-                            <Link to="/settings" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium py-2" onClick={() => setIsMenuOpen(false)}>
+                            <Link 
+                                to="/settings" 
+                                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm mt-2" 
+                                onClick={() => setIsMenuOpen(false)}
+                            >
                                 <Settings className="w-4 h-4" /> Settings
                             </Link>
                         </nav>
