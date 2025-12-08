@@ -14,15 +14,7 @@ type Message = {
   content: string;
 };
 
-const WELCOME_MESSAGE = `Hello! I'm your Project Planning AI Assistant from Omosocho Prime Building Supplies. I can help you with:
-
-• **Construction material selection** - cement, steel, ballast, sand, etc.
-• **House/structure costing guidance** - estimates for different project sizes
-• **Estimating quantity of materials** - accurate calculations for your project
-• **Roofing & finishing recommendations** - best options for Kisii climate
-• **Quotation guidance** - product suggestions and quote preparation
-
-How can I assist you today?`;
+const WELCOME_MESSAGE = `Hello! I'm your Project planning AI Assistant. I can help you with construction planning, material selection, project estimates, and any questions about building supplies. How can I assist you today?`;
 
 const SUGGESTED_QUESTIONS = [
   "What materials do I need for a 3-bedroom house?",
@@ -107,10 +99,7 @@ const AiSupport = () => {
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center">
               <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
             </div>
-            <div>
-              <h1 className="text-xl sm:text-2xl font-heading font-bold">AI Support Assistant</h1>
-              <p className="text-xs sm:text-sm text-muted-foreground">Powered by Omosocho Prime</p>
-            </div>
+            <h1 className="text-xl sm:text-2xl font-heading font-bold">AI Support Assistant</h1>
           </div>
         </FadeInSection>
 

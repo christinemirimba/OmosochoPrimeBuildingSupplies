@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus, Star, Shield, Truck, HeadphonesIcon, Heart, FileText } from 'lucide-react';
+import { ImageZoom } from '@/components/ImageZoom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -126,10 +127,9 @@ const ProductDetail = () => {
                     <FadeInSection>
                         <div className="space-y-4">
                             <div className="aspect-square overflow-hidden rounded-lg bg-secondary">
-                                <img
+                                <ImageZoom
                                     src={productImages[selectedImage]}
                                     alt={product.name}
-                                    className="w-full h-full object-cover"
                                 />
                             </div>
                             {productImages.length > 1 && (
@@ -215,25 +215,25 @@ const ProductDetail = () => {
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex gap-4 flex-wrap">
+                                <div className="flex gap-3 flex-wrap">
                                     <Button
-                                        size="lg"
+                                        size="default"
                                         variant={isInQuote ? "secondary" : "accent"}
                                         onClick={toggleQuote}
                                         disabled={!product.inStock}
-                                        className="flex-1 min-w-[140px]"
+                                        className="flex-1 min-w-[120px]"
                                     >
                                         <FileText className="w-4 h-4 mr-2" />
                                         {isInQuote ? 'In Quote' : 'Add to Quote'}
                                     </Button>
                                     <Button
-                                        size="lg"
+                                        size="default"
                                         variant={isFavorite ? "default" : "outline"}
                                         onClick={toggleFavorite}
                                         className="gap-2"
                                     >
                                         <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
-                                        {isFavorite ? 'In Wishlist' : 'Add to Wishlist'}
+                                        {isFavorite ? 'Saved' : 'Wishlist'}
                                     </Button>
                                 </div>
 
