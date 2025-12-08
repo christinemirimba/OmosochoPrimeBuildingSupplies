@@ -37,7 +37,7 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
     return (
         <Card className="card-product group h-full hover:shadow-xl transition-all duration-300 overflow-hidden">
             <CardContent className="p-0">
-                <div className="aspect-[4/3] overflow-hidden relative">
+                <div className="aspect-square overflow-hidden relative">
                     <img
                         src={image}
                         alt={name}
@@ -62,41 +62,41 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                         {category}
                     </Badge>
                 </div>
-                <CardTitle className="text-sm sm:text-base font-semibold line-clamp-2 group-hover:text-primary transition-colors mb-3">
-                    {name}
-                </CardTitle>
-                <div className="flex flex-col sm:flex-row gap-2">
-                    <Button 
-                        variant="default" 
-                        size="sm" 
-                        className="flex-1 text-xs sm:text-sm"
-                        asChild
-                    >
-                        <Link to={`/product/${id}`}>
-                            <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                            View Details
-                        </Link>
-                    </Button>
-                    <Button 
-                        variant={inQuote ? "secondary" : "outline"}
-                        size="sm" 
-                        className="flex-1 text-xs sm:text-sm"
-                        onClick={handleAddToQuote}
-                        disabled={!inStock}
-                    >
-                        {inQuote ? (
-                            <>
-                                <Check className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                                In Quote
-                            </>
-                        ) : (
-                            <>
-                                <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                                Add to Quote
-                            </>
-                        )}
-                    </Button>
-                </div>
+            <CardTitle className="text-sm font-semibold line-clamp-2 group-hover:text-primary transition-colors mb-3">
+                {name}
+            </CardTitle>
+            <div className="grid grid-cols-2 gap-1.5">
+                <Button 
+                    variant="default" 
+                    size="sm" 
+                    className="text-xs px-2 py-1.5 h-auto"
+                    asChild
+                >
+                    <Link to={`/product/${id}`}>
+                        <Eye className="w-3 h-3 mr-1" />
+                        Details
+                    </Link>
+                </Button>
+                <Button 
+                    variant={inQuote ? "secondary" : "outline"}
+                    size="sm" 
+                    className="text-xs px-2 py-1.5 h-auto"
+                    onClick={handleAddToQuote}
+                    disabled={!inStock}
+                >
+                    {inQuote ? (
+                        <>
+                            <Check className="w-3 h-3 mr-1" />
+                            Added
+                        </>
+                    ) : (
+                        <>
+                            <Plus className="w-3 h-3 mr-1" />
+                            Quote
+                        </>
+                    )}
+                </Button>
+            </div>
             </CardHeader>
         </Card>
     );
