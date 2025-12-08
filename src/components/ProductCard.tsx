@@ -16,7 +16,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ id, name, category, image, brand, inStock = true }: ProductCardProps) => {
-    const { addToQuote, isInQuote } = useQuote();
+    const { addToQuote, removeFromQuote, isInQuote } = useQuote();
     const inQuote = isInQuote(id);
 
     const handleAddToQuote = (e: React.MouseEvent) => {
@@ -30,6 +30,11 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                     label: 'View Quote',
                     onClick: () => window.location.href = '/quote'
                 }
+            });
+        } else {
+            removeFromQuote(id);
+            toast.success(`${name} removed from quote`, {
+                description: 'Item has been removed from your quote',
             });
         }
     };
@@ -87,7 +92,7 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                     {inQuote ? (
                         <>
                             <Check className="w-3 h-3 mr-1" />
-                            Added
+                            In Quote
                         </>
                     ) : (
                         <>

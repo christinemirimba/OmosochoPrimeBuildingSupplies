@@ -29,7 +29,14 @@ const Home = () => {
     const handleDownloadCatalog = async () => {
         setIsDownloading(true);
         try {
+            console.log('Starting catalog PDF generation...');
             const blob = await generateCatalogPDF();
+            console.log('PDF generated successfully, size:', blob.size, 'bytes');
+
+            if (!blob || blob.size === 0) {
+                throw new Error('Generated PDF is empty');
+            }
+
             // create object URL and trigger download
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -39,17 +46,20 @@ const Home = () => {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+
             toast({
                 title: "Catalog Downloaded",
                 description: "Your product catalog PDF has been downloaded successfully.",
             });
         } catch (error) {
+            console.error('Catalog download error:', error);
             toast({
                 title: "Download Failed",
-                description: "There was an error downloading the catalog. Please try again.",
+                description: error instanceof Error ? error.message : "There was an error downloading the catalog. Please try again.",
             });
+        } finally {
+            setIsDownloading(false);
         }
-        setIsDownloading(false);
     };
 
     const scrollToWhyChoose = () => {

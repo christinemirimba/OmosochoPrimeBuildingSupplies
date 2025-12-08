@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* AI Response Styling */
+.ai-response h3 {
+  color: #2563eb;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ai-response p {
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.ai-response ul, .ai-response ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ai-response li {
+  margin-bottom: 0.5rem;
+}
+
+.ai-response strong {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.ai-response .key-points {
+  background-color: #f8fafc;
+  border-left: 3px solid #2563eb;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.ai-response .recommended-products {
+  background-color: #fef9c3;
+  border-left: 3px solid #eab308;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.ai-response .next-steps {
+  background-color: #f0fdf4;
+  border-left: 3px solid #10b981;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
 @layer base {
     :root {
         /* Brand Colors - Omosocho Prime */

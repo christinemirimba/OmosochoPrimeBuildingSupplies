@@ -217,11 +217,11 @@ const ProductDetail = () => {
                                 {/* Action Buttons */}
                                 <div className="flex gap-3 flex-wrap">
                                     <Button
-                                        size="default"
+                                        size="sm"
                                         variant={isInQuote ? "secondary" : "accent"}
                                         onClick={toggleQuote}
                                         disabled={!product.inStock}
-                                        className="flex-1 min-w-[120px]"
+                                        className="px-3 py-1.5 h-auto"
                                     >
                                         <FileText className="w-4 h-4 mr-2" />
                                         {isInQuote ? 'In Quote' : 'Add to Quote'}
@@ -233,7 +233,7 @@ const ProductDetail = () => {
                                         className="gap-2"
                                     >
                                         <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
-                                        {isFavorite ? 'Saved' : 'Wishlist'}
+                                        {isFavorite ? 'In Wishlist' : 'Wishlist'}
                                     </Button>
                                 </div>
 

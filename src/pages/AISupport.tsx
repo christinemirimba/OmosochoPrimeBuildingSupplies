@@ -6,15 +6,15 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card } from '@/components/ui/card';
 import FadeInSection from '@/components/FadeInSection';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { generateGeminiResponse, formatMessagesForGemini } from '@/integrations/gemini/client';
 
 type Message = {
   role: 'user' | 'assistant';
   content: string;
 };
 
-const WELCOME_MESSAGE = `Hello! I'm your Project planning AI Assistant. I can help you with construction planning, material selection, project estimates, and any questions about building supplies. How can I assist you today?`;
+const WELCOME_MESSAGE = `Hello! I'm your Project Planning AI Assistant for Omosocho Prime Building Supplies. I can help with construction planning, material selection, project estimates, and any questions about building supplies in Kenya. How can I assist you today?`;
 
 const SUGGESTED_QUESTIONS = [
   "What materials do I need for a 3-bedroom house?",
@@ -49,32 +49,31 @@ const AiSupport = () => {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('ai-chat', {
-        body: { 
-          messages: [...messages, { role: 'user', content: userMessage }]
-        }
-      });
+      // Format messages for Gemini API
+      const formattedMessages = formatMessagesForGemini([
+        ...messages,
+        { role: 'user', content: userMessage }
+      ]);
 
-      if (error) {
-        throw new Error(error.message);
-      }
+      // Call Gemini API
+      const result = await generateGeminiResponse(userMessage, formattedMessages);
 
-      if (data?.error) {
-        throw new Error(data.error);
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to get Gemini response');
       }
 
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.response },
+        { role: 'assistant', content: result.response },
       ]);
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Failed to get response');
+      console.error('Gemini API Error:', error);
+      toast.error('Failed to get AI response');
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment or contact our support team directly at +254705621054 or email nikeombura@gmail.com.",
+          content: "I apologize, but I'm having trouble connecting to the AI service right now. Please try again in a moment or contact our support team directly at +254705621054 or email nikeombura@gmail.com.",
         },
       ]);
     } finally {
@@ -124,9 +123,29 @@ const AiSupport = () => {
                       }`}
                   >
                     <div className="whitespace-pre-wrap prose prose-sm dark:prose-invert max-w-none">
-                      {message.content.split('\n').map((line, i) => (
-                        <p key={i} className="mb-1 last:mb-0">{line}</p>
-                      ))}
+                      {message.role === 'assistant' ? (
+                        <div className="ai-response">
+                          {message.content.split('\n\n').map((paragraph, i) => (
+                            <div key={i} className="mb-3 last:mb-0">
+                              {paragraph.startsWith('## ') ? (
+                                <h3 className="text-base sm:text-lg font-semibold mb-2 text-primary">{paragraph.replace('## ', '')}</h3>
+                              ) : paragraph.startsWith('**') ? (
+                                <div className="ml-0 pl-0 border-l-2 border-primary">
+                                  {paragraph.split('\n').map((line, j) => (
+                                    <p key={j} className="mb-1 last:mb-0">{line}</p>
+                                  ))}
+                                </div>
+                              ) : (
+                                <p className="mb-1 last:mb-0">{paragraph}</p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        message.content.split('\n').map((line, i) => (
+                          <p key={i} className="mb-1 last:mb-0">{line}</p>
+                        ))
+                      )}
                     </div>
                   </div>
                   {message.role === 'user' && (

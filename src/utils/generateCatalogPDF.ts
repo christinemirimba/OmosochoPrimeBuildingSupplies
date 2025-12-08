@@ -289,6 +289,15 @@ export const generateCatalogPDF = async (): Promise<Blob> => {
     doc.text(`Catalog generated on ${new Date().toLocaleDateString()}`, pageWidth / 2, pageHeight - 15, { align: 'center' });
 
     // Return PDF blob to caller so download can be triggered from the user gesture context
-    const blob = doc.output('blob');
-    return blob;
+    try {
+        const blob = doc.output('blob');
+        if (!blob || blob.size === 0) {
+            throw new Error('Failed to generate PDF: Empty blob');
+        }
+        console.log('Catalog PDF generated successfully');
+        return blob;
+    } catch (error) {
+        console.error('PDF generation error:', error);
+        throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
 };
