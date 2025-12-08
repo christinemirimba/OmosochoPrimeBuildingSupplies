@@ -63,9 +63,6 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                             {brand}
                         </Badge>
                     )}
-                    <Badge variant="secondary" className="text-xs px-2 py-1 rounded-full border border-border/50">
-                        {category}
-                    </Badge>
                 </div>
                 <CardTitle className="text-base font-medium line-clamp-2 group-hover:text-primary transition-colors mb-4 min-h-[48px]">
                     {name}
