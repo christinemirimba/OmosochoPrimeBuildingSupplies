@@ -59,8 +59,8 @@ const ChatBubble = () => {
             aria-label="Open AI Support Chat"
             style={{
                 position: 'fixed',
-                bottom: '1.5rem',
-                right: '1.5rem',
+                bottom: '4.5rem',
+                right: '1rem',
                 zIndex: 2147483647,
                 transform: `translateY(-${translateY}px)`,
             }}
