@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Send, Bot, User, Loader2, MessageCircle } from 'lucide-react';
+import { Send, Bot, User, Loader2, MessageCircle, X, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card } from '@/components/ui/card';
 import FadeInSection from '@/components/FadeInSection';
+import ExitButton from '@/components/ExitButton';
 import { toast } from 'sonner';
 import { generateGeminiResponse, formatMessagesForGemini } from '@/integrations/gemini/client';
 
@@ -102,7 +103,12 @@ const AiSupport = () => {
           </div>
         </FadeInSection>
 
-        <Card className="flex-1 flex flex-col overflow-hidden border-2">
+        <Card className="flex-1 flex flex-col overflow-hidden border-2 relative">
+          {/* Exit Button - Close type for AI Support modal - INSIDE the modal */}
+          <div className="absolute top-4 right-4 z-10">
+            <ExitButton type="close" className="relative" />
+          </div>
+
           {/* Chat Area */}
           <ScrollArea className="flex-1 p-4 sm:p-6" ref={scrollRef}>
             <div className="space-y-4 sm:space-y-6">

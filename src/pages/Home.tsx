@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Award, Truck, Headphones, Star, Search, Download, FileText } from 'lucide-react';
+import { ArrowRight, Award, Truck, Headphones, Star, Search, Download, FileText, X, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import FadeInSection from '@/components/FadeInSection';
 import PageTransition from '@/components/PageTransition';
+import PDFCatalog from '@/components/PDFCatalog';
+import ExitButton from '@/components/ExitButton';
 import { products } from '@/data/products';
 import { categoryImages } from '@/data/categoryImages';
-import { generateCatalogPDF } from '@/utils/generateCatalogPDF';
 import { useToast } from '@/hooks/use-toast';
 
 const heroImage = '/assets/hero-image.jpg';
@@ -17,48 +18,11 @@ const Home = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
     const [searchQuery, setSearchQuery] = useState('');
-    const [isDownloading, setIsDownloading] = useState(false);
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         if (searchQuery.trim()) {
             navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-        }
-    };
-
-    const handleDownloadCatalog = async () => {
-        setIsDownloading(true);
-        try {
-            console.log('Starting catalog PDF generation...');
-            const blob = await generateCatalogPDF();
-            console.log('PDF generated successfully, size:', blob.size, 'bytes');
-
-            if (!blob || blob.size === 0) {
-                throw new Error('Generated PDF is empty');
-            }
-
-            // create object URL and trigger download
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Omosocho_Prime_Product_Catalog.pdf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            toast({
-                title: "Catalog Downloaded",
-                description: "Your product catalog PDF has been downloaded successfully.",
-            });
-        } catch (error) {
-            console.error('Catalog download error:', error);
-            toast({
-                title: "Download Failed",
-                description: error instanceof Error ? error.message : "There was an error downloading the catalog. Please try again.",
-            });
-        } finally {
-            setIsDownloading(false);
         }
     };
 
@@ -158,16 +122,7 @@ const Home = () => {
                                     <ArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
                             </Link>
-                            <Button
-                                size="xl"
-                                variant="accent"
-                                className="text-lg"
-                                onClick={handleDownloadCatalog}
-                                aria-label="Download product catalog PDF"
-                            >
-                                <Download className="w-5 h-5 mr-2" />
-                                {isDownloading ? 'Generating PDF...' : 'Download Catalog'}
-                            </Button>
+                            <PDFCatalog />
                         </div>
                     </FadeInSection>
                 </div>

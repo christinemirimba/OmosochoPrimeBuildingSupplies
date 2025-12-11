@@ -11,6 +11,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ThemeToggle } from './ThemeToggle';
+import EnhancedSearch from './EnhancedSearch';
 import { useQuote } from '@/hooks/useQuote';
 
 const Header = () => {
@@ -110,24 +111,15 @@ const Header = () => {
 
                     {/* Actions */}
                     <div className="flex items-center gap-1 sm:gap-2">
-                        {/* Search - Desktop */}
-                        <form onSubmit={handleSearch} className="hidden md:flex items-center">
-                            <div className="relative flex items-center gap-1">
-                                <div className="relative w-40 lg:w-52 xl:w-64">
-                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                                    <Input
-                                        type="text"
-                                        placeholder="Search..."
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="pl-9 pr-3 py-2 w-full bg-secondary border-0 text-sm h-9"
-                                    />
-                                </div>
-                                <Button type="submit" size="sm" className="h-9 px-3">
-                                    <Search className="w-4 h-4" />
-                                </Button>
-                            </div>
-                        </form>
+                        {/* Enhanced Search - Desktop */}
+                        <div className="hidden md:block w-64 lg:w-80">
+                            <EnhancedSearch
+                                onSearch={(query) => {
+                                    navigate(`/products?search=${encodeURIComponent(query)}`);
+                                    setIsMenuOpen(false);
+                                }}
+                            />
+                        </div>
 
                         {/* Quick Actions */}
                         <div className="flex items-center gap-1">
@@ -178,19 +170,15 @@ const Header = () => {
                     </div>
                 </div>
 
-                {/* Mobile Search */}
-                <form onSubmit={handleSearch} className="md:hidden pb-3">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                        <Input
-                            type="text"
-                            placeholder="Search materials..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-4 py-2 w-full bg-secondary border-0 text-sm"
-                        />
-                    </div>
-                </form>
+                {/* Enhanced Search - Mobile */}
+                <div className="md:hidden pb-3">
+                    <EnhancedSearch
+                        onSearch={(query) => {
+                            navigate(`/products?search=${encodeURIComponent(query)}`);
+                            setIsMenuOpen(false);
+                        }}
+                    />
+                </div>
 
                 {/* Mobile Navigation Menu */}
                 {isMenuOpen && (

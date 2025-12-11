@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { generatePlanPDF } from '@/utils/generatePlanPDF';
+import { generateSimplePDF } from '@/utils/simplePDF';
 import FadeInSection from '@/components/FadeInSection';
 
 const steps = [
@@ -72,17 +72,18 @@ const Plan = () => {
         try {
             toast({
                 title: 'Generating PDF',
-                description: 'Preparing your professional PDF report. This may take a moment.',
+                description: 'Preparing your project summary PDF.',
             });
 
-            const blob = await generatePlanPDF(formData);
+            const blob = await generateSimplePDF(formData);
 
-            // Trigger download from the click handler (user gesture)
+            // Create download link and trigger download
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             const filename = `${(formData.projectName || 'construction-plan').replace(/[^a-z0-9\-]/gi, '_')}_report.pdf`;
             a.download = filename;
+
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -90,13 +91,13 @@ const Plan = () => {
 
             toast({
                 title: 'PDF Ready',
-                description: 'Your professional PDF report has been downloaded.',
+                description: 'Your project summary has been downloaded as PDF.',
             });
         } catch (error) {
-            console.error(error);
+            console.error('PDF generation error:', error);
             toast({
-                title: 'PDF Generation Failed',
-                description: 'There was an error generating the PDF. Please try again.',
+                title: 'Download Failed',
+                description: 'Failed to generate PDF. Using text fallback.',
             });
         } finally {
             setIsGeneratingPDF(false);

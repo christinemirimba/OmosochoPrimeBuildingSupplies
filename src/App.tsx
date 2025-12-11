@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from "./components/ThemeProvider";
+import { useEffect } from 'react';
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Products from "./pages/Products";
@@ -28,6 +29,7 @@ import Footer from "./components/Footer";
 import ChatBubble from "./components/ChatBubble";
 import ScrollToTopButton from './components/ScrollToTopButton';
 import MobileBottomNavigation from './components/MobileBottomNavigation';
+import ExitButton from './components/ExitButton';
 
 const queryClient = new QueryClient();
 
@@ -49,6 +51,11 @@ export default App;
 
 const InnerRoutes = () => {
     const location = useLocation();
+
+    // Scroll to top on route change
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
 
     return (
         <div className="flex flex-col min-h-screen">

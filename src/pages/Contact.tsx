@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, X, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import PDFCatalog from '@/components/PDFCatalog';
+import ExitButton from '@/components/ExitButton';
 import FadeInSection from '@/components/FadeInSection';
 import BusinessHoursDisplay from '@/components/BusinessHoursDisplay';
 import PageTransition from '@/components/PageTransition';
@@ -101,6 +104,9 @@ const Contact = () => {
                                 </p>
                             </div>
                         </FadeInSection>
+                        <div className="mt-8 flex justify-center">
+                            <PDFCatalog />
+                        </div>
                     </div>
                 </section>
 
@@ -299,47 +305,47 @@ const Contact = () => {
                                 Feel free to contact us directly.
                             </p>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                                <Card>
-                                    <CardContent className="p-6">
-                                        <h4 className="font-semibold mb-2">What are your delivery options?</h4>
-                                        <p className="text-muted-foreground text-sm">
-                                            We offer same-day delivery for local orders, next-day delivery within 50 miles,
-                                            and standard shipping nationwide. Bulk orders can be scheduled for specific delivery windows.
-                                        </p>
-                                    </CardContent>
-                                </Card>
+                            <Accordion type="single" collapsible className="space-y-4">
+                                <AccordionItem value="item-1" className="bg-card border border-border rounded-lg px-6">
+                                    <AccordionTrigger className="text-left hover:no-underline">
+                                        What are your delivery options?
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-muted-foreground">
+                                        We offer same-day delivery for local orders, next-day delivery within 50 miles,
+                                        and standard shipping nationwide. Bulk orders can be scheduled for specific delivery windows.
+                                    </AccordionContent>
+                                </AccordionItem>
 
-                                <Card>
-                                    <CardContent className="p-6">
-                                        <h4 className="font-semibold mb-2">Do you offer bulk pricing?</h4>
-                                        <p className="text-muted-foreground text-sm">
-                                            Yes! We offer competitive bulk pricing for contractors and large projects.
-                                            Contact our sales team for custom quotes on large orders.
-                                        </p>
-                                    </CardContent>
-                                </Card>
+                                <AccordionItem value="item-2" className="bg-card border border-border rounded-lg px-6">
+                                    <AccordionTrigger className="text-left hover:no-underline">
+                                        Do you offer bulk pricing?
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-muted-foreground">
+                                        Yes! We offer competitive bulk pricing for contractors and large projects.
+                                        Contact our sales team for custom quotes on large orders.
+                                    </AccordionContent>
+                                </AccordionItem>
 
-                                <Card>
-                                    <CardContent className="p-6">
-                                        <h4 className="font-semibold mb-2">What quality certifications do you have?</h4>
-                                        <p className="text-muted-foreground text-sm">
-                                            All our products meet or exceed industry standards including ASTM, ACI, and OSHA certifications.
-                                            We can provide detailed quality documentation upon request.
-                                        </p>
-                                    </CardContent>
-                                </Card>
+                                <AccordionItem value="item-3" className="bg-card border border-border rounded-lg px-6">
+                                    <AccordionTrigger className="text-left hover:no-underline">
+                                        What quality certifications do you have?
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-muted-foreground">
+                                        All our products meet or exceed industry standards including ASTM, ACI, and OSHA certifications.
+                                        We can provide detailed quality documentation upon request.
+                                    </AccordionContent>
+                                </AccordionItem>
 
-                                <Card>
-                                    <CardContent className="p-6">
-                                        <h4 className="font-semibold mb-2">Can you help with technical specifications?</h4>
-                                        <p className="text-muted-foreground text-sm">
-                                            Absolutely! Our technical team can assist with material selection,
-                                            specifications, and project planning. We're here to ensure you get the right materials for your needs.
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                            </div>
+                                <AccordionItem value="item-4" className="bg-card border border-border rounded-lg px-6">
+                                    <AccordionTrigger className="text-left hover:no-underline">
+                                        Can you help with technical specifications?
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-muted-foreground">
+                                        Absolutely! Our technical team can assist with material selection,
+                                        specifications, and project planning. We're here to ensure you get the right materials for your needs.
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
                         </div>
                     </FadeInSection>
                 </div>

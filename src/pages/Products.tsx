@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Grid, List, X, SlidersHorizontal } from 'lucide-react';
+import { Search, Grid, List, X, SlidersHorizontal, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FadeInSection from '@/components/FadeInSection';
 import PageTransition from '@/components/PageTransition';
+import ExitButton from '@/components/ExitButton';
 import { ProductCard } from '@/components/ProductCard';
 import { products, categories, brands, quickSearches } from '@/data/products';
 
@@ -87,8 +88,13 @@ const Products = () => {
                             </div>
 
                             {/* Main Search Box */}
-                            <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20">
-                                <div className="flex gap-2 mb-4">
+                            <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20 relative">
+                               {/* Exit Button - Back type for products search modal - INSIDE the modal */}
+                               <div className="absolute top-4 right-4 z-10">
+                                   <ExitButton type="back" className="relative" />
+                               </div>
+
+                               <div className="flex gap-2 mb-4">
                                     <div className="flex-1 relative">
                                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
                                         <Input
