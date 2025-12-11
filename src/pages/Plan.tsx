@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { generateSimplePDF } from '@/utils/simplePDF';
 import FadeInSection from '@/components/FadeInSection';
+import ExitButton from '@/components/ExitButton';
 
 const steps = [
     { id: 1, title: 'Project Type', icon: Home },
@@ -111,8 +112,12 @@ const Plan = () => {
                 <meta name="description" content="Plan your construction project with Omosocho Prime's interactive planning tool. Get material estimates and project summaries." />
             </Helmet>
 
-            <div className="min-h-screen py-12">
+            <div className="min-h-screen py-12 relative">
                 <div className="container mx-auto px-4">
+                    {/* Exit Button - Close type for Plan page */}
+                    <div className="absolute top-4 right-4 z-10">
+                        <ExitButton type="close" className="relative" />
+                    </div>
                     <FadeInSection>
                         <div className="text-center mb-12">
                             <h1 className="text-4xl font-heading font-bold mb-4">Construction Plan Manager</h1>
@@ -159,7 +164,11 @@ const Plan = () => {
                     </div>
 
                     {/* Step Content */}
-                    <Card className="max-w-2xl mx-auto">
+                    <Card className="max-w-2xl mx-auto relative">
+                        {/* Close button for the plan form */}
+                        <div className="absolute top-4 right-4 z-10">
+                            <ExitButton type="close" className="relative" />
+                        </div>
                         <CardHeader>
                             <CardTitle>{steps[currentStep - 1].title}</CardTitle>
                             <CardDescription>

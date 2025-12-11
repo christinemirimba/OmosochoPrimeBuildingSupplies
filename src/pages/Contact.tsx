@@ -91,8 +91,12 @@ const Contact = () => {
         <PageTransition>
             <div className="min-h-screen bg-background">
                 {/* Hero Section */}
-                <section className="bg-hero py-20">
+                <section className="bg-hero py-20 relative">
                     <div className="container mx-auto px-4">
+                        {/* Exit Button - Close type for Contact Us page */}
+                        <div className="absolute top-4 right-4 z-10">
+                            <ExitButton type="close" className="relative" />
+                        </div>
                         <FadeInSection>
                             <div className="text-center text-white max-w-3xl mx-auto">
                                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -114,7 +118,11 @@ const Contact = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         {/* Contact Form */}
                         <FadeInSection>
-                            <Card>
+                            <Card className="relative">
+                                {/* Back button for contact form */}
+                                <div className="absolute top-4 right-4 z-10">
+                                    <ExitButton type="chevron-left" className="relative" />
+                                </div>
                                 <CardHeader>
                                     <CardTitle className="text-2xl">Send us a Message</CardTitle>
                                     <CardDescription>

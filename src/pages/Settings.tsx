@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Bell, Moon, Sun, Monitor } from 'lucide-react';
 import FadeInSection from '@/components/FadeInSection';
 import { useTheme } from '@/components/ThemeProvider';
+import ExitButton from '@/components/ExitButton';
 
 /**
  * ThemeSelector Component
@@ -63,8 +64,12 @@ const Settings = () => {
                 <title>Settings | Omosocho Prime</title>
             </Helmet>
 
-            <div className="min-h-screen py-12">
+            <div className="min-h-screen py-12 relative">
                 <div className="container mx-auto px-4 max-w-4xl">
+                    {/* Exit Button - Close type for Settings page */}
+                    <div className="absolute top-4 right-4 z-10">
+                        <ExitButton type="close" className="relative" />
+                    </div>
                     <FadeInSection>
                         <h1 className="text-3xl font-heading font-bold mb-8">Settings</h1>
                     </FadeInSection>

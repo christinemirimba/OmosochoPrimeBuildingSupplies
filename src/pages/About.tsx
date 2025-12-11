@@ -2,6 +2,7 @@ import { Award, Users, Truck, Clock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import FadeInSection from '@/components/FadeInSection';
 import PageTransition from '@/components/PageTransition';
+import ExitButton from '@/components/ExitButton';
 
 const About = () => {
     const stats = [
@@ -36,8 +37,12 @@ const About = () => {
         <PageTransition>
         <div className="min-h-screen bg-background">
             {/* Hero Section */}
-            <section className="bg-hero py-20">
+            <section className="bg-hero py-20 relative">
                 <div className="container mx-auto px-4">
+                    {/* Exit Button - Close type for About Us page */}
+                    <div className="absolute top-4 right-4 z-10">
+                        <ExitButton type="close" className="relative" />
+                    </div>
                     <FadeInSection>
                         <div className="text-center text-white max-w-3xl mx-auto">
                             <h1 className="text-4xl md:text-5xl font-bold mb-6">

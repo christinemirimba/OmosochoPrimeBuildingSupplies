@@ -93,9 +93,13 @@ const AiSupport = () => {
         <meta name="description" content="Get instant AI-powered assistance for your construction questions at Omosocho Prime Building Supplies." />
       </Helmet>
 
-      <div className="container mx-auto px-4 py-4 sm:py-8 h-[calc(100vh-theme(spacing.16))] flex flex-col">
-        <FadeInSection>
-          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+      <div className="container mx-auto px-4 py-4 sm:py-8 h-[calc(100vh-theme(spacing.16))] flex flex-col relative">
+          {/* Exit Button - Close type for AI Support page */}
+          <div className="absolute top-4 right-4 z-10">
+              <ExitButton type="close" className="relative" />
+          </div>
+          <FadeInSection>
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center">
               <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
             </div>

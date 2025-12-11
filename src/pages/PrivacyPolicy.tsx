@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import FadeInSection from '@/components/FadeInSection';
+import ExitButton from '@/components/ExitButton';
 
 const PrivacyPolicy = () => {
     return (
@@ -9,8 +10,12 @@ const PrivacyPolicy = () => {
                 <meta name="description" content="Privacy Policy for Omosocho Prime Building Supplies - Learn how we collect, use, and protect your personal information." />
             </Helmet>
 
-            <div className="min-h-screen py-12">
+            <div className="min-h-screen py-12 relative">
                 <div className="container mx-auto px-4">
+                    {/* Exit Button - Close type for Privacy Policy page */}
+                    <div className="absolute top-4 right-4 z-10">
+                        <ExitButton type="close" className="relative" />
+                    </div>
                     <FadeInSection>
                         <div className="max-w-4xl mx-auto">
                             <h1 className="text-4xl font-heading font-bold mb-8">Privacy Policy</h1>

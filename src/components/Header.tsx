@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ThemeToggle } from './ThemeToggle';
-import EnhancedSearch from './EnhancedSearch';
+import SimpleSearch from './SimpleSearch';
 import { useQuote } from '@/hooks/useQuote';
 
 const Header = () => {
@@ -111,9 +111,9 @@ const Header = () => {
 
                     {/* Actions */}
                     <div className="flex items-center gap-1 sm:gap-2">
-                        {/* Enhanced Search - Desktop */}
+                        {/* Simple Search - Desktop */}
                         <div className="hidden md:block w-64 lg:w-80">
-                            <EnhancedSearch
+                            <SimpleSearch
                                 onSearch={(query) => {
                                     navigate(`/products?search=${encodeURIComponent(query)}`);
                                     setIsMenuOpen(false);
@@ -170,9 +170,9 @@ const Header = () => {
                     </div>
                 </div>
 
-                {/* Enhanced Search - Mobile */}
+                {/* Simple Search - Mobile */}
                 <div className="md:hidden pb-3">
-                    <EnhancedSearch
+                    <SimpleSearch
                         onSearch={(query) => {
                             navigate(`/products?search=${encodeURIComponent(query)}`);
                             setIsMenuOpen(false);

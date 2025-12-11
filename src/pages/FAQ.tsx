@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import FadeInSection from '@/components/FadeInSection';
+import ExitButton from '@/components/ExitButton';
 
 const faqs = [
     {
@@ -61,8 +62,12 @@ const Faq = () => {
                 <meta name="description" content="Find answers to common questions about Omosocho Prime Building Supplies - delivery, materials, pricing, and more." />
             </Helmet>
 
-            <div className="min-h-screen py-12">
+            <div className="min-h-screen py-12 relative">
                 <div className="container mx-auto px-4">
+                    {/* Exit Button - Close type for FAQ page */}
+                    <div className="absolute top-4 right-4 z-10">
+                        <ExitButton type="close" className="relative" />
+                    </div>
                     <FadeInSection>
                         <div className="text-center mb-12">
                             <h1 className="text-4xl font-heading font-bold mb-4">Frequently Asked Questions</h1>
