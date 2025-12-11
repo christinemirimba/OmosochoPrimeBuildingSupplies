@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Grid, List, X, SlidersHorizontal, ArrowLeft } from 'lucide-react';
+import { Search, X, SlidersHorizontal, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -20,8 +20,6 @@ const Products = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedBrand, setSelectedBrand] = useState('all');
-    const [sortBy, setSortBy] = useState('relevance');
-    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [minRating, setMinRating] = useState(0);
     const [showInStockOnly, setShowInStockOnly] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -43,16 +41,8 @@ const Products = () => {
         return matchesSearch && matchesCategory && matchesBrand && matchesRating && matchesStock;
     });
 
-    // Sort products
-    const sortedProducts = [...filteredProducts].sort((a, b) => {
-        if (sortBy === 'name') {
-            return a.name.localeCompare(b.name);
-        } else if (sortBy === 'name-desc') {
-            return b.name.localeCompare(a.name);
-        }
-        // Default is relevance (no sorting)
-        return 0;
-    });
+    // Products (no sorting needed)
+    const sortedProducts = filteredProducts;
 
     const clearFilters = () => {
         setSelectedCategory('all');
@@ -60,7 +50,6 @@ const Products = () => {
         setMinRating(0);
         setShowInStockOnly(false);
         setSearchQuery('');
-        setSortBy('relevance');
     };
 
     const activeFiltersCount =
@@ -227,38 +216,6 @@ const Products = () => {
                                 </p>
                             </div>
 
-                            {/* Sort and View Mode */}
-                            <div className="flex gap-2 items-center">
-                                <Label className="text-sm text-muted-foreground hidden md:block">Sort by:</Label>
-                                <Select value={sortBy} onValueChange={setSortBy}>
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="relevance">Relevance</SelectItem>
-                                        <SelectItem value="name">Name (A-Z)</SelectItem>
-                                        <SelectItem value="name-desc">Name (Z-A)</SelectItem>
-                                    </SelectContent>
-                                </Select>
-
-                                {/* View Mode Toggle */}
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant={viewMode === 'grid' ? "default" : "outline"}
-                                        size="icon"
-                                        onClick={() => setViewMode('grid')}
-                                    >
-                                        <Grid className="w-4 h-4" />
-                                    </Button>
-                                    <Button
-                                        variant={viewMode === 'list' ? "default" : "outline"}
-                                        size="icon"
-                                        onClick={() => setViewMode('list')}
-                                    >
-                                        <List className="w-4 h-4" />
-                                    </Button>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Desktop Filters */}
@@ -342,10 +299,7 @@ const Products = () => {
 
                 {/* Products Grid */}
                 <FadeInSection delay={200}>
-                    <div className={viewMode === 'grid'
-                        ? "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6"
-                        : "space-y-4"
-                    }>
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
                         {sortedProducts.map((product, index) => (
                             <FadeInSection key={product.id} delay={Math.min(index * 50, 500)}>
                                 <ProductCard
