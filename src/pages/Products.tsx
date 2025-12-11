@@ -12,7 +12,6 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FadeInSection from '@/components/FadeInSection';
 import PageTransition from '@/components/PageTransition';
-import ExitButton from '@/components/ExitButton';
 import { ProductCard } from '@/components/ProductCard';
 import { products, categories, brands, quickSearches } from '@/data/products';
 
@@ -89,10 +88,6 @@ const Products = () => {
 
                             {/* Main Search Box */}
                             <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20 relative">
-                               {/* Exit Button - Back type for products search modal - INSIDE the modal */}
-                               <div className="absolute top-4 right-4 z-10">
-                                   <ExitButton type="back" className="relative" />
-                               </div>
 
                                <div className="flex gap-2 mb-4">
                                     <div className="flex-1 relative">
@@ -102,7 +97,7 @@ const Products = () => {
                                             placeholder="Search for products, tools, or materials..."
                                             value={searchQuery}
                                             onChange={(e) => setSearchQuery(e.target.value)}
-                                            className="pl-10 pr-4 py-6 text-lg bg-white"
+                                            className="pl-10 pr-4 py-6 text-lg bg-white text-foreground"
                                         />
                                     </div>
                                     <Button size="lg" className="px-6">
