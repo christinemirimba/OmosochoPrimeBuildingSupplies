@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Plus, Minus, Star, Shield, Truck, HeadphonesIcon, Heart, FileText } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Star, Shield, Truck, HeadphonesIcon, Heart, FileText, MessageCircle } from 'lucide-react';
 import { ImageZoom } from '@/components/ImageZoom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -225,6 +225,18 @@ const ProductDetail = () => {
                                     >
                                         <FileText className="w-4 h-4 mr-2" />
                                         {isInQuote ? 'In Quote' : 'Add to Quote'}
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 h-auto"
+                                        onClick={() => {
+                                            const message = encodeURIComponent(`Hi, I'm interested in buying ${product.name} (Quantity: ${quantity}). Is it available?`);
+                                            window.open(`https://wa.me/254705621054?text=${message}`, '_blank');
+                                        }}
+                                        disabled={!product.inStock}
+                                    >
+                                        <MessageCircle className="w-4 h-4 mr-2" />
+                                        Buy via WhatsApp
                                     </Button>
                                     <Button
                                         size="default"

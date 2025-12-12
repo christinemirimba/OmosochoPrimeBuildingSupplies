@@ -58,7 +58,7 @@ const Header = () => {
                     {/* Logo */}
                     <Link to="/" className="text-decoration-none flex-shrink-0">
                         <div className="logo flex items-center gap-2">
-                            <img src="/assets/logo.png" alt="Omosocho Prime" className="h-8 sm:h-10 w-auto" />
+                            <img src="/assets/logo.webp" alt="Omosocho Prime" className="h-8 sm:h-10 w-auto" />
                             <h1 className="brand-name text-base sm:text-lg font-bold hidden xs:block">Omosocho Prime</h1>
                         </div>
                     </Link>

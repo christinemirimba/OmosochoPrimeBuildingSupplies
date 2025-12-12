@@ -1,14 +1,14 @@
 // Category image mappings
 export const categoryImages = {
-    'Construction': '/assets/category-images/Construction_Materials.png',
-    'Metals': '/assets/category-images/Metals&Steel.png',
-    'Tools': '/assets/category-images/Tools&Equipment.png',
-    'Fasteners': '/assets/category-images/Fasteners&Fittings.png',
-    'Building': '/assets/category-images/Building_Hardware.png',
-    'Electrical': '/assets/category-images/Electrical_Hardware.png',
-    'Plumbing': '/assets/category-images/Plumbing_Hardware.png',
-    'Safety': '/assets/category-images/Safety_Gear.png',
-    'Finishing': '/assets/category-images/Finishing_Materials.png',
+    'Construction': '/assets/category-images/Construction_Materials.webp',
+    'Metals': '/assets/category-images/Metals&Steel.webp',
+    'Tools': '/assets/category-images/Tools&Equipment.webp',
+    'Fasteners': '/assets/category-images/Fasteners&Fittings.webp',
+    'Building': '/assets/category-images/Building_Hardware.webp',
+    'Electrical': '/assets/category-images/Electrical_Hardware.webp',
+    'Plumbing': '/assets/category-images/Plumbing_Hardware.webp',
+    'Safety': '/assets/category-images/Safety_Gear.webp',
+    'Finishing': '/assets/category-images/Finishing_Materials.webp',
 };
 
 // Get category image by category name

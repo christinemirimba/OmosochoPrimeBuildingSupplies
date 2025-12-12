@@ -11,7 +11,7 @@ const Footer = () => {
                     {/* Company Info */}
                     <div className="space-y-4">
                         <div className="logo">
-                            <img src="/assets/logo.png" alt="Omosocho Prime" />
+                            <img src="/assets/logo.webp" alt="Omosocho Prime" />
                             <h1 className="brand-name">Omosocho Prime</h1>
                         </div>
                         <p className="text-background/80 leading-relaxed">

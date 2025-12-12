@@ -48,7 +48,7 @@ const PDFCatalog = () => {
                 doc.rect(0, 0, 210, 2, 'F');
 
                 try {
-                    const logoImg = await loadImage('/assets/logo.png');
+                    const logoImg = await loadImage('/assets/logo.webp');
                     doc.addImage(logoImg, 'PNG', 15, 5, 12, 12, undefined, 'FAST');
                 } catch (e) { /* ignore */ }
 
@@ -78,7 +78,7 @@ const PDFCatalog = () => {
 
             // Logo on cover
             try {
-                const logoImg = await loadImage('/assets/logo.png');
+                const logoImg = await loadImage('/assets/logo.webp');
                 doc.addImage(logoImg, 'PNG', 75, 40, 60, 60, undefined, 'FAST');
             } catch (error) {
                 console.warn('Could not load logo:', error);
@@ -330,7 +330,7 @@ const PDFCatalog = () => {
 
             // Logo center
             try {
-                const logoImg = await loadImage('/assets/logo.png');
+                const logoImg = await loadImage('/assets/logo.webp');
                 doc.addImage(logoImg, 'PNG', 65, 100, 80, 80, undefined, 'FAST');
             } catch (error) { }
 

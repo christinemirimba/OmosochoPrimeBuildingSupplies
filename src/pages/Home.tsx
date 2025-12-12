@@ -10,14 +10,16 @@ import PDFCatalog from '@/components/PDFCatalog';
 
 import { products } from '@/data/products';
 import { categoryImages } from '@/data/categoryImages';
+import { getFeaturedServices } from '@/data/services';
 import { useToast } from '@/hooks/use-toast';
 
-const heroImage = '/assets/hero-image.jpg';
+const heroImage = '/assets/hero-image.webp';
 
 const Home = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
     const [searchQuery, setSearchQuery] = useState('');
+    const featuredServices = getFeaturedServices();
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -245,36 +247,13 @@ const Home = () => {
                         </FadeInSection>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                            {[
-                                {
-                                    id: 1,
-                                    title: 'Material Delivery',
-                                    description: 'Fast and reliable delivery of construction materials to your site',
-                                    icon: '🚚',
-                                },
-                                {
-                                    id: 2,
-                                    title: 'Expert Consultation',
-                                    description: 'Professional advice on material selection and project planning',
-                                    icon: '👷',
-                                },
-                                {
-                                    id: 3,
-                                    title: 'Bulk Orders',
-                                    description: 'Special pricing and dedicated support for large construction projects',
-                                    icon: '📦',
-                                },
-                                {
-                                    id: 4,
-                                    title: 'Custom Solutions',
-                                    description: 'Tailored material packages for your specific construction needs',
-                                    icon: '⚙️',
-                                },
-                            ].map((service, index) => (
+                            {featuredServices.map((service, index) => (
                                 <FadeInSection key={service.id} delay={index * 100}>
                                     <Card className="card-product group cursor-pointer h-full hover:shadow-xl transition-shadow">
                                         <CardHeader className="text-center">
-                                            <div className="text-6xl mb-4">{service.icon}</div>
+                                            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                <service.icon className="w-8 h-8 text-primary" />
+                                            </div>
                                             <CardTitle className="text-xl font-semibold mb-3">
                                                 {service.title}
                                             </CardTitle>

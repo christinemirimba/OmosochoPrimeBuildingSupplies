@@ -48,7 +48,7 @@ export const generateSimplePDF = (data: PlanData): Promise<Blob> => {
 
       // Logo in header
       try {
-        const logoImg = await loadImage('/assets/logo.png');
+        const logoImg = await loadImage('/assets/logo.webp');
         doc.addImage(logoImg, 'PNG', 15, 8, 15, 15, undefined, 'FAST');
       } catch (e) {
         // Ignore logo error

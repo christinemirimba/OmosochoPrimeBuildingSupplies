@@ -3,38 +3,7 @@ import { Wrench, Truck, ClipboardCheck, Users, ShieldCheck, Ruler } from 'lucide
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import FadeInSection from '@/components/FadeInSection';
 
-const services = [
-    {
-        icon: Wrench,
-        title: 'Material Supply',
-        description: 'Comprehensive supply of construction materials including cement, steel, roofing, and finishing materials for all project sizes.',
-    },
-    {
-        icon: Truck,
-        title: 'Delivery Services',
-        description: 'Reliable and timely delivery of materials to your construction site within Kisii, Nyamache, and surrounding areas.',
-    },
-    {
-        icon: ClipboardCheck,
-        title: 'Project Consultation',
-        description: 'Expert consultation to help you select the right materials for your specific construction needs and budget.',
-    },
-    {
-        icon: Users,
-        title: 'Bulk Orders',
-        description: 'Special pricing and dedicated support for contractors and large-scale construction projects.',
-    },
-    {
-        icon: ShieldCheck,
-        title: 'Quality Assurance',
-        description: 'All our materials meet industry standards with proper certifications and quality guarantees.',
-    },
-    {
-        icon: Ruler,
-        title: 'Technical Support',
-        description: 'On-call technical assistance to help with material specifications, measurements, and construction queries.',
-    },
-];
+import { services } from '@/data/services';
 
 const Services = () => {
     return (
