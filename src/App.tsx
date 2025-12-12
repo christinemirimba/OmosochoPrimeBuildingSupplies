@@ -29,7 +29,7 @@ import Footer from "./components/Footer";
 import ChatBubble from "./components/ChatBubble";
 import ScrollToTopButton from './components/ScrollToTopButton';
 import MobileBottomNavigation from './components/MobileBottomNavigation';
-import ExitButton from './components/ExitButton';
+
 
 const queryClient = new QueryClient();
 

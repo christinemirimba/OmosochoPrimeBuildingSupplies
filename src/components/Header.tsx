@@ -65,20 +65,13 @@ const Header = () => {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-                        {/* Products Dropdown */}
-                        <DropdownMenu>
-                            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors duration-200 font-medium cursor-pointer text-sm">
-                                Products
-                                <ChevronDown className="w-4 h-4" />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="start">
-                                {productLinks.map((link) => (
-                                    <DropdownMenuItem key={link.name} asChild>
-                                        <Link to={link.href}>{link.name}</Link>
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        {/* Categories - Direct Link */}
+                        <Link
+                            to="/categories"
+                            className={`transition-colors duration-200 font-medium text-sm ${location.pathname === '/categories' ? 'text-primary font-bold' : 'text-foreground hover:text-primary'}`}
+                        >
+                            Categories
+                        </Link>
 
                         {/* Main links */}
                         {mainLinks.map((link) => {
@@ -87,7 +80,8 @@ const Header = () => {
                                 <Link
                                     key={link.name}
                                     to={link.href}
-                                    className={`transition-colors duration-200 font-medium text-sm ${isActive ? 'text-primary font-bold' : 'text-foreground hover:text-primary'}`}>
+                                    className={`transition-colors duration-200 font-medium text-sm ${isActive ? 'text-primary font-bold' : 'text-foreground hover:text-primary'}`}
+                                >
                                     {link.name}
                                 </Link>
                             );
@@ -123,26 +117,26 @@ const Header = () => {
 
                         {/* Quick Actions */}
                         <div className="flex items-center gap-1">
-                            <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="h-9 w-9 hidden sm:flex" 
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-9 w-9 hidden sm:flex"
                                 onClick={() => navigate('/favorites')}
                                 title="Wishlist"
                             >
                                 <Heart className="w-4 h-4" />
                             </Button>
 
-                            <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="h-9 w-9 relative" 
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-9 w-9 relative"
                                 onClick={() => navigate('/quote')}
                                 title="Quote List"
                             >
                                 <FileText className="w-4 h-4" />
                                 {quoteCount > 0 && (
-                                    <Badge 
+                                    <Badge
                                         className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground"
                                     >
                                         {quoteCount > 99 ? '99+' : quoteCount}
@@ -152,10 +146,10 @@ const Header = () => {
 
                             <ThemeToggle />
 
-                            <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="h-9 w-9 hidden sm:flex" 
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-9 w-9 hidden sm:flex"
                                 onClick={() => navigate('/settings')}
                                 title="Settings"
                             >
@@ -186,17 +180,17 @@ const Header = () => {
                         <nav className="flex flex-col space-y-3 px-2">
                             {/* Quick Links */}
                             <div className="flex gap-2 pb-3 border-b border-border">
-                                <Button 
-                                    variant="outline" 
-                                    size="sm" 
+                                <Button
+                                    variant="outline"
+                                    size="sm"
                                     className="flex-1 text-xs"
                                     onClick={() => { navigate('/favorites'); setIsMenuOpen(false); }}
                                 >
                                     <Heart className="w-4 h-4 mr-1" /> Wishlist
                                 </Button>
-                                <Button 
-                                    variant="outline" 
-                                    size="sm" 
+                                <Button
+                                    variant="outline"
+                                    size="sm"
                                     className="flex-1 text-xs relative"
                                     onClick={() => { navigate('/quote'); setIsMenuOpen(false); }}
                                 >
@@ -207,27 +201,17 @@ const Header = () => {
                                 </Button>
                             </div>
 
-                            {/* Products */}
+                            {/* Main Links including Categories */}
                             <div>
-                                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase">Products</p>
+                                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase">Menu</p>
                                 <div className="grid grid-cols-2 gap-2">
-                                    {productLinks.map((link) => (
-                                        <Link
-                                            key={link.name}
-                                            to={link.href}
-                                            className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Main Links */}
-                            <div>
-                                <p className="text-xs text-muted-foreground mb-2 font-medium uppercase">Explore</p>
-                                <div className="grid grid-cols-2 gap-2">
+                                    <Link
+                                        to="/categories"
+                                        className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        Categories
+                                    </Link>
                                     {mainLinks.map((link) => (
                                         <Link
                                             key={link.name}
@@ -258,9 +242,9 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <Link 
-                                to="/settings" 
-                                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm mt-2" 
+                            <Link
+                                to="/settings"
+                                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-3 bg-secondary rounded-md text-sm mt-2"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 <Settings className="w-4 h-4" /> Settings

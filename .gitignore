@@ -12,10 +12,20 @@ node_modules
 
 # Environment variables
 .env
+.env.*
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.envrc
+.local
+.secrets
+secrets.json
+credentials.json
+# Supabase (may contain keys)
+supabase/config.toml
+supabase/.env*
 
 # Logs
 npm-debug.log*
@@ -62,6 +72,3 @@ Thumbs.db
 # Misc
 .vercel
 .netlify
-".env" 
-".env" 
-".env" 
