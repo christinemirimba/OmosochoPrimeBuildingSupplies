@@ -14,7 +14,7 @@ const MobileBottomNavigation = () => {
     const navItems = [
         { name: 'Home', icon: Home, path: '/' },
         { name: 'Search', icon: Search, path: '/products' },
-        { name: 'Wishlist', icon: Heart, path: '/favorites' },
+        { name: 'Wishlist', icon: Heart, path: '/wishlist' },
         { name: 'Quote', icon: FileText, path: '/quote' },
     ];
 
@@ -27,7 +27,7 @@ const MobileBottomNavigation = () => {
                 <div className="grid grid-cols-4 gap-0">
                     {navItems.map((item) => {
                         const isActive = location.pathname === item.path ||
-                                        (item.path === '/' && location.pathname === '/');
+                            (item.path === '/' && location.pathname === '/');
                         return (
                             <Link
                                 key={item.name}

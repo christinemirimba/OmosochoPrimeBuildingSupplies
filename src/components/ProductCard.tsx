@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye, Plus, Check } from 'lucide-react';
+import { Heart, Plus, Check } from 'lucide-react';
 import { useQuote } from '@/hooks/useQuote';
+import { useWishlist } from '@/hooks/useWishlist';
 import { toast } from 'sonner';
 
 interface ProductCardProps {
@@ -17,7 +18,10 @@ interface ProductCardProps {
 
 export const ProductCard = ({ id, name, category, image, brand, inStock = true }: ProductCardProps) => {
     const { addToQuote, removeFromQuote, isInQuote } = useQuote();
+    const { toggleWishlist, isInWishlist } = useWishlist();
+
     const inQuote = isInQuote(id);
+    const isWishlisted = isInWishlist(id);
 
     const handleAddToQuote = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -39,22 +43,35 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
         }
     };
 
+    const handleToggleWishlist = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const added = toggleWishlist(id);
+        if (added) {
+            toast.success("Added to wishlist");
+        } else {
+            toast.success("Removed from wishlist");
+        }
+    };
+
     return (
         <Card className="card-product group h-full hover:shadow-xl transition-all duration-300 overflow-hidden border-none">
             <CardContent className="p-0">
-                <div className="aspect-[4/3] overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
-                    <img
-                        src={image}
-                        alt={name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                    />
-                    {!inStock && (
-                        <Badge className="absolute top-3 right-3 bg-destructive/90 text-destructive-foreground backdrop-blur-sm">
-                            Out of Stock
-                        </Badge>
-                    )}
-                </div>
+                <Link to={`/product/${id}`} className="block">
+                    <div className="aspect-[4/3] overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
+                        <img
+                            src={image}
+                            alt={name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                        />
+                        {!inStock && (
+                            <Badge className="absolute top-3 right-3 bg-destructive/90 text-destructive-foreground backdrop-blur-sm">
+                                Out of Stock
+                            </Badge>
+                        )}
+                    </div>
+                </Link>
             </CardContent>
             <CardHeader className="p-4 sm:p-5">
                 <div className="flex items-center justify-between mb-3">
@@ -69,20 +86,18 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                 </CardTitle>
                 <div className="flex flex-col sm:flex-row gap-3">
                     <Button
-                        variant="outline"
+                        variant="default"
                         size="sm"
-                        className="flex-1 text-sm px-4 py-2 h-auto border border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-200"
-                        asChild
+                        className={`flex-1 text-sm px-4 py-2 h-auto transition-all duration-200 ${isWishlisted ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
+                        onClick={handleToggleWishlist}
                     >
-                        <Link to={`/product/${id}`}>
-                            <Eye className="w-4 h-4 mr-2" />
-                            Details
-                        </Link>
+                        <Heart className={`w-4 h-4 mr-2 ${isWishlisted ? 'fill-current' : ''}`} />
+                        {isWishlisted ? "In Wishlist" : "Wishlist"}
                     </Button>
                     <Button
-                        variant={inQuote ? "secondary" : "default"}
+                        variant="default"
                         size="sm"
-                        className="text-sm px-3 py-2 h-auto bg-primary hover:bg-primary/90 transition-all duration-200"
+                        className={`text-sm px-3 py-2 h-auto transition-all duration-200 ${inQuote ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
                         onClick={handleAddToQuote}
                         disabled={!inStock}
                     >

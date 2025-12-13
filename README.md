@@ -116,7 +116,6 @@
 - **State Management**: React hooks and context
 - **Routing**: React Router DOM
 - **Form Handling**: React Hook Form with Zod validation
-- **API Ready**: Supabase integration prepared
 - **PDF Generation**: jsPDF for catalogs and reports
 - **AI Integration**: Google Generative AI for support
 - **Real-time Updates**: Business hours and status
@@ -152,7 +151,6 @@
 
 ### Data & API
 
-- **Supabase** - Backend-as-a-Service integration
 - **Google Generative AI** - AI-powered support
 - **Zod** - Schema validation
 - **React Hook Form** - Form management
@@ -333,8 +331,6 @@ cp .env.example .env
 Edit `.env` and configure:
 
 ```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_key
 VITE_GEMINI_API_KEY=your_gemini_api_key
 VITE_APP_ENV=development
 ```

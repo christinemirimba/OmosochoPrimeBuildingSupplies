@@ -111,14 +111,14 @@ const Quote = () => {
         setIsSubmitting(true);
 
         // Build quote details for email
-        const quoteDetails = quoteProducts.map(p => 
+        const quoteDetails = quoteProducts.map(p =>
             `- ${p?.name} (Qty: ${p?.quantity}) - ${p?.brand || 'N/A'}`
         ).join('\n');
 
         // Create mailto link with quote details
         const subject = encodeURIComponent(`Quote Request from ${formData.name}`);
         const body = encodeURIComponent(
-`QUOTE REQUEST
+            `QUOTE REQUEST
 
 Customer Information:
 Name: ${formData.name}
@@ -243,7 +243,7 @@ Date: ${new Date().toLocaleString()}
                                                                     </h4>
                                                                 </Link>
                                                                 <p className="text-sm text-muted-foreground">
-                                                                    {product?.category} • {product?.brand}
+                                                                    {product?.brand}
                                                                 </p>
                                                             </div>
                                                             <div className="flex items-center gap-2">

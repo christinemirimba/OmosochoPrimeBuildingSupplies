@@ -93,7 +93,7 @@ Would you like me to generate the text catalog list?"
 - Keep messages accessible and solution-oriented
 `;
 
-export const generateGeminiResponse = async (prompt: string, chatHistory: Array<{role: string, parts: string[]}> = []) => {
+export const generateGeminiResponse = async (prompt: string, chatHistory: Array<{ role: string, parts: string[] }> = []) => {
     try {
         if (!API_KEY || API_KEY.startsWith('YOUR_') || API_KEY.includes('YOUR_GEMINI')) {
             throw new Error('Gemini API key not configured');
@@ -123,7 +123,13 @@ export const generateGeminiResponse = async (prompt: string, chatHistory: Array<
         };
     } catch (error) {
         console.error('Gemini API error:', error);
-        console.log('API Key being used:', API_KEY.substring(0, 10) + '...'); // Log first 10 chars for debugging
+        console.error('Gemini Config Debug:', {
+            hasKey: !!API_KEY,
+            keyPrefix: API_KEY ? API_KEY.substring(0, 3) + '...' : 'none',
+            model: modelParams.model
+        });
+
+        // Securely handle error without logging the full key
         return {
             success: false,
             response: 'I apologize, but I\'m having trouble connecting to the AI service right now. Please try again in a moment or contact our support team at +254 705621054 or nikeombura@gmail.com.',
@@ -165,7 +171,7 @@ const getResponseTitle = (text: string): string => {
 };
 
 // Helper function to format messages for Gemini
-export const formatMessagesForGemini = (messages: Array<{role: string, content: string}>) => {
+export const formatMessagesForGemini = (messages: Array<{ role: string, content: string }>) => {
     return messages.map(message => ({
         role: message.role === 'user' ? 'user' : 'model',
         parts: [message.content],

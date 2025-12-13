@@ -121,7 +121,7 @@ const Header = () => {
                                 variant="ghost"
                                 size="icon"
                                 className="h-9 w-9 hidden sm:flex"
-                                onClick={() => navigate('/favorites')}
+                                onClick={() => navigate('/wishlist')}
                                 title="Wishlist"
                             >
                                 <Heart className="w-4 h-4" />
@@ -184,7 +184,7 @@ const Header = () => {
                                     variant="outline"
                                     size="sm"
                                     className="flex-1 text-xs"
-                                    onClick={() => { navigate('/favorites'); setIsMenuOpen(false); }}
+                                    onClick={() => { navigate('/wishlist'); setIsMenuOpen(false); }}
                                 >
                                     <Heart className="w-4 h-4 mr-1" /> Wishlist
                                 </Button>

@@ -218,10 +218,10 @@ const ProductDetail = () => {
                                 <div className="flex gap-3 flex-wrap">
                                     <Button
                                         size="sm"
-                                        variant={isInQuote ? "secondary" : "accent"}
+                                        variant="default"
                                         onClick={toggleQuote}
                                         disabled={!product.inStock}
-                                        className="px-3 py-1.5 h-auto"
+                                        className={`px-3 py-1.5 h-auto ${isInQuote ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90'}`}
                                     >
                                         <FileText className="w-4 h-4 mr-2" />
                                         {isInQuote ? 'In Quote' : 'Add to Quote'}
@@ -240,9 +240,9 @@ const ProductDetail = () => {
                                     </Button>
                                     <Button
                                         size="default"
-                                        variant={isFavorite ? "default" : "outline"}
+                                        variant="default"
                                         onClick={toggleFavorite}
-                                        className="gap-2"
+                                        className={`gap-2 ${isFavorite ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90'}`}
                                     >
                                         <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
                                         {isFavorite ? 'In Wishlist' : 'Wishlist'}
