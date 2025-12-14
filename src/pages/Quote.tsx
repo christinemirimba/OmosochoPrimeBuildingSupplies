@@ -228,7 +228,7 @@ Date: ${new Date().toLocaleString()}
                                             <div className="space-y-4">
                                                 {quoteProducts.map((product, index) => (
                                                     <div key={product?.id}>
-                                                        <div className="flex gap-4 items-center">
+                                                        <div className="flex gap-4 items-start sm:items-center">
                                                             <div className="w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
                                                                 <img
                                                                     src={product?.image}
@@ -236,45 +236,49 @@ Date: ${new Date().toLocaleString()}
                                                                     className="w-full h-full object-cover"
                                                                 />
                                                             </div>
-                                                            <div className="flex-1 min-w-0">
-                                                                <Link to={`/product/${product?.id}`}>
-                                                                    <h4 className="font-semibold hover:text-primary transition-colors line-clamp-1">
-                                                                        {product?.name}
-                                                                    </h4>
-                                                                </Link>
-                                                                <p className="text-sm text-muted-foreground">
-                                                                    {product?.brand}
-                                                                </p>
+                                                            <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center justify-between gap-y-3 gap-x-4">
+                                                                <div className="min-w-0">
+                                                                    <Link to={`/product/${product?.id}`}>
+                                                                        <h4 className="font-semibold hover:text-primary transition-colors line-clamp-1">
+                                                                            {product?.name}
+                                                                        </h4>
+                                                                    </Link>
+                                                                    <p className="text-sm text-muted-foreground">
+                                                                        {product?.brand}
+                                                                    </p>
+                                                                </div>
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className="flex items-center gap-2 bg-secondary/30 rounded-lg p-1">
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-7 w-7"
+                                                                            onClick={() => updateQuantity(product?.id || 0, -1)}
+                                                                        >
+                                                                            <Minus className="w-3 h-3" />
+                                                                        </Button>
+                                                                        <span className="w-8 text-center font-medium text-sm">
+                                                                            {product?.quantity}
+                                                                        </span>
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-7 w-7"
+                                                                            onClick={() => updateQuantity(product?.id || 0, 1)}
+                                                                        >
+                                                                            <Plus className="w-3 h-3" />
+                                                                        </Button>
+                                                                    </div>
+                                                                    <Button
+                                                                        variant="ghost"
+                                                                        size="icon"
+                                                                        className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                                                        onClick={() => removeItem(product?.id || 0)}
+                                                                    >
+                                                                        <Trash2 className="w-4 h-4" />
+                                                                    </Button>
+                                                                </div>
                                                             </div>
-                                                            <div className="flex items-center gap-2">
-                                                                <Button
-                                                                    variant="outline"
-                                                                    size="icon"
-                                                                    className="h-8 w-8"
-                                                                    onClick={() => updateQuantity(product?.id || 0, -1)}
-                                                                >
-                                                                    <Minus className="w-3 h-3" />
-                                                                </Button>
-                                                                <span className="w-8 text-center font-medium">
-                                                                    {product?.quantity}
-                                                                </span>
-                                                                <Button
-                                                                    variant="outline"
-                                                                    size="icon"
-                                                                    className="h-8 w-8"
-                                                                    onClick={() => updateQuantity(product?.id || 0, 1)}
-                                                                >
-                                                                    <Plus className="w-3 h-3" />
-                                                                </Button>
-                                                            </div>
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="icon"
-                                                                className="text-destructive hover:text-destructive"
-                                                                onClick={() => removeItem(product?.id || 0)}
-                                                            >
-                                                                <Trash2 className="w-4 h-4" />
-                                                            </Button>
                                                         </div>
                                                         {index < quoteProducts.length - 1 && <Separator className="mt-4" />}
                                                     </div>
