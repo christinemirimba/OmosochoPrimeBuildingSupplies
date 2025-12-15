@@ -13,6 +13,7 @@ const MobileBottomNavigation = () => {
 
     const navItems = [
         { name: 'Home', icon: Home, path: '/' },
+        { name: 'Categories', icon: '/category.jpeg', path: '/categories' },
         { name: 'Search', icon: Search, path: '/products' },
         { name: 'Wishlist', icon: Heart, path: '/wishlist' },
         { name: 'Quote', icon: FileText, path: '/quote' },
@@ -24,7 +25,7 @@ const MobileBottomNavigation = () => {
         <>
             {/* Bottom Navigation Bar - Always visible on mobile */}
             <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[9997] bg-background/95 backdrop-blur-sm border-t border-border">
-                <div className="grid grid-cols-4 gap-0">
+                <div className="grid grid-cols-5 gap-0">
                     {navItems.map((item) => {
                         const isActive = location.pathname === item.path ||
                             (item.path === '/' && location.pathname === '/');
@@ -34,7 +35,11 @@ const MobileBottomNavigation = () => {
                                 to={item.path}
                                 className={`flex flex-col items-center justify-center py-3 transition-colors duration-200 ${isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
                             >
-                                <item.icon className="w-5 h-5 mb-1" />
+                                {typeof item.icon === 'string' ? (
+                                    <img src={item.icon} alt={item.name} className="w-5 h-5 mb-1 object-cover rounded" />
+                                ) : (
+                                    <item.icon className="w-5 h-5 mb-1" />
+                                )}
                                 <span className="text-xs font-medium">{item.name}</span>
                                 {item.name === 'Quote' && quoteCount > 0 && (
                                     <Badge className="absolute mt-6 h-4 w-4 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground">
@@ -80,7 +85,11 @@ const MobileBottomNavigation = () => {
                                     className="flex flex-col items-center justify-center py-4 bg-secondary rounded-lg hover:bg-primary/10 transition-colors"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    <item.icon className="w-6 h-6 mb-2" />
+                                    {typeof item.icon === 'string' ? (
+                                        <img src={item.icon} alt={item.name} className="w-6 h-6 mb-2 object-cover rounded" />
+                                    ) : (
+                                        <item.icon className="w-6 h-6 mb-2" />
+                                    )}
                                     <span className="text-sm font-medium">{item.name}</span>
                                 </Link>
                             ))}
