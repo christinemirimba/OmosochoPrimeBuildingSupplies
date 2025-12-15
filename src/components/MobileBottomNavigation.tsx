@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Search, Heart, FileText, Menu } from 'lucide-react';
+import { Squares2X2Icon as CategoriesOutline } from '@heroicons/react/24/outline';
+import { Squares2X2Icon as CategoriesSolid } from '@heroicons/react/24/solid';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useQuote } from '@/hooks/useQuote';
@@ -13,7 +15,7 @@ const MobileBottomNavigation = () => {
 
     const navItems = [
         { name: 'Home', icon: Home, path: '/' },
-        { name: 'Categories', icon: '/category.jpeg', path: '/categories' },
+        { name: 'Categories', icon: { outline: CategoriesOutline, solid: CategoriesSolid }, path: '/categories' },
         { name: 'Search', icon: Search, path: '/products' },
         { name: 'Wishlist', icon: Heart, path: '/wishlist' },
         { name: 'Quote', icon: FileText, path: '/quote' },
@@ -29,17 +31,22 @@ const MobileBottomNavigation = () => {
                     {navItems.map((item) => {
                         const isActive = location.pathname === item.path ||
                             (item.path === '/' && location.pathname === '/');
+
+                        // choose appropriate icon component: solid when active if available
+                        let IconComponent: any = null;
+                        if (typeof item.icon === 'object' && item.icon.solid) {
+                            IconComponent = isActive ? item.icon.solid : item.icon.outline;
+                        } else {
+                            IconComponent = item.icon as any;
+                        }
+
                         return (
                             <Link
                                 key={item.name}
                                 to={item.path}
                                 className={`flex flex-col items-center justify-center py-3 transition-colors duration-200 ${isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
                             >
-                                {typeof item.icon === 'string' ? (
-                                    <img src={item.icon} alt={item.name} className="w-5 h-5 mb-1 object-cover rounded" />
-                                ) : (
-                                    <item.icon className="w-5 h-5 mb-1" />
-                                )}
+                                <IconComponent className="w-5 h-5 mb-1" />
                                 <span className="text-xs font-medium">{item.name}</span>
                                 {item.name === 'Quote' && quoteCount > 0 && (
                                     <Badge className="absolute mt-6 h-4 w-4 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground">
@@ -78,21 +85,29 @@ const MobileBottomNavigation = () => {
                         </Button>
 
                         <div className="grid grid-cols-2 gap-3 mb-6">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    to={item.path}
-                                    className="flex flex-col items-center justify-center py-4 bg-secondary rounded-lg hover:bg-primary/10 transition-colors"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    {typeof item.icon === 'string' ? (
-                                        <img src={item.icon} alt={item.name} className="w-6 h-6 mb-2 object-cover rounded" />
-                                    ) : (
-                                        <item.icon className="w-6 h-6 mb-2" />
-                                    )}
-                                    <span className="text-sm font-medium">{item.name}</span>
-                                </Link>
-                            ))}
+                            {navItems.map((item) => {
+                                const isActive = location.pathname === item.path ||
+                                    (item.path === '/' && location.pathname === '/');
+
+                                let IconComponent: any = null;
+                                if (typeof item.icon === 'object' && item.icon.solid) {
+                                    IconComponent = isActive ? item.icon.solid : item.icon.outline;
+                                } else {
+                                    IconComponent = item.icon as any;
+                                }
+
+                                return (
+                                    <Link
+                                        key={item.name}
+                                        to={item.path}
+                                        className="flex flex-col items-center justify-center py-4 bg-secondary rounded-lg hover:bg-primary/10 transition-colors"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        <IconComponent className="w-6 h-6 mb-2" />
+                                        <span className="text-sm font-medium">{item.name}</span>
+                                    </Link>
+                                );
+                            })}
                         </div>
 
                         <div className="space-y-3 overflow-y-auto flex-1">
