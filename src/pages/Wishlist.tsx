@@ -1,5 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Trash2, ShoppingCart, Heart, Plus } from 'lucide-react';
+import { ArrowLeft, Trash2, ShoppingCart, Heart, Plus, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -118,13 +118,15 @@ const Wishlist = () => {
                                                     <div key={product.id}>
                                                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                                                             {/* Image */}
-                                                            <div className="w-full sm:w-24 h-24 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
-                                                                <img
-                                                                    src={product.image}
-                                                                    alt={product.name}
-                                                                    className="w-full h-full object-cover"
-                                                                />
-                                                            </div>
+                                                            <Link to={`/product/${product.id}`} className="block">
+                                                                <div className="w-full sm:w-24 h-24 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
+                                                                    <img
+                                                                        src={product.image}
+                                                                        alt={product.name}
+                                                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                                                    />
+                                                                </div>
+                                                            </Link>
 
                                                             {/* Details */}
                                                             <div className="flex-1 min-w-0 text-center sm:text-left w-full">
@@ -154,7 +156,7 @@ const Wishlist = () => {
                                                                 >
                                                                     {inQuote ? (
                                                                         <>
-                                                                            <ShoppingCart className="w-4 h-4 mr-2" />
+                                                                            <FileText className="w-4 h-4 mr-2" />
                                                                             In Quote
                                                                         </>
                                                                     ) : (
@@ -163,6 +165,7 @@ const Wishlist = () => {
                                                                             Add to Quote
                                                                         </>
                                                                     )}
+
                                                                 </Button>
 
                                                                 <Button

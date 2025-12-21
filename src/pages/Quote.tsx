@@ -229,13 +229,15 @@ Date: ${new Date().toLocaleString()}
                                                 {quoteProducts.map((product, index) => (
                                                     <div key={product?.id}>
                                                         <div className="flex gap-4 items-start sm:items-center">
-                                                            <div className="w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
-                                                                <img
-                                                                    src={product?.image}
-                                                                    alt={product?.name}
-                                                                    className="w-full h-full object-cover"
-                                                                />
-                                                            </div>
+                                                            <Link to={`/product/${product?.id}`} className="block">
+                                                                <div className="w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
+                                                                    <img
+                                                                        src={product?.image}
+                                                                        alt={product?.name}
+                                                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                                                    />
+                                                                </div>
+                                                            </Link>
                                                             <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center justify-between gap-y-3 gap-x-4">
                                                                 <div className="min-w-0">
                                                                     <Link to={`/product/${product?.id}`}>

@@ -97,13 +97,15 @@ const Cart = () => {
                                     <CardContent className="p-6">
                                         <div className="flex gap-4">
                                             {/* Product Image */}
-                                            <div className="w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.name}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
+                                            <Link to={`/product/${item.id}`} className="block">
+                                                <div className="w-20 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                                    />
+                                                </div>
+                                            </Link>
 
                                             {/* Product Details */}
                                             <div className="flex-1 min-w-0">
