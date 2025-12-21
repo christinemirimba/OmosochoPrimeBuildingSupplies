@@ -84,33 +84,33 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                     </div>
                 </Link>
             </CardContent>
-            <CardHeader className="p-4 sm:p-5">
-                <div className="flex items-center justify-between mb-3">
+            <CardHeader className="p-3 sm:p-5">
+                <div className="flex items-center justify-between mb-2 sm:mb-3">
                     {brand && (
-                        <Badge className="bg-primary/90 text-primary-foreground backdrop-blur-sm px-3 py-1 rounded-full border border-primary-foreground/20 text-xs">
+                        <Badge className="bg-primary/90 text-primary-foreground backdrop-blur-sm px-2 py-0.5 sm:px-3 sm:py-1 rounded-full border border-primary-foreground/20 text-[10px] sm:text-xs">
                             {brand}
                         </Badge>
                     )}
                 </div>
-                <CardTitle className="text-base font-medium line-clamp-2 group-hover:text-primary transition-colors mb-4 min-h-[48px]">
+                <CardTitle className="text-sm sm:text-base font-medium line-clamp-2 group-hover:text-primary transition-colors mb-3 sm:mb-4 min-h-[40px] sm:min-h-[48px]">
                     {name}
                 </CardTitle>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2 sm:gap-3">
                     <Button
                         variant="default"
                         size="sm"
-                        className={`w-full text-sm px-4 py-2 h-auto transition-all duration-200 ${inQuote ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
+                        className={`w-full text-xs sm:text-sm px-2 sm:px-4 py-1.5 sm:py-2 h-auto transition-all duration-200 ${inQuote ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
                         onClick={handleAddToQuote}
                         disabled={!inStock}
                     >
                         {inQuote ? (
                             <>
-                                <Check className="w-4 h-4 mr-2" />
+                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
                                 In Quote
                             </>
                         ) : (
                             <>
-                                <Plus className="w-4 h-4 mr-2" />
+                                <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
                                 Add to Quote
                             </>
                         )}
