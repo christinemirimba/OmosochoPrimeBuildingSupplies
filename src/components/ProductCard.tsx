@@ -65,8 +65,19 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                         />
+
+                        {/* Wishlist Button Overlay */}
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full bg-white/90 shadow-sm hover:bg-white hover:text-red-500 transition-colors"
+                            onClick={handleToggleWishlist}
+                        >
+                            <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} />
+                        </Button>
+
                         {!inStock && (
-                            <Badge className="absolute top-3 right-3 bg-destructive/90 text-destructive-foreground backdrop-blur-sm">
+                            <Badge className="absolute top-3 left-3 bg-destructive/90 text-destructive-foreground backdrop-blur-sm">
                                 Out of Stock
                             </Badge>
                         )}
@@ -84,32 +95,23 @@ export const ProductCard = ({ id, name, category, image, brand, inStock = true }
                 <CardTitle className="text-base font-medium line-clamp-2 group-hover:text-primary transition-colors mb-4 min-h-[48px]">
                     {name}
                 </CardTitle>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col gap-3">
                     <Button
                         variant="default"
                         size="sm"
-                        className={`flex-1 text-sm px-4 py-2 h-auto transition-all duration-200 ${isWishlisted ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
-                        onClick={handleToggleWishlist}
-                    >
-                        <Heart className={`w-4 h-4 mr-2 ${isWishlisted ? 'fill-current' : ''}`} />
-                        {isWishlisted ? "In Wishlist" : "Wishlist"}
-                    </Button>
-                    <Button
-                        variant="default"
-                        size="sm"
-                        className={`text-sm px-3 py-2 h-auto transition-all duration-200 ${inQuote ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
+                        className={`w-full text-sm px-4 py-2 h-auto transition-all duration-200 ${inQuote ? 'bg-primary text-green-400 hover:bg-primary/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
                         onClick={handleAddToQuote}
                         disabled={!inStock}
                     >
                         {inQuote ? (
                             <>
-                                <Check className="w-3 h-3 mr-1" />
+                                <Check className="w-4 h-4 mr-2" />
                                 In Quote
                             </>
                         ) : (
                             <>
-                                <Plus className="w-3 h-3 mr-1" />
-                                Quote
+                                <Plus className="w-4 h-4 mr-2" />
+                                Add to Quote
                             </>
                         )}
                     </Button>
